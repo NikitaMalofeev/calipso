@@ -1,0 +1,30 @@
+@import "../../../app/styles/btn.scss";
+@import "../../../app/styles/variables.scss";
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    max-width: 140px;
+    border-radius: 16px;
+    opacity: 0.9;
+    padding: 7px 0;
+
+    &__title {
+        max-width: max-content;
+        font-family: $nunitoFont;
+    }
+}
+
+.blueBtn {
+    background: $blueBtn;
+}
+
+.redBtn {
+    background: $redBtn;
+}
+
+.greenBtn {
+    background: $greenBtn;
+}

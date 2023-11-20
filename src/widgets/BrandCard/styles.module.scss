@@ -1,0 +1,24 @@
+.brand {
+    &__background {
+        z-index: -1;
+        border-radius: 0px 0px 60px 60px;
+    }
+
+    &__name {
+        position: absolute;
+        bottom: 140px;
+        left: 70px;
+    }
+    
+    &__description {
+        max-width: 340px;
+        position: absolute;
+        bottom: 90px;
+        left: 70px;
+        text-align: center;
+        font-family: "Nunito";
+        color: white;
+        line-height: 23px;
+        font-weight: 700;
+    }
+}

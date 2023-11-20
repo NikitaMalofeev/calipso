@@ -1,0 +1,27 @@
+.card {
+    margin-top: 30px;
+
+    &__title {
+        font-family: "Nunito", sans-serif;
+        margin-left: 30px;
+        font-size: 40px;
+        font-weight: 900;
+        color: #0f5fa6;
+        line-height: 1;
+        margin-bottom: 11px;
+    }
+
+    &__description {
+        font-family: "Montserrat", sans-serif;
+        font-size: 16px;
+        margin-left: 30px;
+        max-width: 290px;
+        text-align: left;
+        margin-bottom: 23px;
+    }
+}
+
+.blueBtn {
+    background: #5471E1;
+    color: white;
+}
