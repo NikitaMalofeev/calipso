@@ -1,7 +1,8 @@
 .modal {
     position: fixed;
     opacity: 0;
-    top: 100vh;
+    top: 0;
+    left: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -53,7 +54,8 @@
         //FIXME убрать ограниченную ширину
         grid-template-columns: repeat(2, 190px);
         //FIXME как сделать все строчки одинаковыми
-        gap: 10px 20px;
+        grid-template-rows: repeat(100, 300px);
+        gap: 10px;
         padding: 0 20px;
     }
 

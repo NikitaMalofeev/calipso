@@ -3,14 +3,16 @@ import styles from "./styles.module.scss";
 import closeIcon from "../../icons/close.svg";
 import { CatalogButtonMenu } from "../../../features/catalog-button-menu";
 import { ProductCard } from "../../../widgets/product-card";
-import { initialProducts } from "../../config/initialProducts";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addToCart } from "../../../entities/store/cartSlice";
+
 interface IModal {
   title: string;
   isShowModal: boolean;
   isDepthModal: boolean;
   handleClose?: () => void;
   handleBack?: () => void;
+  handleShowOrderModal?: () => void;
 }
 
 const CatalogModal: React.FC<IModal> = ({
@@ -19,9 +21,14 @@ const CatalogModal: React.FC<IModal> = ({
   isDepthModal,
   handleClose,
   handleBack,
+  handleShowOrderModal
 }) => {
   //FIXME убрать any типизацию
-  const cartItems = useSelector((state: any) => state.cart.cart);
+  const productItems = useSelector((state: any) => state.allCart.items);
+  const { cart, totalQuantity, totalPrice } = useSelector(
+    (state: any) => state.allCart
+  );
+  const dispatch = useDispatch()
 
   return (
     <React.Fragment>
@@ -35,22 +42,25 @@ const CatalogModal: React.FC<IModal> = ({
               <img src={closeIcon} alt="" />
             </button>
           </div>
-          {/* FIXME перенести buttons в фичи */}
+          {/* FIXME перенести buttons в фичи
+          FIXME убрать any типизацию
+           */}
           <CatalogButtonMenu />
           <div className={styles.modal__menu}>
-            {initialProducts.map((item) => (
+            {productItems.map((item: any) => (
               <ProductCard
-                id={item.id}
-                key={item.id}
-                productImage={item.image}
-                price={item.price}
-                name={item.name}
-                amount={item.amount}
-              />
+              key={item.id}
+              productImage={item.image}
+              price={item.price}
+              name={item.name}
+              amount={item.amount}
+              handleAdd={() => dispatch(addToCart(item))}
+              handleRemove={() => {}}
+            />
             ))}
-            <button className={styles.modal__trash}>
-              <p>{cartItems.length}</p>
-              <button></button>
+            <button className={styles.modal__trash} onClick={handleShowOrderModal}>
+              <p></p>
+              <button className={styles.modal}>{cart.length}</button>
             </button>
           </div>
         </div>

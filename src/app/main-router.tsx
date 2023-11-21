@@ -6,7 +6,7 @@ const MainRouter: React.FC = () => {
   return (
     <Routes>
       {/* Main area */}
-      <Route path={"/main"} element={<MainPage />}>
+      <Route path={"/"} element={<MainPage />}>
         {/* <Route path="registration" element={</>} /> */}
       </Route>
       {/* Redirects */}

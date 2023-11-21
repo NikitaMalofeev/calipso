@@ -5,19 +5,21 @@ import detailsIcon from "../../shared/icons/details.svg";
 import { CatalogProductCounter } from "../../features/catalog-product-counter";
 
 interface IProductCard {
-  id: number;
   productImage: string;
   price: string;
   name: string;
   amount: string;
+  handleAdd: () => void;
+  handleRemove: () => void;
 }
 
 const ProductCard: React.FC<IProductCard> = ({
-  id,
   productImage,
   price,
   name,
   amount,
+  handleAdd,
+  handleRemove
 }) => {
   return (
     <div className={styles.card}>
@@ -31,7 +33,7 @@ const ProductCard: React.FC<IProductCard> = ({
         <p className={styles.description__name}>{name}</p>
         <p className={styles.description__amount}>{amount}</p>
       </div>
-      <CatalogProductCounter />
+      <CatalogProductCounter handleAdd={handleAdd} handleRemove={handleRemove}/>
     </div>
   );
 };
