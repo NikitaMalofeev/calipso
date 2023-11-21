@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import style from "./styles.module.scss";
+import styles from "./styles.module.scss";
 
 interface IButton {
   isActive?: boolean;
@@ -25,20 +25,22 @@ const BurgerButton: React.FC<IButton> = ({ handleClick }) => {
   };
 
   return (
-    <div className={style.button} onClick={test}>
+    <div className={styles.button} onClick={test}>
       <div
-        className={`${style.button__item} ${isOpen ? style.active : ""}`}
+        className={`${styles.button__item} ${isOpen ? styles.active : ""}`}
       ></div>
       {/*Модальное окно в отдельный виджет или фичу*/}
 
-      <div className={`${style.modal} ${isOpen ? style.modal__active : ""}`}>
-        <div className={style.modal__chapter}>
-          <p className={style.modal__about}>О компании</p>
-          {menuitem.map((item) => (
-            <p className={style.modal__item}>{item.item}</p>
+      <div className={`${styles.modal} ${isOpen ? styles.modal__active : ""}`}>
+        <div className={styles.modal__chapter}>
+          <p className={styles.modal__about}>О компании</p>
+          {menuitem.map((item, key) => (
+            <p className={styles.modal__item} key={key}>
+              {item.item}
+            </p>
           ))}
         </div>
-        <div className={style.modal__shedule}>
+        <div className={styles.modal__shedule}>
           <p>
             <b>Доставка</b> пн-сб: 09:00 — 18:00
           </p>

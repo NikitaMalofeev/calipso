@@ -3,27 +3,15 @@ import styles from "./styles.module.scss";
 
 interface IButton {
   title: string;
+  colorStyle?: string | undefined;
+  isEmpty?: boolean;
   handleClick?: () => void;
-  colorStyle: string | undefined;
 }
 
-const OrderButton: React.FC<IButton> = ({ title, colorStyle, handleClick }) => {
-  const getColorClassName = () => {
-    switch (colorStyle) {
-      case "blue":
-        return styles.blueBtn;
-      case "red":
-        return styles.redBtn;
-      case "green":
-        return styles.greenBtn;
-      default:
-        return "";
-    }
-  };
 
-  const buttonClassName = `${styles.button} ${getColorClassName()}`;
+const OrderButton: React.FC<IButton> = ({ title, isEmpty, handleClick }) => {
   return (
-    <div className={buttonClassName} onClick={handleClick}>
+    <div className={`${styles.button} ${isEmpty && styles.button__empty}`} onClick={handleClick}>
       <p className={styles.button__title}>{title}</p>
     </div>
   );

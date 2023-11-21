@@ -1,0 +1,82 @@
+.modal {
+    position: fixed;
+    opacity: 0;
+    top: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    border-radius: 30px 30px 0 0;
+    background-color: white;
+    transition: all 0.4s ease-in-out;
+    z-index: 10;
+
+    &__stub {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 15vh;
+        z-index: 10;
+        background-color: black;
+    }
+
+    &__container {
+        width: 100%;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        padding: 0 20px;
+    }
+
+    &__header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: 25px 0;
+        font-family: $montserratFont;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    &__close {
+        position: absolute;
+        right: 30px;
+        width: 16px;
+        height: 16px;
+        background-color: white;
+    }
+
+    &__menu {
+        display: grid;
+        //FIXME убрать ограниченную ширину
+        grid-template-columns: repeat(2, 190px);
+        //FIXME как сделать все строчки одинаковыми
+        grid-template-rows: repeat(100, 300px);
+        gap: 10px;
+        padding: 0 20px;
+    }
+
+    &__trash {
+        position: fixed;
+        top: 80%;
+        left: 15%;
+        display: flex;
+        justify-content: center;
+        max-width: 300px;
+        width: 100%;
+        margin: 15px auto 0;
+        padding: 4px 0;
+        border-radius: 14px;
+        background-color: #5a9dc8;
+    }
+}
+
+.active {
+    position: fixed;
+    opacity: 1;
+    top: 8vh;
+    left: 0;
+    transition: all 0.4s ease-in-out;
+}

@@ -2,9 +2,13 @@ body {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    overflow: auto;
 }
 
 p {
     margin: 0;
 }
 
+button {
+    border: none;
+}

@@ -1,0 +1,51 @@
+.counter {
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    margin: 15px auto 0;
+    padding: 4px 0;
+    border-radius: 14px;
+    background: white;
+
+    &__controller {
+        width: 80%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__amount {
+        color: #fff;
+        font-family: $nunitoFont;
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    //FIXME написать общие стили для кнопок чтобы не плодить этот кошмар
+    &__prev {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: none;
+        max-width: 12px;
+        max-height: 12px;
+    }
+
+    &__next {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: none;
+        max-width: 12px;
+        max-height: 12px;
+    }
+
+    &__first {
+        background: none;
+    }
+}
+
+.active {
+    background-color: #5a9dc8;
+}

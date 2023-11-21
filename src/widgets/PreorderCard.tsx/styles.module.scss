@@ -19,9 +19,12 @@
         text-align: left;
         margin-bottom: 23px;
     }
-}
 
-.blueBtn {
-    background: #5471E1;
-    color: white;
+    &__buttons {
+        display: flex;
+        flex-direction: row;
+        flex: 1 1 auto;
+        gap: 10px;
+        justify-content: center;
+    }
 }

@@ -1,30 +1,22 @@
-@import "../../../app/styles/btn.scss";
-@import "../../../app/styles/variables.scss";
-
 .button {
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
+    background: #5A9DC8;
     max-width: 140px;
     border-radius: 16px;
     opacity: 0.9;
-    padding: 7px 0;
+    padding: 9px 30px;
 
     &__title {
         max-width: max-content;
         font-family: $nunitoFont;
     }
-}
 
-.blueBtn {
-    background: $blueBtn;
-}
-
-.redBtn {
-    background: $redBtn;
-}
-
-.greenBtn {
-    background: $greenBtn;
+    &__empty {
+        background: none;
+        border: 1px solid #5A9DC8;
+        color: #5A9DC8;
+    }
 }
