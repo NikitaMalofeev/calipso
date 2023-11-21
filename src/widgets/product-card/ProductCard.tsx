@@ -5,6 +5,7 @@ import detailsIcon from "../../shared/icons/details.svg";
 import { CatalogProductCounter } from "../../features/catalog-product-counter";
 
 interface IProductCard {
+  id: number;
   productImage: string;
   price: string;
   name: string;
@@ -12,6 +13,7 @@ interface IProductCard {
 }
 
 const ProductCard: React.FC<IProductCard> = ({
+  id,
   productImage,
   price,
   name,
