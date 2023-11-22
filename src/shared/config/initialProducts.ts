@@ -79,7 +79,7 @@ const initialProducts = [
     price: 2000,
     name: "Вода Calipso негазир.",
     amount: "0,5л",
-    quantity: 0,
+    quantity: 1,
   },
   {
     id: 10,
@@ -87,7 +87,7 @@ const initialProducts = [
     price: 2000,
     name: "Вода Calipso негазир.",
     amount: "0,5л",
-    quantity: 0,
+    quantity: 1,
   },
 ];
 

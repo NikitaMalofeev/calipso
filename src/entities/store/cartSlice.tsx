@@ -5,14 +5,14 @@ import { initialProducts } from "../../shared/config/initialProducts";
 //     cart: Array<{id: number; name: string, price: string, amount: number, image: File}>
 // }
 
-// interface CartItem {
-//   id: number;
-//   name: string;
-//   price: string;
-//   amount: number;
-//   quantity: number;
-//   image: string;
-// }
+interface CartItem {
+  id: number;
+  name: string;
+  price: string;
+  amount: number;
+  quantity: number;
+  image: string;
+}
 
 // interface CartState {
 //   cart: CartItem[];
@@ -28,7 +28,14 @@ import { initialProducts } from "../../shared/config/initialProducts";
 //   totalPrice: 0,
 // };
 
-const initialState = {
+interface IInitialState {
+  cart: CartItem[];
+  items?: any;
+  totalQuantity: number;
+  totalPrice: number;
+}
+
+const initialState: IInitialState = {
   cart: [],
   items: initialProducts,
   totalQuantity: 0,
@@ -68,17 +75,14 @@ const cartSlice = createSlice({
       state.totalPrice = parseInt(totalPrice.toFixed(2));
       state.totalQuantity = totalQuantity;
     },
-    getQuantityById: (state, action) => {
-
-    },
     removeFromCart: (state: any, action) => {
       const { id } = action.payload;
       const itemIndex = state.cart.findIndex((item: any) => item.id === id);
-    
+
       if (itemIndex >= 0) {
         // Получаю удаленный элемент
         const removedItem = state.cart[itemIndex];
-    
+
         // Если количество больше 1, уменьшаю количество
         if (removedItem.quantity > 1) {
           removedItem.quantity -= 1;
@@ -86,16 +90,15 @@ const cartSlice = createSlice({
           // если количество 1 или меньше убираю айтем из корзины
           state.cart.splice(itemIndex, 1);
         }
-    
+
         // обновляю значения в сторе
         state.totalQuantity -= 1;
         state.totalPrice -= removedItem.price;
       }
     },
-    
   },
 });
 
-
 export default cartSlice.reducer;
-export const { addToCart, getCardTotal, removeFromCart} = cartSlice.actions;
+export const { addToCart, getCardTotal, removeFromCart } =
+  cartSlice.actions;

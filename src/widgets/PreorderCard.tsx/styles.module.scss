@@ -1,6 +1,16 @@
 .card {
     margin-top: 30px;
 
+    img {
+        display: block;
+        margin: 0 auto;
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+    }
+
     &__title {
         font-family: "Nunito", sans-serif;
         margin-left: 30px;
@@ -9,6 +19,7 @@
         color: #0f5fa6;
         line-height: 1;
         margin-bottom: 11px;
+        max-width: max-content;
     }
 
     &__description {

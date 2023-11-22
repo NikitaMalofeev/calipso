@@ -6,23 +6,22 @@ import { ProductCard } from "../../../widgets/product-card";
 import { addToCart, removeFromCart } from "../../../entities/store/cartSlice";
 import { useDispatch } from "react-redux";
 import { MyButton } from "../my-button/MyButton";
+import { DeliveryForm } from "../../../widgets/DeliveryForm";
 
 interface IModal {
   title: string;
   isShowModal: boolean;
   isDepthModal: boolean;
-  handleShowDeliveryModal: () => void;
   handleClose?: () => void;
   handleBack?: () => void;
 }
 
-const OrderModal: React.FC<IModal> = ({
+const MyModal: React.FC<IModal> = ({
   title,
   isShowModal,
   isDepthModal,
   handleClose,
   handleBack,
-  handleShowDeliveryModal
 }) => {
   //FIXME опять типизация
   const { cart, totalQuantity, totalPrice } = useSelector(
@@ -43,26 +42,13 @@ const OrderModal: React.FC<IModal> = ({
               <img src={closeIcon} alt="" />
             </button>
           </div>
-          <div className={styles.modal__cart}>
-            {cart.map((data: any) => (
-              <ProductCard
-                productId={data.id}
-                price={data.price}
-                name={data.name}
-                amount={data.amount}
-                productImage={data.image}
-                isOrderCard={true}
-                handleAdd={() => dispatch(addToCart(data))}
-                handleRemove={() => dispatch(removeFromCart(data))}
-              />
-            ))}
-          </div>
+          <DeliveryForm />
           <div className={styles.modal__confirm}>
             <div className={styles.modal__total}>
               <p>Сумма</p>
               <p>{totalPrice}₸</p>
             </div>
-            <MyButton title="Подтвердить" handleClick={handleShowDeliveryModal}/>
+            <MyButton title="Подтвердить" onSubmit={() => {}}/>
           </div>
         </div>
       </div>
@@ -70,4 +56,4 @@ const OrderModal: React.FC<IModal> = ({
   );
 };
 
-export { OrderModal };
+export { MyModal };

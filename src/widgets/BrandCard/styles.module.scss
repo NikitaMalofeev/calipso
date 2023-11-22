@@ -1,7 +1,17 @@
 .brand {
+    position: relative;
     &__background {
         z-index: -1;
         border-radius: 0px 0px 60px 60px;
+        max-width: 100%;
+        min-height: 80vh;
+        object-fit: cover;
+    }
+
+    &__bottle {
+        position: absolute;
+        left: 30%;
+        top: 0;
     }
 
     &__name {

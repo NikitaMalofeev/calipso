@@ -1,9 +1,16 @@
 .buttons {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-auto-flow: column;
+    scroll-behavior: auto;
+    overflow-y: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
     width: 100%;
-    overflow: hidden;
     gap: 10px;
     margin-left: 20px;
     margin-bottom: 30px;
+}
+
+.buttons::-webkit-scrollbar {
+    display: none;
 }
