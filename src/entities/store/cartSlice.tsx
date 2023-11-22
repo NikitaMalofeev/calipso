@@ -5,22 +5,30 @@ import { initialProducts } from "../../shared/config/initialProducts";
 //     cart: Array<{id: number; name: string, price: string, amount: number, image: File}>
 // }
 
-interface CartItem {
-  id: number;
-  name: string;
-  price: string;
-  amount: number;
-  image: string;
-}
+// interface CartItem {
+//   id: number;
+//   name: string;
+//   price: string;
+//   amount: number;
+//   quantity: number;
+//   image: string;
+// }
 
-interface CartState {
-  cart: CartItem[];
-  items: typeof initialProducts;
-  totalQuantity: number;
-  totalPrice: number;
-}
+// interface CartState {
+//   cart: CartItem[];
+//   items: typeof initialProducts;
+//   totalQuantity: number;
+//   totalPrice: number;
+// }
 
-const initialState: CartState = {
+// const initialState: CartState = {
+//   cart: [],
+//   items: initialProducts,
+//   totalQuantity: 0,
+//   totalPrice: 0,
+// };
+
+const initialState = {
   cart: [],
   items: initialProducts,
   totalQuantity: 0,
@@ -32,15 +40,38 @@ const cartSlice = createSlice({
   initialState,
 
   reducers: {
-    addToCart: (state, action) => {
-      let find = state.cart.findIndex((item) => item.id === action.payload.id)
-      if(find >= 0){
-        state.cart[find].amount += 1;
+    addToCart: (state: any, action) => {
+      // ищу по индексу в массиве стора элемент и добавляю ему количество
+      let find = state.cart.findIndex(
+        (item: any) => item.id === action.payload.id
+      );
+      if (find >= 0) {
+        //FIXME не понял как работает + 0, разобраться
+        state.cart[find].quantity += 1;
+      } else {
+        state.cart.push(action.payload);
       }
-      state.cart.push(action.payload);
+    },
+    getCardTotal: (state: any) => {
+      let { totalPrice, totalQuantity } = state.cart.reduce(
+        (cartTotal: any, cartItem: any) => {
+          const { price, quantity } = cartItem;
+          const itemTotal = price * quantity;
+          cartTotal.totalPrice += itemTotal;
+          cartTotal.totalQuantity += quantity;
+          return cartTotal;
+        },
+        {
+          totalPrice: 0,
+          totalQuantity: 0,
+        }
+      );
+      state.totalPrice = parseInt(totalPrice.toFixed(2));
+      state.totalQuantity = totalQuantity;
     },
   },
 });
 
+
 export default cartSlice.reducer;
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, getCardTotal } = cartSlice.actions;

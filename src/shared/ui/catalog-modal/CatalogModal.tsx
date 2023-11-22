@@ -4,7 +4,7 @@ import closeIcon from "../../icons/close.svg";
 import { CatalogButtonMenu } from "../../../features/catalog-button-menu";
 import { ProductCard } from "../../../widgets/product-card";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart } from "../../../entities/store/cartSlice";
+import { addToCart, getCardTotal } from "../../../entities/store/cartSlice";
 
 interface IModal {
   title: string;
@@ -30,6 +30,8 @@ const CatalogModal: React.FC<IModal> = ({
   );
   const dispatch = useDispatch()
 
+  dispatch(getCardTotal())
+
   return (
     <React.Fragment>
       {isShowModal && <div className={styles.modal__stub}></div>}
@@ -49,6 +51,7 @@ const CatalogModal: React.FC<IModal> = ({
           <div className={styles.modal__menu}>
             {productItems.map((item: any) => (
               <ProductCard
+              productId={item.id}
               key={item.id}
               productImage={item.image}
               price={item.price}
@@ -58,9 +61,9 @@ const CatalogModal: React.FC<IModal> = ({
               handleRemove={() => {}}
             />
             ))}
-            <button className={styles.modal__trash} onClick={handleShowOrderModal}>
-              <p></p>
-              <button className={styles.modal}>{cart.length}</button>
+            <button className={`${styles.modal__cart} ${totalQuantity && styles.cart__active}`} onClick={handleShowOrderModal}>
+              <p>{totalQuantity}</p>
+              <p>{totalPrice}</p>
             </button>
           </div>
         </div>

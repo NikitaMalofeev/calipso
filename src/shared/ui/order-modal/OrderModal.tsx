@@ -37,7 +37,7 @@ const OrderModal: React.FC<IModal> = ({
             </button>
           </div>
           {cart.map((data: any) => (
-            <ProductCard price={data.price} name={data.name} amount={data.amount} productImage={data.productImage} handleAdd={() => {}} handleRemove={() => {}}/>
+            <ProductCard price={data.price} name={data.name} amount={data.amount} productImage={data.image} handleAdd={() => {}} handleRemove={() => {}}/>
           ))}
         </div>
       </div>

@@ -5,6 +5,7 @@ import detailsIcon from "../../shared/icons/details.svg";
 import { CatalogProductCounter } from "../../features/catalog-product-counter";
 
 interface IProductCard {
+  productId?: number;
   productImage: string;
   price: string;
   name: string;

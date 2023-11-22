@@ -3,7 +3,9 @@ import styles from "./styles.module.scss";
 import plusIcon from "../../../shared/icons/plus.svg"
 import plusDarkIcon from "../../../shared/icons/plusDark.svg"
 import minusIcon from "../../../shared/icons/minus.svg"
+
 interface ICatalogButton {
+  productId?: any;
   handleAdd: () => void;
   handleRemove: () => void;
 }
