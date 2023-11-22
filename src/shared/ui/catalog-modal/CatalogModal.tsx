@@ -4,7 +4,7 @@ import closeIcon from "../../icons/close.svg";
 import { CatalogButtonMenu } from "../../../features/catalog-button-menu";
 import { ProductCard } from "../../../widgets/product-card";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart, getCardTotal } from "../../../entities/store/cartSlice";
+import { addToCart, getCardTotal, removeFromCart } from "../../../entities/store/cartSlice";
 
 interface IModal {
   title: string;
@@ -58,12 +58,12 @@ const CatalogModal: React.FC<IModal> = ({
               name={item.name}
               amount={item.amount}
               handleAdd={() => dispatch(addToCart(item))}
-              handleRemove={() => {}}
+              handleRemove={() => dispatch(removeFromCart(item))}
             />
             ))}
             <button className={`${styles.modal__cart} ${totalQuantity && styles.cart__active}`} onClick={handleShowOrderModal}>
-              <p>{totalQuantity}</p>
-              <p>{totalPrice}</p>
+              <p className={styles.cart__quantity}>Заказать ({totalQuantity})</p> &nbsp;
+              <p className={styles.cart__price}>За {totalPrice}</p>
             </button>
           </div>
         </div>

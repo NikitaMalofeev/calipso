@@ -46,7 +46,6 @@ const cartSlice = createSlice({
         (item: any) => item.id === action.payload.id
       );
       if (find >= 0) {
-        //FIXME не понял как работает + 0, разобраться
         state.cart[find].quantity += 1;
       } else {
         state.cart.push(action.payload);
@@ -69,9 +68,34 @@ const cartSlice = createSlice({
       state.totalPrice = parseInt(totalPrice.toFixed(2));
       state.totalQuantity = totalQuantity;
     },
+    getQuantityById: (state, action) => {
+
+    },
+    removeFromCart: (state: any, action) => {
+      const { id } = action.payload;
+      const itemIndex = state.cart.findIndex((item: any) => item.id === id);
+    
+      if (itemIndex >= 0) {
+        // Получаю удаленный элемент
+        const removedItem = state.cart[itemIndex];
+    
+        // Если количество больше 1, уменьшаю количество
+        if (removedItem.quantity > 1) {
+          removedItem.quantity -= 1;
+        } else {
+          // если количество 1 или меньше убираю айтем из корзины
+          state.cart.splice(itemIndex, 1);
+        }
+    
+        // обновляю значения в сторе
+        state.totalQuantity -= 1;
+        state.totalPrice -= removedItem.price;
+      }
+    },
+    
   },
 });
 
 
 export default cartSlice.reducer;
-export const { addToCart, getCardTotal } = cartSlice.actions;
+export const { addToCart, getCardTotal, removeFromCart} = cartSlice.actions;

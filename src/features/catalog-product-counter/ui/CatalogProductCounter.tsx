@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import plusIcon from "../../../shared/icons/plus.svg"
 import plusDarkIcon from "../../../shared/icons/plusDark.svg"
 import minusIcon from "../../../shared/icons/minus.svg"
+import { useDispatch, useSelector } from "react-redux";
 
 interface ICatalogButton {
   productId?: any;
@@ -11,6 +12,7 @@ interface ICatalogButton {
 }
 
 const CatalogProductCounter: React.FC<ICatalogButton> = ({
+  productId,
   handleAdd,
   handleRemove,
 }) => {
@@ -24,6 +26,9 @@ const CatalogProductCounter: React.FC<ICatalogButton> = ({
     setAmount((prev) => prev - 1)
     handleRemove()
   }
+  const dispatch = useDispatch();
+
+
   return (
     <>
       <button className={`${styles.counter} ${amount && styles.active}`}>
