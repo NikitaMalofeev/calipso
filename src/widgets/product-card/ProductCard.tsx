@@ -6,20 +6,22 @@ import { CatalogProductCounter } from "../../features/catalog-product-counter";
 
 interface IProductCard {
   productImage: string;
-  price: string;
+  price: number;
   name: string;
-  amount: string;
+  size?: string;
   productId: number;
+  quantity: number;
   isOrderCard?: boolean;
   handleAdd: () => void;
   handleRemove: () => void;
 }
 
 const ProductCard: React.FC<IProductCard> = ({
+  quantity,
   productImage,
   price,
   name,
-  amount,
+  size,
   productId,
   isOrderCard,
   handleAdd,
@@ -36,9 +38,9 @@ const ProductCard: React.FC<IProductCard> = ({
       <div className={styles.description}>
         <p className={styles.description__price}>{price} ₸</p>
         <p className={styles.description__name}>{name}</p>
-        <p className={styles.description__amount}>{amount}</p>
+        <p className={styles.description__amount}>{size}</p>
       </div>
-      <CatalogProductCounter handleAdd={handleAdd} handleRemove={handleRemove} productId={productId}/>
+      <CatalogProductCounter handleAdd={handleAdd} handleRemove={handleRemove} productId={productId} quantity={quantity}/>
     </div>
   );
 };

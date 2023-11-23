@@ -6,8 +6,11 @@ import { initialOverview } from "../../shared/config/initialPreorderOverview";
 import { CatalogModal } from "../../shared/ui/catalog-modal";
 import { OrderModal } from "../../shared/ui/order-modal/OrderModal";
 import { MyModal } from "../../shared/ui/my-modal";
+import { initialProducts } from "../../shared/config/initialProducts";
 
 const MainPage: React.FC = () => {
+  const [modal, setModal] = useState<string | null>(null)
+
   const [isVisibleCatalogModal, setIsVisibleCatalogModal] = useState(false);
   const showCatalogModal = () => setIsVisibleCatalogModal(true);
   const hideCatalogModal = () => setIsVisibleCatalogModal(false);
@@ -35,17 +38,17 @@ const MainPage: React.FC = () => {
 
   return (
     <>
-    <Header showCatalogModal={showCatalogModal}/>
+    <Header showCatalogModal={() => setModal("catalog")}/>
     <BrandCard/>
     {initialOverview.map((item) => (
       <PreorderCard key={item.id} title={item.name} description={item.description}/>
     ))}
 
     {/*Модальные окна */}
-    <CatalogModal title="Каталог" isShowModal={isVisibleCatalogModal} handleClose={hideCatalogModal} isDepthModal={false} handleShowOrderModal={showOrderModal}/>
-    <OrderModal title="Заказ" isShowModal={isVisibleOrderModal} handleClose={hideOrderModal} isDepthModal={true} handleShowDeliveryModal={showDeliveryModal}/>
+    {/* <CatalogModal title="Каталог" isShowModal={isVisibleCatalogModal} handleClose={hideCatalogModal} isDepthModal={false} handleShowOrderModal={showOrderModal} allGoods={initialProducts}/>
+    <OrderModal title="Заказ" isShowModal={isVisibleOrderModal} handleClose={hideOrderModal} isDepthModal={true} handleShowDeliveryModal={showDeliveryModal} allGoods={initialProducts}/> */}
     {/* DeliveryModal жду пока придумаю как засунуть все в одну модалку*/}
-    <MyModal title="Доставка" isShowModal={isVisibleDeliveryModal} handleClose={hideDeliveryModal} isDepthModal={true}/>
+    <MyModal title="Доставка" modal={modal} handleClose={() => setModal(null)} isDepthModal={true} onChangeModal={setModal} allGoods={initialProducts}/>
     </>
   );
 };

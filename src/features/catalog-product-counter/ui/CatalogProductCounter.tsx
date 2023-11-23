@@ -6,24 +6,23 @@ import minusIcon from "../../../shared/icons/minus.svg"
 import { useDispatch, useSelector } from "react-redux";
 
 interface ICatalogButton {
+  quantity: number;
   productId?: any;
   handleAdd: () => void;
   handleRemove: () => void;
 }
 
 const CatalogProductCounter: React.FC<ICatalogButton> = ({
+  quantity,
   productId,
   handleAdd,
   handleRemove,
 }) => {
-  const [amount, setAmount] = useState(0);
 
   const handleAddCount = () => {
-    setAmount((prev) => prev + 1)
     handleAdd()
   }
   const handleDelete = () => {
-    setAmount((prev) => prev - 1)
     handleRemove()
   }
   const dispatch = useDispatch();
@@ -31,13 +30,13 @@ const CatalogProductCounter: React.FC<ICatalogButton> = ({
 
   return (
     <>
-      <button className={`${styles.counter} ${amount && styles.active}`}>
-        {amount > 0 ? (
+      <button className={`${styles.counter} ${quantity && styles.active}`}>
+        {quantity > 0 ? (
           <div className={styles.counter__controller}>
             <button className={styles.counter__prev} onClick={handleDelete}>
                 <img src={minusIcon} alt="" />
             </button>
-            <p className={styles.counter__amount}>{amount}</p>
+            <p className={styles.counter__amount}>{quantity}</p>
             <button className={styles.counter__next} onClick={handleAddCount}>
             <img src={plusIcon} alt=""/>
             </button>
