@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createSelector } from "@reduxjs/toolkit";
 
 interface IInitialState {
   cart: Record<number, number>;
@@ -27,6 +27,7 @@ const cartSlice = createSlice({
     },
   },
 );
+
 
 export default cartSlice.reducer;
 export const { addToCart, removeFromCart } =

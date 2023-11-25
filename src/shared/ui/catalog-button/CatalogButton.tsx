@@ -13,9 +13,9 @@ const  CatalogButton: React.FC<IButton> = ({
   handleClick
 }) => {
   return (
-    <div className={`${style.button} ${isActive && style.active}`} onClick={handleClick}>
+    <button className={`${style.button} ${isActive && style.active}`} onClick={handleClick}>
         <p className={style.button__title}>{title}</p>
-    </div>
+    </button>
   );
 };
 

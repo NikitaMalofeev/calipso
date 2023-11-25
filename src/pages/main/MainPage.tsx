@@ -1,15 +1,15 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, {useState, useEffect} from "react";
 import { Header } from "../../shared/ui/header";
 import { BrandCard } from "../../widgets/BrandCard/BrandCard";
 import { PreorderCard } from "../../widgets/PreorderCard.tsx";
 import { initialOverview } from "../../shared/config/initialPreorderOverview";
 import { CatalogModal } from "../../shared/ui/catalog-modal";
 import { OrderModal } from "../../shared/ui/order-modal/OrderModal";
-import { MyModal } from "../../shared/ui/my-modal";
+import { DeliveryModal } from "../../shared/ui/delivery-modal";
 import { initialProducts } from "../../shared/config/initialProducts";
+import { MyModal } from "../../shared/ui/my-modal";
 
 const MainPage: React.FC = () => {
-  const [modal, setModal] = useState<string | null>(null)
 
   const [isVisibleCatalogModal, setIsVisibleCatalogModal] = useState(false);
   const showCatalogModal = () => setIsVisibleCatalogModal(true);
@@ -23,6 +23,16 @@ const MainPage: React.FC = () => {
   const showDeliveryModal = () => setIsVisibleDeliveryModal(true);
   const hideDeliveryModal = () => setIsVisibleDeliveryModal(false);
 
+  // FIXME перенести все модалки в MyModal
+  // модалка которая меняет тип контента снизу
+  const [modalType, setModalType] = useState("")
+  const [isVisibleMyModal, setIsVisibleMyModal] = useState(false);
+  const showMyModal = (type: string) => {
+    setModalType(type)
+    setIsVisibleMyModal(true);
+  }
+  const hideMyModal = () => setIsVisibleMyModal(false);
+
   //FIXME переработать обработчик на что-то более локаничное и по хорошему перенести со страницы
   useEffect(() => {
     const handleScroll = () => {
@@ -34,21 +44,22 @@ const MainPage: React.FC = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [isVisibleCatalogModal]);
+  }, [isVisibleCatalogModal, isVisibleDeliveryModal, isVisibleOrderModal, isVisibleMyModal]);
 
   return (
     <>
-    <Header showCatalogModal={() => setModal("catalog")}/>
+    <Header handleShowCatalogModal={showCatalogModal} handleShowSignInModal={() => showMyModal("Sign-in")}/>
     <BrandCard/>
     {initialOverview.map((item) => (
       <PreorderCard key={item.id} title={item.name} description={item.description}/>
     ))}
 
     {/*Модальные окна */}
-    {/* <CatalogModal title="Каталог" isShowModal={isVisibleCatalogModal} handleClose={hideCatalogModal} isDepthModal={false} handleShowOrderModal={showOrderModal} allGoods={initialProducts}/>
-    <OrderModal title="Заказ" isShowModal={isVisibleOrderModal} handleClose={hideOrderModal} isDepthModal={true} handleShowDeliveryModal={showDeliveryModal} allGoods={initialProducts}/> */}
-    {/* DeliveryModal жду пока придумаю как засунуть все в одну модалку*/}
-    <MyModal title="Доставка" modal={modal} handleClose={() => setModal(null)} isDepthModal={true} onChangeModal={setModal} allGoods={initialProducts}/>
+    <CatalogModal title="Каталог" isShowModal={isVisibleCatalogModal} handleClose={hideCatalogModal} isDepthModal={false} handleShowOrderModal={showOrderModal} allGoods={initialProducts}/>
+    <OrderModal title="Заказ" isShowModal={isVisibleOrderModal} handleClose={hideOrderModal} isDepthModal={true} handleShowDeliveryModal={showDeliveryModal} allGoods={initialProducts}/>
+    <DeliveryModal title="Доставка" handleClose={hideDeliveryModal} isDepthModal={true} isShowModal={isVisibleDeliveryModal} allGoods={initialProducts}/>
+
+    <MyModal isShowModal={isVisibleMyModal} type={modalType} handleClose={() => hideMyModal()}/>
     </>
   );
 };

@@ -1,36 +1,67 @@
-import React from "react";
-import {Select, MenuItem, styled} from "@mui/material";
+import { Box, TextField, MenuItem, styled } from "@mui/material";
 
+interface SelectItemProps {
+  id: number;
+  name: string;
+}
 interface SelectProps {
-    placeholder: string;
-    value: string;
-    name: string;
-    onChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+  itemList: SelectItemProps[];
+  name: string;
+  value: string;
+  placeholder: string;
+  onChange: React.ChangeEventHandler;
 }
 
-const CustomizeSelect = styled(Select)`
-    max-width: 390px;
+// Кастомизация select
+const CustomizeTextField = styled(TextField)`
+  width: 100%;
 
-    
-`
+  & .MuiInputLabel-root {
+    color: #979797;
+  }
 
-const MySelect: React.FC<SelectProps> = ({
-    placeholder,
-    value,
-    name,
-    onChange
-}) => {
+  & .MuiInputLabel-root.Mui-focused {
+    color: black;  // меняю цвет label при focus 
+  }
+
+  & .MuiOutlinedInput-root {
+    &:hover fieldset,
+    &.Mui-focused fieldset {
+      border-color: black;  // 
+    }
+
+    & .MuiOutlinedInput-notchedOutline {
+      border-radius: 20px;
+    }
+
+    & fieldset {
+      border: 2px solid #F5F4F2;
+    }
+  }
+`;
+
+const CustomizeMenuItem = styled(MenuItem)`
+  background: #f5f7fa;
+  color: #6F7A8B;
+`;
+
+
+const MySelect: React.FC<SelectProps> = ({itemList, name, value, placeholder, onChange}) => {
   return (
-    <CustomizeSelect
-      label={placeholder}
-    >
-      <MenuItem value={1}>Алматы</MenuItem>
-      <MenuItem value={2}>Астана</MenuItem>
-      <MenuItem value={3}>Шымкент</MenuItem>
-      <MenuItem value={4}>Караганда</MenuItem>
-      <MenuItem value={5}>Петропавловск</MenuItem>
-    </CustomizeSelect>
+    <Box>
+      <CustomizeTextField
+        name={name}
+        label={placeholder}
+        select
+        value={value}
+        onChange={onChange}
+      >
+        {itemList.map((item) => (
+          <CustomizeMenuItem value={item.name}>{item.name}</CustomizeMenuItem>
+        ))}
+      </CustomizeTextField>
+    </Box>
   );
-};
+}
 
-export {MySelect};
+export { MySelect };

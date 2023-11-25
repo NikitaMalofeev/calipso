@@ -3,6 +3,7 @@
     opacity: 0;
     top: 8vh;
     left: 100vw;
+
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -39,22 +40,7 @@
         background-color: white;
     }
 
-    &__menu {
-        display: grid;
-        //FIXME убрать ограниченную ширину
-        grid-template-columns: repeat(2, 190px);
-        //FIXME как сделать все строчки одинаковыми
-        grid-template-rows: repeat(100, 300px);
-        gap: 10px;
-        padding: 0 20px;
-    }
-    &__cart {
-        display: flex;
-        flex-direction: column;
-        gap: 20px 10px;
-        flex: 1 1 auto;
-        margin-bottom: 20px;
-    }
+
 
     &__confirm {
         display: flex;
@@ -86,3 +72,4 @@
     left: 0;
     transition: all 0.2s ease-in-out;
 }
+

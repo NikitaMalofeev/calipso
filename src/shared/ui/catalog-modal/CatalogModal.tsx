@@ -4,24 +4,17 @@ import closeIcon from "../../icons/close.svg";
 import { CatalogButtonMenu } from "../../../features/catalog-button-menu";
 import { ProductCard } from "../../../widgets/product-card";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart, removeFromCart } from "../../../entities/store/cartSlice";
-
-interface Good {
-  id: number;
-  name: string;
-  price: number;
-  size: string;
-  image: string;
-}
+import { addToCart, removeFromCart } from "../../../features/cart-slice/cartSlice";
+import { IGood } from "../../types/cartTypes";
 
 interface IModal {
   title: string;
   isShowModal: boolean;
   isDepthModal: boolean;
-  allGoods: Record<number, Good>;
+  allGoods: Record<number, IGood>;
+  handleShowOrderModal: () => void;
   handleClose?: () => void;
   handleBack?: () => void;
-  onChangeModal?: () => void;
 }
 
 const CatalogModal: React.FC<IModal> = ({
@@ -29,9 +22,9 @@ const CatalogModal: React.FC<IModal> = ({
   title,
   isShowModal,
   isDepthModal,
+  handleShowOrderModal,
   handleClose,
   handleBack,
-  onChangeModal,
 }) => {
   //FIXME убрать any типизацию
   const { cart } = useSelector((state: any) => state.allCart);
@@ -66,7 +59,7 @@ const CatalogModal: React.FC<IModal> = ({
            */}
           <CatalogButtonMenu />
           <div className={styles.modal__menu}>
-            {Object.values(allGoods).map((item: Good) => (
+            {Object.values(allGoods).map((item: IGood) => (
               <ProductCard
                 productId={item.id}
                 quantity={cart[item.id] ?? 0}
@@ -83,7 +76,7 @@ const CatalogModal: React.FC<IModal> = ({
               className={`${styles.modal__cart} ${
                 totalQuantity && styles.cart__active
               }`}
-              onClick={onChangeModal}
+              onClick={handleShowOrderModal}
             >
               <p className={styles.cart__quantity}>
                 Заказать ({totalQuantity})

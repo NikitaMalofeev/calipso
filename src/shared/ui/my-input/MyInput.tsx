@@ -12,13 +12,12 @@ interface MyInputProps {
 }
 
 const CustomizeMyInput = styled(TextField)`
-  max-width: 390px;
   width: 100%;
-
+  
   & .MuiInputLabel-root {
+    color: #979797;
     &.Mui-focused {
       color: black; /* Убираем изменение цвета при фокусе */
-      margin-left: 10px;
     }
   }
 
@@ -29,11 +28,11 @@ const CustomizeMyInput = styled(TextField)`
     }
 
     &:hover fieldset {
-      border: 2px solid #your_hover_color; /* Замените your_hover_color на желаемый цвет при наведении */
+      border: 2px solid black;
     }
 
     &.Mui-focused fieldset {
-      border: 2px solid #F5F4F2; /* Убираем подсветку при фокусе */
+      border: 2px solid black; /* Убираем подсветку при фокусе */
     }
   }
 `;

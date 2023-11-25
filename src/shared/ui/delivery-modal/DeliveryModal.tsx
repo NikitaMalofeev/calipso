@@ -2,10 +2,9 @@ import React, { useMemo } from "react";
 import styles from "./styles.module.scss";
 import closeIcon from "../../icons/close.svg";
 import { useSelector } from "react-redux";
-import { ProductCard } from "../../../widgets/product-card";
-import { addToCart, removeFromCart } from "../../../features/cart-slice/cartSlice";
 import { useDispatch } from "react-redux";
 import { MyButton } from "../my-button/MyButton";
+import { DeliveryForm } from "../../../widgets/DeliveryForm";
 import { IGood } from "../../types/cartTypes";
 
 interface IModal {
@@ -13,35 +12,33 @@ interface IModal {
   isShowModal: boolean;
   isDepthModal: boolean;
   allGoods: Record<number, IGood>;
-  handleShowDeliveryModal: () => void;
   handleClose?: () => void;
   handleBack?: () => void;
 }
 
-const OrderModal: React.FC<IModal> = ({
+const DeliveryModal: React.FC<IModal> = ({
   title,
   isShowModal,
   isDepthModal,
   allGoods,
   handleClose,
   handleBack,
-  handleShowDeliveryModal
 }) => {
   //FIXME опять типизация
   const { cart } = useSelector(
     (state: any) => state.allCart
   );
 
-  const [totalQuantity, totalPrice] = useMemo(() => {
-    let quantity = 0;
+  // перенести в rtk селектор
+  const [totalPrice] = useMemo(() => {
     let price = 0;
-
+  
     for (const id of Object.keys(cart)) {
-      quantity += cart[id];
       price += cart[id] * allGoods[Number(id)].price;
     }
-    return [quantity, price];
+    return [price];
   }, [cart, allGoods]);
+
 
   const dispatch = useDispatch();
 
@@ -56,27 +53,13 @@ const OrderModal: React.FC<IModal> = ({
               <img src={closeIcon} alt="" />
             </button>
           </div>
-          <div className={styles.modal__cart}>
-            {Object.values(allGoods).map((data: any) => (
-              cart[data.id] ? (<ProductCard
-                quantity={cart[data.id] ?? 0}
-                productId={data.id}
-                price={data.price}
-                name={data.name}
-                size={data.size}
-                productImage={data.image}
-                isOrderCard={true}
-                handleAdd={() => dispatch(addToCart(data.id))}
-                handleRemove={() => dispatch(removeFromCart(data.id))}
-              /> ) : null
-            ))}
-          </div>
+          <DeliveryForm />
           <div className={styles.modal__confirm}>
             <div className={styles.modal__total}>
               <p>Сумма</p>
               <p>{totalPrice}₸</p>
             </div>
-            <MyButton title="Подтвердить" handleClick={handleShowDeliveryModal}/>
+            <MyButton title="Подтвердить" onSubmit={() => {}}/>
           </div>
         </div>
       </div>
@@ -84,4 +67,4 @@ const OrderModal: React.FC<IModal> = ({
   );
 };
 
-export { OrderModal };
+export { DeliveryModal };
