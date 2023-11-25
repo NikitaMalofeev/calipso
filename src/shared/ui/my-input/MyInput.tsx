@@ -8,6 +8,7 @@ interface MyInputProps {
   value?: string;
   placeholder: string;
   name: string;
+  setFieldValue?: (field: string, value: any) => void;
   onChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 }
 
@@ -41,6 +42,7 @@ const MyInput: React.FC<MyInputProps> = ({
   value,
   placeholder,
   name,
+  setFieldValue,
   onChange,
 }) => {
   return (

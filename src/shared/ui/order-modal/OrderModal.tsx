@@ -3,7 +3,10 @@ import styles from "./styles.module.scss";
 import closeIcon from "../../icons/close.svg";
 import { useSelector } from "react-redux";
 import { ProductCard } from "../../../widgets/product-card";
-import { addToCart, removeFromCart } from "../../../features/cart-slice/cartSlice";
+import {
+  addToCart,
+  removeFromCart,
+} from "../../../features/cart-slice/cartSlice";
 import { useDispatch } from "react-redux";
 import { MyButton } from "../my-button/MyButton";
 import { IGood } from "../../types/cartTypes";
@@ -25,12 +28,10 @@ const OrderModal: React.FC<IModal> = ({
   allGoods,
   handleClose,
   handleBack,
-  handleShowDeliveryModal
+  handleShowDeliveryModal,
 }) => {
   //FIXME опять типизация
-  const { cart } = useSelector(
-    (state: any) => state.allCart
-  );
+  const { cart } = useSelector((state: any) => state.allCart);
 
   const [totalQuantity, totalPrice] = useMemo(() => {
     let quantity = 0;
@@ -57,26 +58,32 @@ const OrderModal: React.FC<IModal> = ({
             </button>
           </div>
           <div className={styles.modal__cart}>
-            {Object.values(allGoods).map((data: any) => (
-              cart[data.id] ? (<ProductCard
-                quantity={cart[data.id] ?? 0}
-                productId={data.id}
-                price={data.price}
-                name={data.name}
-                size={data.size}
-                productImage={data.image}
-                isOrderCard={true}
-                handleAdd={() => dispatch(addToCart(data.id))}
-                handleRemove={() => dispatch(removeFromCart(data.id))}
-              /> ) : null
-            ))}
+            {Object.values(allGoods).map((item: any, index) =>
+              cart[item.id] ? (
+                <ProductCard
+                  key={index}
+                  quantity={cart[item.id] ?? 0}
+                  productId={item.id}
+                  price={item.price}
+                  name={item.name}
+                  size={item.size}
+                  productImage={item.image}
+                  isOrderCard={true}
+                  handleAdd={() => dispatch(addToCart(item.id))}
+                  handleRemove={() => dispatch(removeFromCart(item.id))}
+                />
+              ) : null
+            )}
           </div>
           <div className={styles.modal__confirm}>
             <div className={styles.modal__total}>
               <p>Сумма</p>
               <p>{totalPrice}₸</p>
             </div>
-            <MyButton title="Подтвердить" handleClick={handleShowDeliveryModal}/>
+            <MyButton
+              title="Подтвердить"
+              handleClick={handleShowDeliveryModal}
+            />
           </div>
         </div>
       </div>

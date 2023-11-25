@@ -1,10 +1,10 @@
 export const initialSignInType = [
     {
         id: 0,
-        name: "эл.почта",
+        name: "телефон",
     },
     {
         id: 1,
-        name: "телефон"
+        name: "эл.почта"
     }
 ]

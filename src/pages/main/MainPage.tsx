@@ -12,7 +12,9 @@ import { MyModal } from "../../shared/ui/my-modal";
 const MainPage: React.FC = () => {
 
   const [isVisibleCatalogModal, setIsVisibleCatalogModal] = useState(false);
-  const showCatalogModal = () => setIsVisibleCatalogModal(true);
+  const showCatalogModal = () => {
+    setIsVisibleCatalogModal(true)
+  };
   const hideCatalogModal = () => setIsVisibleCatalogModal(false);
   
   const [isVisibleOrderModal, setIsVisibleOrderModal] = useState(false);
@@ -33,6 +35,11 @@ const MainPage: React.FC = () => {
   }
   const hideMyModal = () => setIsVisibleMyModal(false);
 
+    // FIXME временная мера пока не сделал все модалки в одной
+    useEffect(() => {
+      hideCatalogModal()
+    }, [isVisibleMyModal])
+
   //FIXME переработать обработчик на что-то более локаничное и по хорошему перенести со страницы
   useEffect(() => {
     const handleScroll = () => {
@@ -50,8 +57,8 @@ const MainPage: React.FC = () => {
     <>
     <Header handleShowCatalogModal={showCatalogModal} handleShowSignInModal={() => showMyModal("Sign-in")}/>
     <BrandCard/>
-    {initialOverview.map((item) => (
-      <PreorderCard key={item.id} title={item.name} description={item.description}/>
+    {initialOverview.map((item, index) => (
+      <PreorderCard key={index} title={item.name} description={item.description}/>
     ))}
 
     {/*Модальные окна */}

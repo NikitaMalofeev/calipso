@@ -7,8 +7,8 @@ const CatalogButtonMenu: React.FC = () => {
   return (
     <>
     <div className={styles.buttons}>
-        {initialCatalogChapter.map((item) => (
-            <CatalogButton title={item.name} key={item.id}/>
+        {initialCatalogChapter.map((item, index) => (
+            <CatalogButton title={item.name} key={index}/>
         ))}
       </div>
     </>

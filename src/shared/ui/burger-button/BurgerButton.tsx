@@ -34,8 +34,8 @@ const BurgerButton: React.FC<IButton> = ({ handleClick }) => {
       <div className={`${styles.modal} ${isOpen ? styles.modal__active : ""}`}>
         <div className={styles.modal__chapter}>
           <p className={styles.modal__about}>О компании</p>
-          {menuitem.map((item, key) => (
-            <p className={styles.modal__item} key={key}>
+          {menuitem.map((item, index) => (
+            <p className={styles.modal__item} key={index}>
               {item.item}
             </p>
           ))}

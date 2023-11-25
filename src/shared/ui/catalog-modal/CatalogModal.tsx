@@ -59,11 +59,11 @@ const CatalogModal: React.FC<IModal> = ({
            */}
           <CatalogButtonMenu />
           <div className={styles.modal__menu}>
-            {Object.values(allGoods).map((item: IGood) => (
+            {Object.values(allGoods).map((item: IGood, index) => (
               <ProductCard
                 productId={item.id}
                 quantity={cart[item.id] ?? 0}
-                key={item.id}
+                key={index}
                 productImage={item.image}
                 price={item.price}
                 name={item.name}

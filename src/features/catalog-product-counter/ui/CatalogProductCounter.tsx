@@ -30,7 +30,7 @@ const CatalogProductCounter: React.FC<ICatalogButton> = ({
 
   return (
     <>
-      <button className={`${styles.counter} ${quantity && styles.active}`}>
+      <div className={`${styles.counter} ${quantity && styles.active}`}>
         {quantity > 0 ? (
           <div className={styles.counter__controller}>
             <button className={styles.counter__prev} onClick={handleDelete}>
@@ -44,7 +44,7 @@ const CatalogProductCounter: React.FC<ICatalogButton> = ({
         ) : (
             <button className={styles.counter__first} onClick={handleAddCount}><img src={plusDarkIcon} alt=""/></button>
         )}
-      </button>
+      </div>
     </>
   );
 };

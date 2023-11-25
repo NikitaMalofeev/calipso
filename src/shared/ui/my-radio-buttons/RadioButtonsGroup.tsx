@@ -1,41 +1,61 @@
 import React, { useState } from "react";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
-import { ISignIn } from "../../types";
+import {
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormControl,
+  styled,
+} from "@mui/material";
 
 interface RadioGroupItemProps {
   id: number;
   name: string;
-  onAddBlock: (type: string) => void;
 }
 
 interface RadioGroupProps {
   itemList: RadioGroupItemProps[];
   name: string;
+  value?: string | undefined;
+  defaultValue?: string | undefined;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const types = ["phone", "email"];
+const CustomizeRadioGroup = styled(RadioGroup)({
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between", // Измените на "column", если вам нужна вертикальная ориентация
+  width: "100%"
+});
 
-const RadioButtonsGroup: React.FC<RadioGroupProps> = ({ itemList, name }) => {
-  const [activeType, setActiveType] = useState<string>("phone");
-  
+const CustomizeFormControl = styled(FormControl)({
+  width: "100%"
+});
+
+const CustomizeFormControlLabel = styled(FormControlLabel)({
+  margin: "0 30px"
+});
+
+const RadioButtonsGroup: React.FC<RadioGroupProps> = ({
+  itemList,
+  name,
+  defaultValue,
+  onChange,
+}) => {
   return (
-    <FormControl>
-      <RadioGroup>
-        {itemList.map((item) => (
-          <FormControlLabel
-            value={item.name}
-            control={<Radio />}
+    <CustomizeFormControl>
+      <CustomizeRadioGroup  defaultValue={defaultValue}>
+        {itemList.map((item, index) => (
+          <CustomizeFormControlLabel
+            control={
+              <Radio value={item.name} name={name} onChange={onChange}/>
+            }
             label={item.name}
-            key={item.id}
+            key={index}
             name={name}
           />
         ))}
-      </RadioGroup>
-    </FormControl>
+      </CustomizeRadioGroup>
+    </CustomizeFormControl>
   );
 };
 

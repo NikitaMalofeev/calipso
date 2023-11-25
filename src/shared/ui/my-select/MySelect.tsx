@@ -56,8 +56,8 @@ const MySelect: React.FC<SelectProps> = ({itemList, name, value, placeholder, on
         value={value}
         onChange={onChange}
       >
-        {itemList.map((item) => (
-          <CustomizeMenuItem value={item.name}>{item.name}</CustomizeMenuItem>
+        {itemList.map((item, index) => (
+          <CustomizeMenuItem value={item.name} key={index}>{item.name}</CustomizeMenuItem>
         ))}
       </CustomizeTextField>
     </Box>

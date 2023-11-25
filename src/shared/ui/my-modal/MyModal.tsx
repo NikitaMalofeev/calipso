@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import closeIcon from "../../icons/close.svg";
-import { SignInForm } from "../../../features/sign-in-form";
+import { SignInForm } from "../../../widgets/sign-in-form";
 
 interface IMyModal {
   type: string;
