@@ -6,5 +6,5 @@ export const initialSignInType = [
     {
         id: 1,
         name: "эл.почта"
-    }
+    },
 ]

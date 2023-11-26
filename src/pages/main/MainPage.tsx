@@ -55,7 +55,7 @@ const MainPage: React.FC = () => {
 
   return (
     <>
-    <Header handleShowCatalogModal={showCatalogModal} handleShowSignInModal={() => showMyModal("Sign-in")}/>
+    <Header handleShowCatalogModal={showCatalogModal} handleShowSignInModal={() => showMyModal("Вход")} handleShowContactsModal={() => {showMyModal("Контакты")}}/>
     <BrandCard/>
     {initialOverview.map((item, index) => (
       <PreorderCard key={index} title={item.name} description={item.description}/>
@@ -66,7 +66,7 @@ const MainPage: React.FC = () => {
     <OrderModal title="Заказ" isShowModal={isVisibleOrderModal} handleClose={hideOrderModal} isDepthModal={true} handleShowDeliveryModal={showDeliveryModal} allGoods={initialProducts}/>
     <DeliveryModal title="Доставка" handleClose={hideDeliveryModal} isDepthModal={true} isShowModal={isVisibleDeliveryModal} allGoods={initialProducts}/>
 
-    <MyModal isShowModal={isVisibleMyModal} type={modalType} handleClose={() => hideMyModal()}/>
+    <MyModal isShowModal={isVisibleMyModal} type={modalType} handleClose={() => hideMyModal()} title={modalType}/>
     </>
   );
 };

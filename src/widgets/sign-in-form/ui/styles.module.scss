@@ -1,6 +1,12 @@
 .form {
     margin-bottom: 40px;
 
+    &__radio {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
     &__button {
         display: block;
         margin: 0 auto;

@@ -1,8 +1,10 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import { useFormik } from "formik";
+import { Formik, useFormik } from "formik";
 import { ISignIn } from "../../../shared/types";
 import { BlockSignIn } from "../../../features/block-sign-in";
+import { initialSignInType } from "../../../shared/config/initialSignIn";
+import { RadioButtonsGroup } from "../../../shared/ui/my-radio-buttons";
 
 const getEmptyForm = (type: string) => {
   switch (type) {
@@ -20,15 +22,22 @@ const getEmptyForm = (type: string) => {
         phone: "",
         password: "",
       };
+      case "single":
+      return {
+        id: Date.now(),
+        type,
+        single: "",
+        password: "",
+      };
     default:
       return {
         id: Date.now(),
         type,
-        phone: "",
         password: "",
       };
   }
 };
+
 
 const SignInForm: React.FC = ({}) => {
   const { values, handleChange, handleSubmit, setValues, setFieldValue } =
@@ -39,10 +48,25 @@ const SignInForm: React.FC = ({}) => {
       },
     });
 
+    const handleTypeChange = (type: string) => {
+      setValues({
+        ...values,
+        form: [getEmptyForm(type) as unknown as ISignIn],
+      });
+    };
+
   return (
     <div className={styles.container}>
-      <title className={styles.form__title}>Вход</title>
       <form className={styles.form} action="">
+        <div className={styles.form__radio}>
+          <RadioButtonsGroup
+            value={values.form[0].type}
+            name={`form[0].type`}
+            onChange={(e) => handleTypeChange(e.target.value)}
+            itemList={initialSignInType}
+            defaultValue="телефон"
+          />
+        </div>
         {values.form.map((block, index) => (
           <BlockSignIn
             block={block}
@@ -53,9 +77,15 @@ const SignInForm: React.FC = ({}) => {
           />
         ))}
       </form>
-      <button className={styles.form__button} onClick={() => handleSubmit()}>Войти</button>
-      <p className={styles.form__remember} onClick={() => {}}>Забыли пароль?</p>
-      <p className={styles.form__registration} onClick={() => {}}>Зарегистрироваться</p>
+      <button className={styles.form__button} onClick={() => handleSubmit()}>
+        Войти
+      </button>
+      <p className={styles.form__remember} onClick={() => {}}>
+        Забыли пароль?
+      </p>
+      <p className={styles.form__registration} onClick={() => {}}>
+        Зарегистрироваться
+      </p>
     </div>
   );
 };

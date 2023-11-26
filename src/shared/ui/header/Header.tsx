@@ -7,11 +7,13 @@ import iconPhone from '../../icons/phone.svg'
 interface IHeaderProps {
   handleShowCatalogModal: () => void;
   handleShowSignInModal: () => void;
+  handleShowContactsModal: () => void;
 }
 
 const Header: React.FC<IHeaderProps> = ({
   handleShowSignInModal,
-  handleShowCatalogModal
+  handleShowCatalogModal,
+  handleShowContactsModal
 }) => {
   return (
     <div className={styles.header}>
@@ -19,7 +21,7 @@ const Header: React.FC<IHeaderProps> = ({
         <HeaderButton title={"Вход"} handleClick={handleShowSignInModal}/>
         <HeaderButton title={"Каталог"} handleClick={handleShowCatalogModal}/>
       </div>
-      <img className={styles.header__icon} src={iconPhone} alt={"Phone"} />
+      <img className={styles.header__icon} src={iconPhone} alt={"Phone"} onClick={handleShowContactsModal}/>
       <BurgerButton />
     </div>
   );
