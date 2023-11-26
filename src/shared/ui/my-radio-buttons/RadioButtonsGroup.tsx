@@ -21,14 +21,19 @@ interface RadioGroupProps {
 }
 
 const CustomizeRadioGroup = styled(RadioGroup)({
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "space-between", // Измените на "column", если вам нужна вертикальная ориентация
+  display: "grid",
+  maxWidth: "200px",
   width: "100%"
 });
 
 const CustomizeFormControl = styled(FormControl)({
-  width: "100%"
+  width: "100%",
+  maxWidth: "200px",
+  "& .MuiFormGroup-root": {
+    marginLeft: "25px",
+    display: "grid",
+    gridTemplateColumns: "repeat(2, 1fr)", 
+  }, // изменение грид сетки для расположения радио кнопок
 });
 
 const CustomizeFormControlLabel = styled(FormControlLabel)({

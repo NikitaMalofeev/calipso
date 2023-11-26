@@ -1,4 +1,4 @@
-export const initialSignInType = [
+export const initialLogInType = [
     {
         id: 0,
         name: "телефон",
@@ -6,5 +6,9 @@ export const initialSignInType = [
     {
         id: 1,
         name: "эл.почта"
+    },
+    {
+        id: 2,
+        name: "одноразовый пароль"
     },
 ]

@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Header } from "../../shared/ui/header";
 import { BrandCard } from "../../widgets/BrandCard/BrandCard";
 import { PreorderCard } from "../../widgets/PreorderCard.tsx";
@@ -8,6 +9,7 @@ import { OrderModal } from "../../shared/ui/order-modal/OrderModal";
 import { DeliveryModal } from "../../shared/ui/delivery-modal";
 import { initialProducts } from "../../shared/config/initialProducts";
 import { MyModal } from "../../shared/ui/my-modal";
+import { hideMyModal, showMyModal as showMyModalAction } from "../../features/modal-slice/modalSlice";
 
 const MainPage: React.FC = () => {
 
@@ -24,38 +26,40 @@ const MainPage: React.FC = () => {
   const [isVisibleDeliveryModal, setIsVisibleDeliveryModal] = useState(false);
   const showDeliveryModal = () => setIsVisibleDeliveryModal(true);
   const hideDeliveryModal = () => setIsVisibleDeliveryModal(false);
+  
 
-  // FIXME перенести все модалки в MyModal
-  // модалка которая меняет тип контента снизу
-  const [modalType, setModalType] = useState("")
-  const [isVisibleMyModal, setIsVisibleMyModal] = useState(false);
-  const showMyModal = (type: string) => {
-    setModalType(type)
-    setIsVisibleMyModal(true);
-  }
-  const hideMyModal = () => setIsVisibleMyModal(false);
-
-    // FIXME временная мера пока не сделал все модалки в одной
-    useEffect(() => {
-      hideCatalogModal()
-    }, [isVisibleMyModal])
-
-  //FIXME переработать обработчик на что-то более локаничное и по хорошему перенести со страницы
+  //FIXME переработать обработчик(отмены скрола при открытии модального окна) на что-то более локаничное и по хорошему перенести со страницы
   useEffect(() => {
     const handleScroll = () => {
       document.body.style.overflow = isVisibleCatalogModal ? 'hidden' : 'auto';
     };
     
     window.addEventListener('scroll', handleScroll);
-
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [isVisibleCatalogModal, isVisibleDeliveryModal, isVisibleOrderModal, isVisibleMyModal]);
+    
+  }, [isVisibleCatalogModal, isVisibleDeliveryModal, isVisibleOrderModal]);
+
+  // перенести по такому же принципу оставшиеся модальные окна
+  // логика для работы со стейтом modalSlice для управления модальными окнами
+  const dispatch = useDispatch();
+
+  const handleShowMyModal = (modalType: string) => {
+    dispatch(showMyModalAction(modalType));
+    console.log(modalType)
+  };
+
+  const handleClose = () => {
+    dispatch(hideMyModal());
+  };
+
+  const myModalShow = useSelector((state: any) => state.modal.isVisibleMyModal);
+  const myModalType = useSelector((state: any) => state.modal.modalType);
 
   return (
     <>
-    <Header handleShowCatalogModal={showCatalogModal} handleShowSignInModal={() => showMyModal("Вход")} handleShowContactsModal={() => {showMyModal("Контакты")}}/>
+    <Header handleShowCatalogModal={showCatalogModal} handleShowLogInModal={() => handleShowMyModal("Вход")} handleShowContactsModal={() => {handleShowMyModal("Контакты")}}/>
     <BrandCard/>
     {initialOverview.map((item, index) => (
       <PreorderCard key={index} title={item.name} description={item.description}/>
@@ -66,7 +70,7 @@ const MainPage: React.FC = () => {
     <OrderModal title="Заказ" isShowModal={isVisibleOrderModal} handleClose={hideOrderModal} isDepthModal={true} handleShowDeliveryModal={showDeliveryModal} allGoods={initialProducts}/>
     <DeliveryModal title="Доставка" handleClose={hideDeliveryModal} isDepthModal={true} isShowModal={isVisibleDeliveryModal} allGoods={initialProducts}/>
 
-    <MyModal isShowModal={isVisibleMyModal} type={modalType} handleClose={() => hideMyModal()} title={modalType}/>
+    <MyModal isShowModal={myModalShow} type={myModalType} handleClose={handleClose} title={myModalType} />
     </>
   );
 };
