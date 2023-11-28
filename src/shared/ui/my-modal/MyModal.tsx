@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styles from "./styles.module.scss";
 import closeIcon from "../../icons/close.svg";
@@ -7,7 +7,6 @@ import { ContactsModalContent } from "../contacts-modal-content";
 import { RegistrationForm } from "../../../widgets/registration-form";
 
 interface IMyModal {
-  type: string;
   isShowModal?: boolean;
   isFullHeightModal?: boolean;
   title: string;
@@ -16,11 +15,10 @@ interface IMyModal {
 
 const MyModal: React.FC<IMyModal> = ({
   title,
-  type,
   isShowModal,
-  isFullHeightModal,
   handleClose,
 }) => {
+
   const modalType = useSelector((state: any) => state.modal.modalType);
 
   const MyModalLogIn = () => {
@@ -47,6 +45,23 @@ const MyModal: React.FC<IMyModal> = ({
         return null; // Можно вернуть что-то по умолчанию или null
     }
   };
+  
+  // логика ниже для определения в каких модалках должен быть stub и больший размер
+  const [isFullHeightModal, setIsFullHeightModal] = useState(false);
+
+  useEffect(() => {
+    const checkModalSize = () => {
+      switch (modalType) {
+        case "Регистрация":
+          setIsFullHeightModal(true);
+          break;
+        default:
+          setIsFullHeightModal(false);
+      }
+    };
+    checkModalSize();
+  }, [modalType]);
+
 
   return (
     <>

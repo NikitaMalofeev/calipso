@@ -54,7 +54,7 @@ const MainPage: React.FC = () => {
     dispatch(hideMyModal());
   };
 
-  const myModalShow = useSelector((state: any) => state.modal.isVisibleMyModal);
+  const myModalVisible = useSelector((state: any) => state.modal.isVisibleMyModal);
   const myModalType = useSelector((state: any) => state.modal.modalType);
 
   return (
@@ -70,7 +70,7 @@ const MainPage: React.FC = () => {
     <OrderModal title="Заказ" isShowModal={isVisibleOrderModal} handleClose={hideOrderModal} isDepthModal={true} handleShowDeliveryModal={showDeliveryModal} allGoods={initialProducts}/>
     <DeliveryModal title="Доставка" handleClose={hideDeliveryModal} isDepthModal={true} isShowModal={isVisibleDeliveryModal} allGoods={initialProducts}/>
 
-    <MyModal isShowModal={myModalShow} type={myModalType} handleClose={handleClose} title={myModalType} />
+    <MyModal isShowModal={myModalVisible} handleClose={handleClose} title={myModalType} />
     </>
   );
 };

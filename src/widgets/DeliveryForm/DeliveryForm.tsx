@@ -18,7 +18,7 @@ const DeliveryForm: React.FC<IFormProps> = ({
   return (
     <div className={styles.form}>
       <p className={styles.form__title}>Адрес</p>
-      <MySelect placeholder="Город" value={''} name={''} onChange={() => {}} itemList={initialDeliveryCity}/>
+      <MySelect placeholder="Город" value={""} name={''} onChange={() => {}} itemList={initialDeliveryCity}/>
       <MyInput placeholder="Улица/Проспект" name="city" onChange={() => {}}/>
       <MyInput placeholder="Дом" name="city" onChange={() => {}}/>
       <MyInput placeholder="Офис / Квартира" name="city" onChange={() => {}}/>

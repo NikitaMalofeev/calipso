@@ -8,7 +8,7 @@ interface SelectProps {
   itemList: SelectItemProps[];
   name: string;
   value: string;
-  placeholder: string;
+  placeholder?: string;
   onChange: React.ChangeEventHandler;
 }
 

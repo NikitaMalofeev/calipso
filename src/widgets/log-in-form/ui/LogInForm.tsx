@@ -87,18 +87,20 @@ const LogInForm: React.FC = () => {
           </>
         ))}
       </form>
-      <button className={styles.form__button} onClick={() => handleSubmit()}>
-        Войти
-      </button>
-      <p className={styles.form__remember} onClick={() => {}}>
-        Забыли пароль?
-      </p>
-      <button
-        className={styles.form__registration}
-        onClick={() => handleShowMyModal("Регистрация")}
-      >
-        Зарегистрироваться
-      </button>
+      <div className={styles.form__additionally}>
+        <button className={styles.form__button} onClick={() => handleSubmit()}>
+          Войти
+        </button>
+        <p className={styles.form__remember} onClick={() => {}}>
+          Забыли пароль?
+        </p>
+        <button
+          className={styles.form__registration}
+          onClick={() => handleShowMyModal("Регистрация")}
+        >
+          Зарегистрироваться
+        </button>
+      </div>
     </div>
   );
 };

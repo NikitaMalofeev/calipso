@@ -1,5 +1,5 @@
 .modal {
-    position: relative;
+    position: fixed;
     opacity: 0;
     top: 100vh;
     left: 0;
@@ -52,3 +52,9 @@
     left: 0;
     transition: all 0.2s ease-in-out;
 }
+
+.modal__full {
+    top: 10vh;
+    height: 100%;
+}
+
