@@ -3,7 +3,7 @@ import { IRegistration } from "../../shared/types";
 
 const initialState: IRegistration = {
     type: "",
-    dataIndividual: {email: "", password: "", contactPerson: "", repeatPassword: "", phone: ""},
+    dataIndividual: { main: {email: "", password: "", repeatPassword: ""}, contact: {contactPerson: "", phone: ""}},
     dataLegal: ['']
 }
 
@@ -12,7 +12,9 @@ const registrationSlice = createSlice({
     initialState,
     reducers: {
         setRegistrationIndividualData: (state: any, action) => {
-            state.dataIndividual =  action.payload;
+            const { main, contact } = action.payload;
+            state.dataIndividual.main = main;
+            state.dataIndividual.contact = contact;
         },
         setLegalIndividualData: (state: any, action) => {
             state.dataLegal = action.payload

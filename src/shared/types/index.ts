@@ -7,12 +7,21 @@ export interface ILogIn {
     password: string;
 }
 
-interface IIndividualProps {
+// Шаблоны для регистрации ↓
+
+interface IDataIndividualMain {
     email: string;
     password: string;
     repeatPassword: string;
+}
+
+interface IDataIndividualContact {
     contactPerson: string;
     phone: string;
+}
+interface IDataIndividual {
+    main: IDataIndividualMain;
+    contact: IDataIndividualContact;
 }
 
 interface ILegalProps {
@@ -21,6 +30,8 @@ interface ILegalProps {
 export interface IRegistration {
     id?: number,
     type: string;
-    dataIndividual?: IIndividualProps;
+    dataIndividual?: IDataIndividual;
     dataLegal: ILegalProps;
 }
+
+// Шаблоны для регистрации ↑

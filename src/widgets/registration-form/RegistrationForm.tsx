@@ -13,11 +13,15 @@ const getEmptyForm = (type: string) => {
         id: Date.now(),
         type,
         dataIndividual: {
-          email: "",
-          password: "",
-          repeatPassword: "",
-          contactPerson: "",
-          phone: "",
+          main: {
+            email: "",
+            password: "",
+            repeatPassword: "",
+          },
+          contact: {
+            contactPerson: "",
+            phone: "",
+          }
         }
       };
     case "юр.лицо":

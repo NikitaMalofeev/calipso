@@ -12,6 +12,7 @@ interface MyInputProps {
 
 const CustomizeMyInput = styled(TextField)({
   width: "100%",
+  marginBottom: "25px",
   "& .MuiInputLabel-root": {
     color: "#979797",
     "&.Mui-focused": {
