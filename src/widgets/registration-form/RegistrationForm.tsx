@@ -14,6 +14,8 @@ const getEmptyForm = (type: string) => {
         id: Date.now(),
         type,
         dataIndividual: {
+          type: "",
+          method: "",
           main: {
             email: "",
             password: "",
@@ -29,8 +31,17 @@ const getEmptyForm = (type: string) => {
       return {
         id: Date.now(),
         type,
-        phone: "",
-        password: "",
+        dataLegal: {
+          main: {
+            email: "",
+            password: "",
+            repeatPassword: "",
+          },
+          contact: {
+            contactPerson: "",
+            phone: "",
+          }
+        }
       };
     default:
       return {
@@ -49,14 +60,12 @@ const RegistrationForm: React.FC = () => {
       },
       onSubmit: (values) => {
         console.log(values.form);
-        console.log("test");
       },
     });
 
   const CustomhandleSubmit = () => {
     dispatch(setRegistrationIndividualData(values.form[0].dataIndividual))
     console.log(values.form);
-    console.log("test");
   }
 
   const handleTypeChange = (type: string) => {
@@ -64,6 +73,7 @@ const RegistrationForm: React.FC = () => {
       form: [getEmptyForm(type) as unknown as IRegistration],
     });
     console.log(type);
+    console.log("test");
   };
 
   const dispatch = useDispatch();
@@ -79,12 +89,11 @@ const RegistrationForm: React.FC = () => {
               key={block.id}
               handleChange={handleChange}
               setFieldValue={setFieldValue}
-              handleTypeChange={handleTypeChange}
+              handleSubmit={CustomhandleSubmit}
             />
           </>
         ))}
       </form>
-      <button type="button" onClick={() => CustomhandleSubmit()}></button>
     </>
   );
 };

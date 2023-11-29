@@ -17,15 +17,16 @@ interface BlockRegistrationProps {
   block: IRegistration;
   index: number;
   setFieldValue: (field: string, value: any) => void;
-  handleTypeChange: (type: string) => void;
   handleChange: React.ChangeEventHandler;
+  handleSubmit: () => void;
 }
 
 const BlockRegistration: React.FC<BlockRegistrationProps> = ({
   block,
   index,
-  handleTypeChange,
+  setFieldValue,
   handleChange,
+  handleSubmit,
 }) => {
   // стилизация mui
   const StyledStepLabel = styled(StepLabel)({
@@ -40,10 +41,10 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
     "& .MuiStepLabel-label": {
       color: "#D9D9D9",
       fontSize: "12px",
-      marginTop: "8px"
+      marginTop: "8px",
     },
     "& .MuiStepper-root": {
-      marginBottom: "100px"
+      marginBottom: "100px",
     },
   });
 
@@ -52,7 +53,7 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
   const handleNext = () => {
     setSteps((prev) => {
       // Убедимся, что steps не превышает 3
-      return prev < 3 ? prev + 1 : 3;
+      return prev < 4 ? prev + 1 : 4;
     });
   };
 
@@ -76,6 +77,17 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
   );
 
   const [activeType, setActiveType] = useState("телефон");
+
+  const handleEndRegistration = () => {
+    handleSubmit()
+    handleNext()
+  }
+
+  const handleToggleChange = (selectedValue: string, field: string) => {
+    setFieldValue(`form[${index}].dataIndividual.${field}`, selectedValue);
+  };
+
+  // FIXMEFIXME перенести разные типы регистрации в разные компоненты, а то останется франкенштейн
 
   return (
     <div className={styles.block}>
@@ -108,13 +120,19 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
         <>
           <p className={styles.block__ownership}>Форма собственности</p>
           <MyToggle
+            value={block.type}
+            name={`form[${index}].type`}
             initialToggleName={initialRegistrationType}
             setActiveType={setActiveType}
+            onChange={(selectedValue) => handleToggleChange(selectedValue, "type")}
           />
           <p className={styles.block__method}>Метод авторизации</p>
           <MyToggle
+            value={block.dataIndividual?.method}
+            name={`form[${index}].dataIndividual.method`}
             initialToggleName={initialRegistrationWay}
             setActiveType={setActiveType}
+            onChange={(selectedValue) => handleToggleChange(selectedValue, "method")}
           />
         </>
       )}
@@ -166,7 +184,7 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
           {(dataIndividualMain as string[]).map(
             (item: string, index: number) => (
               <>
-                {index === 2 ? (
+                {index === 3 ? (
                   ""
                 ) : (
                   <>
@@ -174,7 +192,7 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
                       value={item}
                       name=""
                       onChange={() => {}}
-                      placeholder={["Почта", "Пароль"][index]}
+                      placeholder={["Почта", "Пароль", "Повтор пароля"][index]}
                       key={index}
                     />
                   </>
@@ -201,14 +219,19 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
         </div>
       )}
       {/* отображение кнопок в зависимости от степа */}
-      {steps <= 2 && (
+      {steps <= 1 && (
         <MyButton title="Далее" type="button" handleClick={handleNext} />
       )}
+      {steps === 2 && (
+        <MyButton title="Далее" type="button" handleClick={handleEndRegistration} />
+      )}
       {steps === 3 && (
-        <MyButton title="Подтвердить" type="button" handleClick={handleNext} />
+        <MyButton title="Подтвердить" type="button" handleClick={handleEndRegistration} />
       )}
       {/* контент регистрации успешной или нет */}
-      {steps === 4 && <div>3</div>}
+      {steps === 4 && (
+        <div>Регистрация успешна</div>
+      )}
     </div>
   );
 };

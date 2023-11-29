@@ -20,6 +20,8 @@ interface IDataIndividualContact {
     phone: string;
 }
 interface IDataIndividual {
+    type: string;
+    method: string;
     main: IDataIndividualMain;
     contact: IDataIndividualContact;
 }

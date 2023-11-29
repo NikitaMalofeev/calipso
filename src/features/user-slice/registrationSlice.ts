@@ -3,7 +3,7 @@ import { IRegistration } from "../../shared/types";
 
 const initialState: IRegistration = {
     type: "",
-    dataIndividual: { main: {email: "", password: "", repeatPassword: ""}, contact: {contactPerson: "", phone: ""}},
+    dataIndividual: { type: "", method: "", main: {email: "", password: "", repeatPassword: ""}, contact: {contactPerson: "", phone: ""}},
     dataLegal: ['']
 }
 
