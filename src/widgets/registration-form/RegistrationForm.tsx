@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import styles from "./styles.module.scss";
 import { Formik, useFormik } from "formik";
 import { BlockRegistration } from "../../features/block-registration";
+import { MyToggle } from "../../shared/ui/my-toggle";
 import { IRegistration } from "../../shared/types";
 import { setRegistrationIndividualData } from "../../features/user-slice/registrationSlice";
 
@@ -58,14 +59,13 @@ const RegistrationForm: React.FC = () => {
     console.log("test");
   }
 
-  // const handleTypeChange = (type: string) => {
-  //   setValues({
-  //     form: [getEmptyForm(type) as unknown as IRegistration],
-  //   });
-  //   console.log(type);
-  // };
+  const handleTypeChange = (type: string) => {
+    setValues({
+      form: [getEmptyForm(type) as unknown as IRegistration],
+    });
+    console.log(type);
+  };
 
-  // для работы модального окна с modalSlice и вызова модалки регистрации
   const dispatch = useDispatch();
 
   return (
@@ -73,18 +73,13 @@ const RegistrationForm: React.FC = () => {
       <form className={styles.form} action="">
         {values.form.map((block, index) => (
           <>
-            {/* <MySelect 
-        value={values.form[index].type}
-        name={`form[index].type`}
-        onChange={() => handleTypeChange}
-        itemList={initialRegistrationType}
-        /> */}
             <BlockRegistration
               block={block}
               index={index}
               key={block.id}
               handleChange={handleChange}
               setFieldValue={setFieldValue}
+              handleTypeChange={handleTypeChange}
             />
           </>
         ))}

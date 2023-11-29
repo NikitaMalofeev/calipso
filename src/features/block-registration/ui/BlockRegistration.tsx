@@ -7,37 +7,53 @@ import { Form } from "react-router-dom";
 import backIcon from "../../../shared/icons/backIcons.svg";
 import styles from "./styles.module.scss";
 import { MyButton } from "../../../shared/ui/my-button";
+import { MyToggle } from "../../../shared/ui/my-toggle";
+import {
+  initialRegistrationType,
+  initialRegistrationWay,
+} from "../../../shared/config/initialRegistration";
 
 interface BlockRegistrationProps {
   block: IRegistration;
   index: number;
   setFieldValue: (field: string, value: any) => void;
+  handleTypeChange: (type: string) => void;
   handleChange: React.ChangeEventHandler;
 }
 
 const BlockRegistration: React.FC<BlockRegistrationProps> = ({
   block,
   index,
+  handleTypeChange,
   handleChange,
 }) => {
-
-  // стилизация mui 
+  // стилизация mui
   const StyledStepLabel = styled(StepLabel)({
-    '& .MuiStepLabel-iconContainer': {
-      backgroundColor: 'white', // изменение цвета фона 
-      borderRadius: '16px',
-      color: "white"
+    "& .MuiStepLabel-iconContainer": {
+      // изменение цвета фона
+      borderRadius: "16px",
+      color: "white",
     },
-    '& .MuiStepLabel-label': {
-      color: '#D9D9D9',
-      fontSize: '12px',
+    "& .MuiStepLabel-icon": {
+      backgroundColor: "D9D9D9", // изменение цвета текста
+    },
+    "& .MuiStepLabel-label": {
+      color: "#D9D9D9",
+      fontSize: "12px",
+      marginTop: "8px"
+    },
+    "& .MuiStepper-root": {
+      marginBottom: "100px"
     },
   });
 
-  const [steps, setSteps] = useState(0);
+  const [steps, setSteps] = useState<number>(0);
 
   const handleNext = () => {
-    setSteps((prev) => prev + 1);
+    setSteps((prev) => {
+      // Убедимся, что steps не превышает 3
+      return prev < 3 ? prev + 1 : 3;
+    });
   };
 
   const handleBack = () => {
@@ -45,6 +61,7 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
   };
 
   const stepLabels = [
+    "Тип регистрации",
     "Основная информация",
     "Контактное лицо",
     "подтверждение",
@@ -57,6 +74,8 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
   const dataIndividualContact = Object.values(
     useSelector((state: any) => state.registration.dataIndividual.contact)
   );
+
+  const [activeType, setActiveType] = useState("телефон");
 
   return (
     <div className={styles.block}>
@@ -72,17 +91,36 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
         </button>
       )}
 
-      <Stepper activeStep={steps} alternativeLabel>
-        {stepLabels.map((label, stepIndex) => (
-          <Step key={stepIndex}>
-            <StyledStepLabel>{steps >= stepIndex ? label : ""}</StyledStepLabel>
-          </Step>
-        ))}
-      </Stepper>
+      {steps < 4 && (
+        <Stepper activeStep={steps} alternativeLabel>
+          {stepLabels.map((label, stepIndex) => (
+            <Step key={stepIndex}>
+              <StyledStepLabel>
+                {steps >= stepIndex ? label : ""}
+              </StyledStepLabel>
+            </Step>
+          ))}
+        </Stepper>
+      )}
 
-      {/* рендер инпутов в зависимости от текущего шага*/}
+      {/* рендер инпутов в зависимости от текущего шага(1)*/}
       {steps === 0 && (
+        <>
+          <p className={styles.block__ownership}>Форма собственности</p>
+          <MyToggle
+            initialToggleName={initialRegistrationType}
+            setActiveType={setActiveType}
+          />
+          <p className={styles.block__method}>Метод авторизации</p>
+          <MyToggle
+            initialToggleName={initialRegistrationWay}
+            setActiveType={setActiveType}
+          />
+        </>
+      )}
+      {steps === 1 && (
         <div className={styles.block__container}>
+          {activeType === "телефон" && <div>УРААААААААААААААААА</div>}
           <MyInput
             placeholder={"Почта"}
             value={block.dataIndividual?.main.email}
@@ -103,7 +141,8 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
           />
         </div>
       )}
-      {steps === 1 && (
+      {/* рендер инпутов в зависимости от текущего шага(2)*/}
+      {steps === 2 && (
         <div className={styles.block__container}>
           <MyInput
             placeholder={"Контактное лицо(ФИО)"}
@@ -120,7 +159,8 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
         </div>
       )}
       {/* FIXME достать нормально значение из state, возможно изменить сам стейт, что делать с плейсхолдерами, правильный ли подход вообще так использовать инпуты, в общем жесть */}
-      {steps === 2 && (
+      {/* рендер инпутов в зависимости от текущего шага(3)*/}
+      {steps === 3 && (
         <div className={styles.block__container}>
           <p className={styles.block__title}>Основная информация</p>
           {(dataIndividualMain as string[]).map(
@@ -160,8 +200,15 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
           )}
         </div>
       )}
-
-      <MyButton title="Далее" type="button" handleClick={handleNext} />
+      {/* отображение кнопок в зависимости от степа */}
+      {steps <= 2 && (
+        <MyButton title="Далее" type="button" handleClick={handleNext} />
+      )}
+      {steps === 3 && (
+        <MyButton title="Подтвердить" type="button" handleClick={handleNext} />
+      )}
+      {/* контент регистрации успешной или нет */}
+      {steps === 4 && <div>3</div>}
     </div>
   );
 };
