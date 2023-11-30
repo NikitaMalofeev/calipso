@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
+import brand from "../../image/brandDark.png"
 
 interface IButton {
   isActive?: boolean;
@@ -12,10 +13,10 @@ interface IModalMenu {
 }
 
 const menuitem: IModalMenu[] = [
+  { item: "Акции" },
   { item: "Вакансии" },
-  { item: "Вакансии" },
-  { item: "Вакансии" },
-  { item: "Вакансии" },
+  { item: "Производство" },
+  { item: "Новости" },
 ];
 
 const BurgerButton: React.FC<IButton> = ({ handleClick }) => {
@@ -31,16 +32,17 @@ const BurgerButton: React.FC<IButton> = ({ handleClick }) => {
       ></div>
       {/*Модальное окно в отдельный виджет или фичу*/}
 
-      <div className={`${styles.modal} ${isOpen ? styles.modal__active : ""}`}>
-        <div className={styles.modal__chapter}>
-          <p className={styles.modal__about}>О компании</p>
+      <div className={`${styles.burger} ${isOpen ? styles.burger__active : ""}`}>
+        <div className={styles.burger__chapter}>
+          <img className={styles.burger__icon} src={brand} alt="" />
+          <p className={styles.burger__about}>О компании</p>
           {menuitem.map((item, index) => (
-            <p className={styles.modal__item} key={index}>
+            <p className={styles.burger__item} key={index}>
               {item.item}
             </p>
           ))}
         </div>
-        <div className={styles.modal__shedule}>
+        <div className={styles.burger__shedule}>
           <p>
             <b>Доставка</b> пн-сб: 09:00 — 18:00
           </p>

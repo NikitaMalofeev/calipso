@@ -10,6 +10,7 @@ import { DeliveryModal } from "../../shared/ui/delivery-modal";
 import { initialProducts } from "../../shared/config/initialProducts";
 import { MyModal } from "../../shared/ui/my-modal";
 import { hideMyModal, showMyModal as showMyModalAction } from "../../features/modal-slice/modalSlice";
+import { NewsAndPromotion } from "../../widgets/NewsAndStock";
 
 const MainPage: React.FC = () => {
 
@@ -49,10 +50,12 @@ const MainPage: React.FC = () => {
   const handleShowMyModal = (modalType: string) => {
     dispatch(showMyModalAction(modalType));
     console.log(modalType)
+    document.body.style.overflow = 'hidden' 
   };
 
   const handleClose = () => {
     dispatch(hideMyModal());
+    document.body.style.overflow = 'auto'
   };
 
   const myModalVisible = useSelector((state: any) => state.modal.isVisibleMyModal);
@@ -65,6 +68,7 @@ const MainPage: React.FC = () => {
     {initialOverview.map((item, index) => (
       <PreorderCard key={index} title={item.name} description={item.description}/>
     ))}
+    <NewsAndPromotion />
 
     {/*Модальные окна */}
     <CatalogModal title="Каталог" isShowModal={isVisibleCatalogModal} handleClose={hideCatalogModal} isDepthModal={false} handleShowOrderModal={showOrderModal} allGoods={initialProducts}/>

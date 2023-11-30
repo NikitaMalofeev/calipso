@@ -1,7 +1,8 @@
 .button {
-    border: 1px solid white;
-    border-radius: 8px;
+    border: 2px solid #0060B71A;
+    border-radius: 15px;
     max-width: max-content;
+    background: white;
     height: max-content;
     font-family: $montserratFont;
     &__title {
@@ -10,6 +11,6 @@
         font-size: 16px;
         line-height: 19.5px;
         font-weight: 700;
-        color: white;
+        color: #0060B7CC;
     }
 }

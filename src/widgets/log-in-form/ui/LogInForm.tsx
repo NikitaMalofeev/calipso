@@ -80,7 +80,7 @@ const LogInForm: React.FC = () => {
             <BlockLogIn
               block={block}
               index={index}
-              key={block.id}
+              key={index}
               handleChange={handleChange}
               setFieldValue={setFieldValue}
             />

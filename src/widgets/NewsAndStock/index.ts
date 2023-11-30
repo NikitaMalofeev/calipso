@@ -1,0 +1,1 @@
+export { NewsAndPromotion } from "./NewsAndPromotion"

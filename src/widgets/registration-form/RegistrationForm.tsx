@@ -90,7 +90,7 @@ const RegistrationForm: React.FC = () => {
     console.log(formType);
     console.log("test");
   };
-
+  
   //триггерю из нижнего компонента вызов изменения формы
   useEffect(() => {
     handleTypeChange()
@@ -106,7 +106,7 @@ const RegistrationForm: React.FC = () => {
             <BlockRegistration
               block={block}
               index={index}
-              key={block.id}
+              key={index}
               handleChange={handleChange}
               setFieldValue={setFieldValue}
               handleSubmit={CustomhandleSubmit}

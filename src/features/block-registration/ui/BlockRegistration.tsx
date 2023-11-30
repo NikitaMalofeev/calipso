@@ -114,6 +114,8 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
     useSelector((state: any) => state.registration.dataLegal.contact)
   );
 
+  // useEffect с деструктуризацией после Selectro .registration
+
   // функции для изменения toggle кнопок и отправки их состояний в глобальный стейт
   const handleToggleChangeType = (type: string) => {
     setFieldValue(`form[${index}].type`, type);

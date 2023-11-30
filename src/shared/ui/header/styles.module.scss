@@ -3,18 +3,15 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0px 2px 19.799999237060547px 0px #1A1F241A;
     padding: 51px 20px 29px;
-    background: linear-gradient(176.89deg, rgba(0, 0, 0, 0.8) 2.57%, rgba(0, 0, 0, 0.4) 34.69%, rgba(255, 255, 255, 0) 97.43%);
+    border-radius: 0 0 40px 40px;
+    background-color: white;
 
     &__buttons {
         display: flex;
         flex-direction: row;
         gap: 10px;
     }
-
-    &__icon {
-        padding: 10px;
-        background: #7EB62E;
-        border-radius: 8px;
-    }
+    
 }
