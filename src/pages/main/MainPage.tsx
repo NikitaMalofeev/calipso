@@ -32,6 +32,7 @@ const MainPage: React.FC = () => {
   useEffect(() => {
     const handleScroll = () => {
       document.body.style.overflow = isVisibleCatalogModal ? 'hidden' : 'auto';
+      // перенести логику в открытие и закрытие 
     };
     
     window.addEventListener('scroll', handleScroll);

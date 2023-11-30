@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styles from "./styles.module.scss";
-import { Formik, useFormik } from "formik";
+import { useFormik } from "formik";
 import { BlockRegistration } from "../../features/block-registration";
-import { MyToggle } from "../../shared/ui/my-toggle";
 import { IRegistration } from "../../shared/types";
-import { setRegistrationIndividualData } from "../../features/user-slice/registrationSlice";
+import { setRegistrationIndividualData, setRegisrationLegalData } from "../../features/user-slice/registrationSlice";
+
+interface RegistrationFormProps {
+}
 
 const getEmptyForm = (type: string) => {
   switch (type) {
@@ -14,8 +16,6 @@ const getEmptyForm = (type: string) => {
         id: Date.now(),
         type,
         dataIndividual: {
-          type: "",
-          method: "",
           main: {
             email: "",
             password: "",
@@ -24,36 +24,43 @@ const getEmptyForm = (type: string) => {
           contact: {
             contactPerson: "",
             phone: "",
-          }
-        }
+          },
+        },
       };
     case "юр.лицо":
       return {
         id: Date.now(),
         type,
         dataLegal: {
-          main: {
-            email: "",
-            password: "",
-            repeatPassword: "",
+          entryData: { 
+            email: "", 
+            password: "", 
+            repeatPassword: "" },
+          requisites: {
+            nameLegal: "",
+            BIN: "",
+            bankNumber: "",
+            BIK: "",
+            bank: "",
+            legalAdress: "",
+            factAdress: "",
           },
-          contact: {
-            contactPerson: "",
-            phone: "",
-          }
-        }
+          contact: { 
+            contactPerson: "", 
+            post: "", 
+            phone: "" },
+        },
       };
     default:
       return {
         id: Date.now(),
         type,
-        password: "",
       };
   }
 };
 
 const RegistrationForm: React.FC = () => {
-  const { values, handleChange, handleSubmit, setValues, setFieldValue } =
+  const { values, handleChange, setValues, setFieldValue } =
     useFormik({
       initialValues: {
         form: [getEmptyForm("физ.лицо") as unknown as IRegistration],
@@ -64,17 +71,30 @@ const RegistrationForm: React.FC = () => {
     });
 
   const CustomhandleSubmit = () => {
-    dispatch(setRegistrationIndividualData(values.form[0].dataIndividual))
+    if(formType === "физ.лицо") {
+      dispatch(setRegistrationIndividualData(values.form[0].dataIndividual))
+    } else {
+      dispatch(setRegisrationLegalData(values.form[0].dataLegal))
+    };
     console.log(values.form);
-  }
+  };
 
-  const handleTypeChange = (type: string) => {
+  // логика для изменения типа формы после изменения ее в глобальном стейте для создания формы нужного типа
+
+  const formType = useSelector((state: any) => state.registration.type);
+
+  const handleTypeChange = () => {
     setValues({
-      form: [getEmptyForm(type) as unknown as IRegistration],
+      form: [getEmptyForm(formType) as unknown as IRegistration],
     });
-    console.log(type);
+    console.log(formType);
     console.log("test");
   };
+
+  //триггерю из нижнего компонента вызов изменения формы
+  useEffect(() => {
+    handleTypeChange()
+  }, [formType])
 
   const dispatch = useDispatch();
 

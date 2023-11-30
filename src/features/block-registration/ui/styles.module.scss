@@ -45,4 +45,18 @@
         font-size: 16px;
         font-weight: 500;
     }
+
+    &__display {
+        border-radius: 14px;
+        background: #1f85c5;
+        max-width: 190px;
+        height: 100%;
+        padding: 6px 15px;
+        margin: 0 auto 20px;
+        box-shadow: 0px 0px 11px 0px #d8d8dd;
+        color: white;
+        font-size: 20px;
+        font-family: $montserratFont;
+        text-align: center;
+    }
 }

@@ -1,17 +1,23 @@
 import React, { useState } from "react";
-import { Stepper, Step, StepLabel, styled } from "@mui/material";
-import { IRegistration } from "../../../shared/types";
-import { MyInput } from "../../../shared/ui/my-input";
-import { useSelector } from "react-redux";
-import { Form } from "react-router-dom";
-import backIcon from "../../../shared/icons/backIcons.svg";
 import styles from "./styles.module.scss";
+import backIcon from "../../../shared/icons/backIcons.svg";
+import { MyInput } from "../../../shared/ui/my-input";
 import { MyButton } from "../../../shared/ui/my-button";
 import { MyToggle } from "../../../shared/ui/my-toggle";
+import { Stepper, Step, StepLabel, styled } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 import {
   initialRegistrationType,
   initialRegistrationWay,
+  stepLabelsIndividual,
+  stepLabelsLegal,
+  LegalEntryItems,
 } from "../../../shared/config/initialRegistration";
+import {
+  setRegistrationMethod,
+  setRegistrationType,
+} from "../../../features/user-slice/registrationSlice";
+import { IRegistration } from "../../../shared/types";
 
 interface BlockRegistrationProps {
   block: IRegistration;
@@ -21,6 +27,45 @@ interface BlockRegistrationProps {
   handleSubmit: () => void;
 }
 
+// стилизация mui
+const StyledStepLabel = styled(StepLabel)({
+  "& .MuiStepLabel-iconContainer": {
+    // изменение цвета фона
+    borderRadius: "16px",
+  },
+  "& .MuiStepLabel-icon": {
+    backgroundColor: "D9D9D9", // изменение цвета текста
+  },
+  "& .MuiStepper-root": {
+    marginBottom: "100px",
+  },
+});
+
+const StyledStepper = styled(Stepper)({
+  "&.MuiStepper-root": {
+    minWidth: "420px",
+    maxWidth: "400px", // Задайте желаемую минимальную ширину
+  },
+  ".MuiStepConnector-line": {
+    height: 3,
+    border: 0,
+    minWidth: 36,
+    backgroundColor: "#E0E0E0", // Цвет полосы между неактивными шагами
+    borderRadius: 1,
+  },
+  ".MuiStepConnector-active .MuiStepConnector-line": {
+    backgroundColor: "#D9D9D9", // Цвет полосы между активными шагами
+  },
+  ".MuiStepConnector-completed .MuiStepConnector-line": {
+    backgroundColor: "red", // Цвет полосы между завершенными шагами
+  },
+  ".MuiStepLabel-label": {
+    fontSize: "10px",
+    color: "#38B000",
+    // Цвет текста шага
+  },
+});
+
 const BlockRegistration: React.FC<BlockRegistrationProps> = ({
   block,
   index,
@@ -28,32 +73,14 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
   handleChange,
   handleSubmit,
 }) => {
-  // стилизация mui
-  const StyledStepLabel = styled(StepLabel)({
-    "& .MuiStepLabel-iconContainer": {
-      // изменение цвета фона
-      borderRadius: "16px",
-      color: "white",
-    },
-    "& .MuiStepLabel-icon": {
-      backgroundColor: "D9D9D9", // изменение цвета текста
-    },
-    "& .MuiStepLabel-label": {
-      color: "#D9D9D9",
-      fontSize: "12px",
-      marginTop: "8px",
-    },
-    "& .MuiStepper-root": {
-      marginBottom: "100px",
-    },
-  });
-
   const [steps, setSteps] = useState<number>(0);
+  const dispatch = useDispatch();
+  const [activeType, setActiveType] = useState("");
 
   const handleNext = () => {
     setSteps((prev) => {
       // Убедимся, что steps не превышает 3
-      return prev < 4 ? prev + 1 : 4;
+      return prev < 5 ? prev + 1 : 5;
     });
   };
 
@@ -61,12 +88,10 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
     setSteps((prev) => prev - 1);
   };
 
-  const stepLabels = [
-    "Тип регистрации",
-    "Основная информация",
-    "Контактное лицо",
-    "подтверждение",
-  ];
+  const handleEndRegistration = () => {
+    handleSubmit();
+    handleNext();
+  };
 
   // достаю значения введенные на первых stepах чтобы вывести их в последнем
   const dataIndividualMain = Object.values(
@@ -75,17 +100,39 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
   const dataIndividualContact = Object.values(
     useSelector((state: any) => state.registration.dataIndividual.contact)
   );
+  const dataType = useSelector((state: any) => state.registration.type);
+  const dataMethod = useSelector((state: any) => state.registration.method);
 
-  const [activeType, setActiveType] = useState("телефон");
+  // достаю значения введенные на первых stepах чтобы вывести их в последнем
+  const dataLegalEntry = Object.values(
+    useSelector((state: any) => state.registration.dataLegal.entryData)
+  );
+  const dataLegalRequisites = Object.values(
+    useSelector((state: any) => state.registration.dataLegal.requisites)
+  );
+  const dataLegalContact = Object.values(
+    useSelector((state: any) => state.registration.dataLegal.contact)
+  );
 
-  const handleEndRegistration = () => {
-    handleSubmit()
-    handleNext()
-  }
-
-  const handleToggleChange = (selectedValue: string, field: string) => {
-    setFieldValue(`form[${index}].dataIndividual.${field}`, selectedValue);
+  // функции для изменения toggle кнопок и отправки их состояний в глобальный стейт
+  const handleToggleChangeType = (type: string) => {
+    setFieldValue(`form[${index}].type`, type);
+    setActiveType(type);
+    dispatch(setRegistrationType(type));
   };
+
+  const handleToggleChangeMethod = (method: string) => {
+    setFieldValue(`form[${index}].method`, method);
+    dispatch(setRegistrationMethod(method));
+    setActiveType(method);
+    console.log(method);
+  };
+
+  const formType = useSelector((state: any) => state.registration.type);
+
+  //выбираю какие лейблы отображать в stepper
+  const currentStepLabels =
+    formType === "физ.лицо" ? stepLabelsIndividual : stepLabelsLegal;
 
   // FIXMEFIXME перенести разные типы регистрации в разные компоненты, а то останется франкенштейн
 
@@ -103,19 +150,43 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
         </button>
       )}
 
-      {steps < 4 && (
-        <Stepper activeStep={steps} alternativeLabel>
-          {stepLabels.map((label, stepIndex) => (
+      {steps <= 5 && (
+        <StyledStepper activeStep={steps} alternativeLabel>
+          {currentStepLabels.map((label, stepIndex) => (
             <Step key={stepIndex}>
               <StyledStepLabel>
-                {steps >= stepIndex ? label : ""}
+                {steps >= stepIndex && (
+                  <>
+                    {formType === "физ.лицо" &&
+                      stepIndex === 0 &&
+                      "тип регистрации"}
+                    {formType === "физ.лицо" &&
+                      stepIndex === 1 &&
+                      "данные авторизации"}
+                    {formType === "физ.лицо" &&
+                      stepIndex === 2 &&
+                      "контактная информация"}
+                    {formType === "физ.лицо" &&
+                      stepIndex === 3 &&
+                      "подтверждение"}
+                    {steps >= stepIndex && formType === "юр.лицо" && (
+                      <>
+                        {stepIndex === 0 && "тип регистрации"}
+                        {stepIndex === 1 && "данные авторизации"}
+                        {stepIndex === 2 && "реквизиты"}
+                        {stepIndex === 3 && "контактные лица"}
+                        {stepIndex === 4 && "подтверждение"}
+                      </>
+                    )}
+                  </>
+                )}
               </StyledStepLabel>
             </Step>
           ))}
-        </Stepper>
+        </StyledStepper>
       )}
 
-      {/* рендер инпутов в зависимости от текущего шага(1)*/}
+      {/* рендер инпутов в зависимости от текущего шага(1) и выбранного типа регистрации*/}
       {steps === 0 && (
         <>
           <p className={styles.block__ownership}>Форма собственности</p>
@@ -124,114 +195,298 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
             name={`form[${index}].type`}
             initialToggleName={initialRegistrationType}
             setActiveType={setActiveType}
-            onChange={(selectedValue) => handleToggleChange(selectedValue, "type")}
+            onChange={(selectedValue) => {
+              handleToggleChangeType(selectedValue);
+            }}
           />
           <p className={styles.block__method}>Метод авторизации</p>
           <MyToggle
-            value={block.dataIndividual?.method}
-            name={`form[${index}].dataIndividual.method`}
+            value={block.method}
+            name={`form[${index}].method`}
             initialToggleName={initialRegistrationWay}
             setActiveType={setActiveType}
-            onChange={(selectedValue) => handleToggleChange(selectedValue, "method")}
+            onChange={(selectedValue) =>
+              handleToggleChangeMethod(selectedValue)
+            }
           />
         </>
       )}
       {steps === 1 && (
         <div className={styles.block__container}>
-          {activeType === "телефон" && <div>УРААААААААААААААААА</div>}
-          <MyInput
-            placeholder={"Почта"}
-            value={block.dataIndividual?.main.email}
-            name={`form[${index}].dataIndividual.main.email`}
-            onChange={handleChange}
-          />
-          <MyInput
-            placeholder={"Пароль"}
-            value={block.dataIndividual?.main.password}
-            name={`form[${index}].dataIndividual.main.password`}
-            onChange={handleChange}
-          />
-          <MyInput
-            placeholder={"Повтор пароля"}
-            value={block.dataIndividual?.main.repeatPassword}
-            name={`form[${index}].dataIndividual.main.repeatPassword`}
-            onChange={handleChange}
-          />
+          {formType === "юр.лицо" ? (
+            <>
+              <MyInput
+                placeholder={"Почта"}
+                value={block.dataLegal?.entryData.email}
+                name={`form[${index}].dataLegal.entryData.email`}
+                onChange={handleChange}
+              />
+              <MyInput
+                placeholder={"Пароль"}
+                value={block.dataLegal?.entryData.password}
+                name={`form[${index}].dataLegal.entryData.password`}
+                onChange={handleChange}
+              />
+              <MyInput
+                placeholder={"Повтор пароля"}
+                value={block.dataLegal?.entryData.repeatPassword}
+                name={`form[${index}].dataLegal.entryData.repeatPassword`}
+                onChange={handleChange}
+              />
+            </>
+          ) : (
+            <>
+              <MyInput
+                placeholder={"Почта"}
+                value={block.dataIndividual?.main.email}
+                name={`form[${index}].dataIndividual.main.email`}
+                onChange={handleChange}
+              />
+              <MyInput
+                placeholder={"Пароль"}
+                value={block.dataIndividual?.main.password}
+                name={`form[${index}].dataIndividual.main.password`}
+                onChange={handleChange}
+              />
+              <MyInput
+                placeholder={"Повтор пароля"}
+                value={block.dataIndividual?.main.repeatPassword}
+                name={`form[${index}].dataIndividual.main.repeatPassword`}
+                onChange={handleChange}
+              />
+            </>
+          )}
         </div>
       )}
-      {/* рендер инпутов в зависимости от текущего шага(2)*/}
+      {/* рендер инпутов в зависимости от текущего шага(2) и выбранного типа регистрации*/}
       {steps === 2 && (
         <div className={styles.block__container}>
-          <MyInput
-            placeholder={"Контактное лицо(ФИО)"}
-            value={block.dataIndividual?.contact.contactPerson}
-            name={`form[${index}].dataIndividual.contact.contactPerson`}
-            onChange={handleChange}
-          />
-          <MyInput
-            placeholder={"Рабочий номер телефона"}
-            value={block.dataIndividual?.contact.phone}
-            name={`form[${index}].dataIndividual.contact.phone`}
-            onChange={handleChange}
-          />
+          {formType === "юр.лицо" ? (
+            <>
+              <MyInput
+                placeholder={"Наименование юр.лица"}
+                value={block.dataLegal?.requisites?.nameLegal}
+                name={`form[${index}].dataLegal.requisites.nameLegal`}
+                onChange={handleChange}
+              />
+              <MyInput
+                placeholder={"БИН"}
+                value={block.dataLegal?.requisites?.BIN}
+                name={`form[${index}].dataLegal.requisites.BIN`}
+                onChange={handleChange}
+              />
+              <MyInput
+                placeholder={"Номер банковского счета"}
+                value={block.dataLegal?.requisites?.bankNumber}
+                name={`form[${index}].dataLegal.requisites.bankNumber`}
+                onChange={handleChange}
+              />
+              <MyInput
+                placeholder={"Бик"}
+                value={block.dataLegal?.requisites?.BIK}
+                name={`form[${index}].dataLegal.requisites.BIK`}
+                onChange={handleChange}
+              />
+              <MyInput
+                placeholder={"Банк"}
+                value={block.dataLegal?.requisites?.bank}
+                name={`form[${index}].dataLegal.requisites.bank`}
+                onChange={handleChange}
+              />
+              <MyInput
+                placeholder={"Юридический адрес"}
+                value={block.dataLegal?.requisites?.legalAdress}
+                name={`form[${index}].dataLegal.requisites.legalAdress`}
+                onChange={handleChange}
+              />
+              <MyInput
+                placeholder={"Фактический адрес"}
+                value={block.dataLegal?.requisites?.factAdress}
+                name={`form[${index}].dataLegal.requisites.factAdress`}
+                onChange={handleChange}
+              />
+            </>
+          ) : (
+            <>
+              <MyInput
+                placeholder={"Контактное лицо(ФИО)"}
+                value={block.dataIndividual?.contact?.contactPerson}
+                name={`form[${index}].dataIndividual.contact.contactPerson`}
+                onChange={handleChange}
+              />
+              <MyInput
+                placeholder={"Рабочий номер телефона"}
+                value={block.dataIndividual?.contact?.phone}
+                name={`form[${index}].dataIndividual.contact.phone`}
+                onChange={handleChange}
+              />
+            </>
+          )}
         </div>
       )}
       {/* FIXME достать нормально значение из state, возможно изменить сам стейт, что делать с плейсхолдерами, правильный ли подход вообще так использовать инпуты, в общем жесть */}
-      {/* рендер инпутов в зависимости от текущего шага(3)*/}
+      {/* рендер инпутов в зависимости от текущего шага(3) и выбранного типа регистрации*/}
       {steps === 3 && (
         <div className={styles.block__container}>
-          <p className={styles.block__title}>Основная информация</p>
-          {(dataIndividualMain as string[]).map(
-            (item: string, index: number) => (
-              <>
-                {index === 3 ? (
-                  ""
-                ) : (
+          {formType === "юр.лицо" ? (
+            <>
+              <MyInput
+                placeholder={"Контактное лицо(ФИО)"}
+                value={block.dataLegal?.contact.contactPerson}
+                name={`form[${index}].dataLegal.contact.contactPerson`}
+                onChange={handleChange}
+              />
+              <MyInput
+                placeholder={"Должность"}
+                value={block.dataLegal?.contact.post}
+                name={`form[${index}].dataLegal.contact.post`}
+                onChange={handleChange}
+              />
+              <MyInput
+                placeholder={"Номер телефона"}
+                value={block.dataLegal?.contact.phone}
+                name={`form[${index}].dataLegal.contact.phone`}
+                onChange={handleChange}
+              />
+            </>
+          ) : (
+            <>
+              <p className={styles.block__title}>Основная информация</p>
+              <div className={styles.block__display}>{dataType}</div>
+              <div className={styles.block__display}>{dataMethod}</div>
+              {(dataIndividualMain as string[]).map(
+                (item: string, index: number) => (
+                  <>
+                    {index === 3 ? (
+                      ""
+                    ) : (
+                      <>
+                        <MyInput
+                          value={item}
+                          name=""
+                          onChange={() => {}}
+                          placeholder={
+                            ["Почта", "Пароль", "Повтор пароля"][index]
+                          }
+                          key={index}
+                        />
+                      </>
+                    )}
+                  </>
+                )
+              )}
+              <p className={styles.block__title}>Контактная информация</p>
+              {(dataIndividualContact as string[]).map(
+                (item: string, index: number) => (
                   <>
                     <MyInput
                       value={item}
                       name=""
                       onChange={() => {}}
-                      placeholder={["Почта", "Пароль", "Повтор пароля"][index]}
+                      placeholder={
+                        ["Контактное лицо(ФИО)", "Рабочий номер телефона"][
+                          index
+                        ]
+                      }
                       key={index}
                     />
                   </>
-                )}
-              </>
-            )
-          )}
-          <p className={styles.block__title}>Контактная информация</p>
-          {(dataIndividualContact as string[]).map(
-            (item: string, index: number) => (
-              <>
-                <MyInput
-                  value={item}
-                  name=""
-                  onChange={() => {}}
-                  placeholder={
-                    ["Контактное лицо(ФИО)", "Рабочий номер телефона"][index]
-                  }
-                  key={index}
-                />
-              </>
-            )
+                )
+              )}
+            </>
           )}
         </div>
       )}
+      {steps === 4 && (
+        <div className={styles.block__container}>
+          {formType === "юр.лицо" ? (
+            <div>
+              <p className={styles.block__title}>Основная информация</p>
+              <div className={styles.block__display}>{dataType}</div>
+              <div className={styles.block__display}>{dataMethod}</div>
+              {(dataLegalEntry as string[]).map(
+                (item: string, index: number) => (
+                  <>
+                    <MyInput
+                      value={item}
+                      name=""
+                      onChange={() => {}}
+                      placeholder={["Почта", "Пароль"][index]}
+                      key={index}
+                    />
+                  </>
+                )
+              )}
+              <p className={styles.block__title}>Реквизиты</p>
+              {(dataLegalRequisites as string[]).map(
+                (item: string, index: number) => (
+                  <>
+                    <MyInput
+                      value={item}
+                      name=""
+                      onChange={() => {}}
+                      placeholder={[`${item}`][index]}
+                      key={index}
+                    />
+                  </>
+                )
+              )}
+              <p className={styles.block__title}>Контактное лицо</p>
+              {(dataLegalContact as string[]).map(
+                (item: string, index: number) => (
+                  <>
+                    <MyInput
+                      value={item}
+                      name=""
+                      onChange={() => {}}
+                      placeholder={[`${item}`][index]}
+                      key={index}
+                    />
+                  </>
+                )
+              )}
+            </div>
+          ) : (
+            <div className={styles.registration__succes}>
+              Регистрация успешна
+            </div>
+          )}
+        </div>
+      )}
+      {steps === 5 && <div>Регистрация успешна</div>}
       {/* отображение кнопок в зависимости от степа */}
       {steps <= 1 && (
         <MyButton title="Далее" type="button" handleClick={handleNext} />
       )}
-      {steps === 2 && (
-        <MyButton title="Далее" type="button" handleClick={handleEndRegistration} />
+      {steps === 2 &&(
+        <MyButton
+          title="Далее"
+          type="button"
+          handleClick={handleEndRegistration}
+        />
       )}
-      {steps === 3 && (
-        <MyButton title="Подтвердить" type="button" handleClick={handleEndRegistration} />
+      {steps === 3 && formType === "физ.лицо" && (
+        <MyButton
+          title="Подтвердить"
+          type="button"
+          handleClick={handleEndRegistration}
+        />
+      )}
+      {steps === 3 && formType === "юр.лицо" && (
+        <MyButton
+          title="Далее"
+          type="button"
+          handleClick={handleEndRegistration}
+        />
+      )}
+      {steps === 4 && formType === "юр.лицо" && (
+        <MyButton
+          title="Подтвердить"
+          type="button"
+          handleClick={handleEndRegistration}
+        />
       )}
       {/* контент регистрации успешной или нет */}
-      {steps === 4 && (
-        <div>Регистрация успешна</div>
-      )}
     </div>
   );
 };

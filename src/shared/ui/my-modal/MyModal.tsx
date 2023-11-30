@@ -52,6 +52,9 @@ const MyModal: React.FC<IMyModal> = ({
   useEffect(() => {
     const checkModalSize = () => {
       switch (modalType) {
+        case "Вход":
+          setIsFullHeightModal(true);
+          break;
         case "Регистрация":
           setIsFullHeightModal(true);
           break;
