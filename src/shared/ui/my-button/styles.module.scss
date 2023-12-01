@@ -5,7 +5,9 @@
     padding: 0 85px;
     max-width: max-content;
     height: max-content;
-    background-color: $mainblue;
+    background-color: #F9F9F9;
+    box-shadow: 0px 0px 10px 0px #0060B7;
+    transition: background-color 0.3s, box-shadow 0.3s;
     font-family: $nunitoFont;
     &__title {
         padding: 5px 16px;
@@ -13,7 +15,17 @@
         font-size: 16px;
         line-height: 19.5px;
         letter-spacing: 0.1px;
-        font-weight: 700;
-        color: white;
+        font-weight: 600;
+        color:#0060B7;
     }
+    &__active {
+        background-color: #0060B7;
+        box-shadow: none;
+       
+    
+        .button__title {
+          color: white; // when button is active
+        }
+      }
+      
 }

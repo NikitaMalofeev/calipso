@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Header } from "../../shared/ui/header";
 import { BrandCard } from "../../widgets/BrandCard/BrandCard";
@@ -9,17 +9,20 @@ import { OrderModal } from "../../shared/ui/order-modal/OrderModal";
 import { DeliveryModal } from "../../shared/ui/delivery-modal";
 import { initialProducts } from "../../shared/config/initialProducts";
 import { MyModal } from "../../shared/ui/my-modal";
-import { hideMyModal, showMyModal as showMyModalAction } from "../../features/modal-slice/modalSlice";
+import {
+  hideMyModal,
+  showMyModal as showMyModalAction,
+} from "../../features/modal-slice/modalSlice";
 import { NewsAndPromotion } from "../../widgets/NewsAndStock";
+import { Footer } from "../../shared/ui/footer";
 
 const MainPage: React.FC = () => {
-
   const [isVisibleCatalogModal, setIsVisibleCatalogModal] = useState(false);
   const showCatalogModal = () => {
-    setIsVisibleCatalogModal(true)
+    setIsVisibleCatalogModal(true);
   };
   const hideCatalogModal = () => setIsVisibleCatalogModal(false);
-  
+
   const [isVisibleOrderModal, setIsVisibleOrderModal] = useState(false);
   const showOrderModal = () => setIsVisibleOrderModal(true);
   const hideOrderModal = () => setIsVisibleOrderModal(false);
@@ -27,20 +30,18 @@ const MainPage: React.FC = () => {
   const [isVisibleDeliveryModal, setIsVisibleDeliveryModal] = useState(false);
   const showDeliveryModal = () => setIsVisibleDeliveryModal(true);
   const hideDeliveryModal = () => setIsVisibleDeliveryModal(false);
-  
 
   //FIXME переработать обработчик(отмены скрола при открытии модального окна) на что-то более локаничное и по хорошему перенести со страницы
   useEffect(() => {
     const handleScroll = () => {
-      document.body.style.overflow = isVisibleCatalogModal ? 'hidden' : 'auto';
-      // перенести логику в открытие и закрытие 
+      document.body.style.overflow = isVisibleCatalogModal ? "hidden" : "auto";
+      // перенести логику в открытие и закрытие
     };
-    
-    window.addEventListener('scroll', handleScroll);
+
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
-    
   }, [isVisibleCatalogModal, isVisibleDeliveryModal, isVisibleOrderModal]);
 
   // перенести по такому же принципу оставшиеся модальные окна
@@ -49,33 +50,70 @@ const MainPage: React.FC = () => {
 
   const handleShowMyModal = (modalType: string) => {
     dispatch(showMyModalAction(modalType));
-    console.log(modalType)
-    document.body.style.overflow = 'hidden' 
+    console.log(modalType);
+    document.body.style.overflow = "hidden";
   };
 
   const handleClose = () => {
     dispatch(hideMyModal());
-    document.body.style.overflow = 'auto'
+    document.body.style.overflow = "auto";
   };
 
-  const myModalVisible = useSelector((state: any) => state.modal.isVisibleMyModal);
+  const myModalVisible = useSelector(
+    (state: any) => state.modal.isVisibleMyModal
+  );
   const myModalType = useSelector((state: any) => state.modal.modalType);
 
   return (
     <>
-    <Header handleShowCatalogModal={showCatalogModal} handleShowLogInModal={() => handleShowMyModal("Вход")} handleShowContactsModal={() => {handleShowMyModal("Контакты")}}/>
-    <BrandCard/>
-    {initialOverview.map((item, index) => (
-      <PreorderCard key={index} title={item.name} description={item.description}/>
-    ))}
-    <NewsAndPromotion />
+      <Header
+        handleShowCatalogModal={showCatalogModal}
+        handleShowLogInModal={() => handleShowMyModal("Вход")}
+        handleShowContactsModal={() => {
+          handleShowMyModal("Контакты");
+        }}
+      />
+      <BrandCard />
+      {initialOverview.map((item, index) => (
+        <PreorderCard
+          key={index}
+          title={item.name}
+          description={item.description}
+        />
+      ))}
+      <NewsAndPromotion />
 
-    {/*Модальные окна */}
-    <CatalogModal title="Каталог" isShowModal={isVisibleCatalogModal} handleClose={hideCatalogModal} isDepthModal={false} handleShowOrderModal={showOrderModal} allGoods={initialProducts}/>
-    <OrderModal title="Заказ" isShowModal={isVisibleOrderModal} handleClose={hideOrderModal} isDepthModal={true} handleShowDeliveryModal={showDeliveryModal} allGoods={initialProducts}/>
-    <DeliveryModal title="Доставка" handleClose={hideDeliveryModal} isDepthModal={true} isShowModal={isVisibleDeliveryModal} allGoods={initialProducts}/>
+      {/*Модальные окна */}
+      <CatalogModal
+        title="Каталог"
+        isShowModal={isVisibleCatalogModal}
+        handleClose={hideCatalogModal}
+        isDepthModal={false}
+        handleShowOrderModal={showOrderModal}
+        allGoods={initialProducts}
+      />
+      <OrderModal
+        title="Заказ"
+        isShowModal={isVisibleOrderModal}
+        handleClose={hideOrderModal}
+        isDepthModal={true}
+        handleShowDeliveryModal={showDeliveryModal}
+        allGoods={initialProducts}
+      />
+      <DeliveryModal
+        title="Доставка"
+        handleClose={hideDeliveryModal}
+        isDepthModal={true}
+        isShowModal={isVisibleDeliveryModal}
+        allGoods={initialProducts}
+      />
 
-    <MyModal isShowModal={myModalVisible} handleClose={handleClose} title={myModalType} />
+      <MyModal
+        isShowModal={myModalVisible}
+        handleClose={handleClose}
+        title={myModalType}
+      />
+      <Footer />
     </>
   );
 };
