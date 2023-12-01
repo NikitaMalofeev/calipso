@@ -4,12 +4,10 @@ import styles from "./styles.module.scss";
 import { Formik, useFormik } from "formik";
 import { ILogIn } from "../../../shared/types";
 import { BlockLogIn } from "../../../features/block-log-in";
-import { initialLogInType } from "../../../shared/config/initialLogIn";
-import { RadioButtonsGroup } from "../../../shared/ui/my-radio-buttons";
 import { showMyModal as showMyModalAction } from "../../../features/modal-slice/modalSlice";
 import { MyToggle } from "../../../shared/ui/my-toggle";
 import {  initialRegistrationWay } from "../../../shared/config/initialRegistration";
-import { setRegistrationMethod } from "../../../features/user-slice/registrationSlice";
+
 
 const getEmptyForm = (type: string) => {
   switch (type) {
