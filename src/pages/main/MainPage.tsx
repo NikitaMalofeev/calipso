@@ -65,10 +65,10 @@ const MainPage: React.FC = () => {
     <>
     <Header handleShowCatalogModal={showCatalogModal} handleShowLogInModal={() => handleShowMyModal("Вход")} handleShowContactsModal={() => {handleShowMyModal("Контакты")}}/>
     <BrandCard/>
+    <NewsAndPromotion />
     {initialOverview.map((item, index) => (
       <PreorderCard key={index} title={item.name} description={item.description}/>
     ))}
-    <NewsAndPromotion />
 
     {/*Модальные окна */}
     <CatalogModal title="Каталог" isShowModal={isVisibleCatalogModal} handleClose={hideCatalogModal} isDepthModal={false} handleShowOrderModal={showOrderModal} allGoods={initialProducts}/>
