@@ -13,6 +13,8 @@ interface IModalMenu {
 }
 
 const menuitem: IModalMenu[] = [
+  { item: "Главная" },
+  { item: "О компании" },
   { item: "Акции" },
   { item: "Вакансии" },
   { item: "Производство" },
@@ -21,8 +23,10 @@ const menuitem: IModalMenu[] = [
 
 const BurgerButton: React.FC<IButton> = ({ handleClick }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [handleMenuItemIndex, setHandleMenuItemIndex] = useState(0)
   const test = () => {
-    isOpen ? setIsOpen(false) : setIsOpen(true);
+    isOpen ? setIsOpen(false) : setIsOpen(true) ;
+    isOpen ? document.body.style.overflow = 'auto'  : document.body.style.overflow = 'hidden'  ;
   };
 
   return (
@@ -35,9 +39,8 @@ const BurgerButton: React.FC<IButton> = ({ handleClick }) => {
       <div className={`${styles.burger} ${isOpen ? styles.burger__active : ""}`}>
         <div className={styles.burger__chapter}>
           <img className={styles.burger__icon} src={brand} alt="" />
-          <p className={styles.burger__about}>О компании</p>
           {menuitem.map((item, index) => (
-            <p className={styles.burger__item} key={index}>
+            <p className={`${handleMenuItemIndex === index ? styles.item__active : styles.burger__item}`} key={index} onClick={() => setHandleMenuItemIndex(index)}>
               {item.item}
             </p>
           ))}

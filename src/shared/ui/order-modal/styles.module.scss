@@ -33,10 +33,11 @@
 
     &__close {
         position: absolute;
+        top: 26px;
         right: 30px;
-        width: 16px;
-        height: 16px;
-        background-color: white;
+        width: 25px;
+        height: 25px;
+        background: none;
     }
 
     &__menu {
