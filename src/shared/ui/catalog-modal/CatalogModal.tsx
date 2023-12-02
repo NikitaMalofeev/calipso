@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import styles from "./styles.module.scss";
 import closeIcon from "../../icons/close.svg";
 import { CatalogButtonMenu } from "../../../features/catalog-button-menu";
@@ -6,6 +6,7 @@ import { ProductCard } from "../../../widgets/product-card";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart, removeFromCart } from "../../../features/cart-slice/cartSlice";
 import { IGood } from "../../types/cartTypes";
+import { ProductPopup } from "../product-popup";
 
 interface IModal {
   title: string;
@@ -26,6 +27,8 @@ const CatalogModal: React.FC<IModal> = ({
   handleClose,
   handleBack,
 }) => {
+  const [showPopup, setShowPopup] = useState(false)
+
   //FIXME убрать any типизацию
   const { cart } = useSelector((state: any) => state.allCart);
   const dispatch = useDispatch();
@@ -70,6 +73,7 @@ const CatalogModal: React.FC<IModal> = ({
                 size={item.size}
                 handleAdd={() => dispatch(addToCart(item.id))}
                 handleRemove={() => dispatch(removeFromCart(item.id))}
+                handleShowPopup={() => setShowPopup(true)}
               />
             ))}
             <button
@@ -87,6 +91,8 @@ const CatalogModal: React.FC<IModal> = ({
           </div>
         </div>
       </div>
+
+      <ProductPopup name="Вода Calipso негазир." isShowPopup={showPopup} handleClose={() => {setShowPopup(false)}}/>
     </React.Fragment>
   );
 };

@@ -12,7 +12,7 @@ const ContactsModalContent: React.FC = () => {
   return (
     <div className={styles.contact}>
       <div className={styles.contact__address}>
-        <span className={styles.contact__title}>Наш адрес</span>
+        <span className={styles.contact__title}>Наш адрес:</span><br />
         <span className={styles.contact__description}>г. Алматы, ул. Наманганская, 43</span>
         <div className={styles.contact__flex}>
           <div className={styles.contact__circle}></div>
@@ -20,7 +20,7 @@ const ContactsModalContent: React.FC = () => {
           <div className={styles.contact__circle}></div>
         </div>
       </div>
-      <span className={styles.contact__title}>Доставка осуществляется в рабочее время</span>
+      <span className={styles.contact__title} style={{fontSize: "14px"}}>Доставка осуществляется в рабочее время</span>
       <span className={styles.contact__title}>График работы:</span>
       <span className={styles.contact__description}>пн-сб: 09:00 — 18:00</span>
       <span className={styles.contact__title}>Наши соц.сети:</span>

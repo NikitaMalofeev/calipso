@@ -14,6 +14,7 @@ interface IProductCard {
   isOrderCard?: boolean;
   handleAdd: () => void;
   handleRemove: () => void;
+  handleShowPopup?: () => void;
 }
 
 const ProductCard: React.FC<IProductCard> = ({
@@ -25,14 +26,15 @@ const ProductCard: React.FC<IProductCard> = ({
   productId,
   isOrderCard,
   handleAdd,
-  handleRemove
+  handleRemove,
+  handleShowPopup
 }) => {
   
   return (
     <div className={`${isOrderCard ? styles.card__order : styles.card}`}>
       <div className={styles.card__preview}>
         <img src={favoriteIcon} className={styles.card__favorite} alt="" />
-        <img src={productImage} className={styles.card__product} alt="" />
+        <img src={productImage} className={styles.card__product} alt="" onClick={handleShowPopup}/>
       </div>
       <img src={detailsIcon} className={styles.card__details} alt="" />
       <div className={styles.description}>

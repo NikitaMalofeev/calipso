@@ -37,11 +37,9 @@ const MyToggle: React.FC<ToggleProps> = ({
             onClick={() => handleChangeType(type.name, index)}
             type="button"
           >
-            {activeIndex !== index ? (
-              <img src={type.icon} alt="" className={styles.toggle__icon}/>
-            ) : (
-              <img src={type.iconActive} alt="" className={styles.toggle__icon}/>
-            )}
+              <div className={activeIndex == index ? styles.toggle__icon : styles.toggle__icon_active}>
+              <img src={type.icon} alt="" />
+              </div>
           </button>
           <p className={styles.toggle__description}>{type.name}</p>
         </div>

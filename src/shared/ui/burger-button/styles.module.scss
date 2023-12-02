@@ -1,10 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600;700;900&display=swap");
 
-.button * {
-    :active {
-        background: none;
-    }
-}
 
 .button {
     max-width: 28px;
@@ -12,9 +7,6 @@
     height: 18px;
     user-select: none;
     cursor: default;
-    &:active {
-        background: none;
-    }
     &__item {
         width: 28px;
         height: 2.25px;
@@ -25,7 +17,10 @@
         transition: all 0.4s ease-in-out;
         user-select: none;
         cursor: default;
-        &:active {
+        &:hover {
+            background: none;
+        }
+        &:focus {
             background: none;
         }
         &::before {
