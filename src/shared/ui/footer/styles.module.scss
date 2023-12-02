@@ -1,0 +1,59 @@
+.footer {
+    text-align: center;
+    box-shadow: 0px -4px 10px 0px rgba(0, 0, 0, 0.25);
+    font-family: $montserratFont;
+    font-size: 18px;
+    font-weight : 300;
+    color: #0060B7;
+    padding-bottom: 30px;
+   span {
+    color: black;
+   }
+    
+    &__logo {
+        margin-top: 20px;
+    }
+    &__address {
+        p:first-child{
+            font-weight: 600;
+        }
+      text-align: left;
+      margin : 40px 0 20px 50px;
+
+    }
+    &__addressLinks {
+        display: inline-flex;
+        gap: 40px;
+        justify-content: center;
+        margin-bottom: 50px;
+    }
+   
+    &__socialMedia {
+        display: inline-flex;
+        align-items: center;;
+        gap: 40px;
+        justify-content: center;
+        margin-bottom: 30px;
+        
+    }
+    &__contacts {
+        text-align: start;
+        margin-left: 50px;
+    }
+    &__contactsEmail{ 
+        align-items: center;
+    }
+    
+    &__contactsEmailLi {
+       display: inline-flex;
+     align-items: center;
+     margin-bottom: 30px;
+     gap: 15px;
+    }
+    &__copyright{
+        
+        font-size: 14px;
+        opacity: 0.9;
+        
+    }
+}

@@ -1,22 +1,37 @@
-import React from "react";
-import style from './styles.module.scss'
+import React, { useState } from "react";
+import style from "./styles.module.scss";
 
 interface IButton {
   title: string;
   type?: "button" | "submit" | "reset" | undefined;
   onSubmit?: () => void;
   handleClick?: () => void;
+  isActive?: boolean;
 }
 
-const  MyButton: React.FC<IButton> = ({
+const MyButton: React.FC<IButton> = ({
   title,
   type,
   onSubmit,
-  handleClick
+  handleClick,
 }) => {
+  const [isActive, setIsActive] = useState(false);
+
+  const handleButtonClick = () => {
+    setIsActive(!isActive);
+    if (handleClick) {
+      handleClick();
+    }
+  };
+
   return (
-    <button className={style.button} onClick={handleClick} onSubmit={onSubmit} type={type}>
-        <p className={style.button__title}>{title}</p>
+    <button
+      className={`${style.button} ${isActive ? style.button__active : ""}`}
+      onClick={handleButtonClick}
+      onSubmit={onSubmit}
+      type={type}
+    >
+      <p className={style.button__title}>{title}</p>
     </button>
   );
 };

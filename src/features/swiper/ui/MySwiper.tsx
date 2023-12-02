@@ -1,14 +1,14 @@
-import React, { useState, useRef } from 'react';
-import Slider from 'react-slick';
-import styles from './styles.module.scss';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import { sliderItems } from '../../../shared/config/initialProductSlider';
+import React, { useState, useRef } from "react";
+import Slider from "react-slick";
+import styles from "./styles.module.scss";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { sliderItems } from "../../../shared/config/initialProductSlider";
 
 const MySwiper = () => {
   // состояние для отслеживания индекса слайдера для изменения стилей текущего
   const [slideIndex, setSlideIndex] = useState(0);
-  // реф для контроля слайдера точками  
+  // реф для контроля слайдера точками
   const sliderRef = useRef<Slider>(null);
 
   const settings = {
@@ -16,7 +16,7 @@ const MySwiper = () => {
     speed: 250,
     slidesToShow: 1,
     centerMode: true,
-    centerPadding: '0',
+    centerPadding: "0",
     focusOnSelect: true,
     swipeToSlide: true,
     arrows: false,
@@ -29,18 +29,20 @@ const MySwiper = () => {
         breakpoint: 768,
         settings: {
           slidesToShow: 1,
-          centerPadding: '10%',
+          centerPadding: "10%",
         },
       },
     ],
     appendDots: (dots: React.ReactNode) => (
       <div>
-        <ul style={{ padding: '0', margin: '0' }}>
+        <ul style={{ padding: "0", margin: "0" }}>
           {sliderItems.map((item, index) => (
             <li
               style={{width: "10px"}}
               key={index}
-              className={`${slideIndex === index ? styles.dots__active : styles.slider__dots}`}
+              className={`${
+                slideIndex === index ? styles.dots__active : styles.slider__dots
+              }`}
               onClick={() => {
                 setSlideIndex(index);
                 if (sliderRef.current) {
@@ -59,7 +61,13 @@ const MySwiper = () => {
       <Slider {...settings} ref={sliderRef}>
         {sliderItems.map((item, index) => (
           <div className={styles.slide__container} key={index}>
-            <div className={index === slideIndex ? `${styles.slide} ${styles.slide__active}` : styles.slide}>
+            <div
+              className={
+                index === slideIndex
+                  ? `${styles.slide} ${styles.slide__active}`
+                  : styles.slide
+              }
+            >
               {/* Содержимое для слайда */}
               <div className={styles.slide__info}>
                 <p className={styles.slide__date}>{item.date}</p>
