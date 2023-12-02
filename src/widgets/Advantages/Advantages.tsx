@@ -33,7 +33,7 @@ const AdvantageCard: React.FC<IAdvantageCard> = ({
 const advantagesOverview = [
   {
     id: 0,
-    title: "Первые в казахстане",
+    title: "Первые в Казахстане",
     description: "",
     icon: `${trophy}`,
   },
