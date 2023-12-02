@@ -14,7 +14,7 @@
     z-index: 10;
 
     &__content {
-        position: fixed;
+        
     }
 
     &__stub {
@@ -33,6 +33,10 @@
         width: 25px;
         height: 25px;
         background-color: white;
+
+        &:hover {
+            background: none;
+        }
     }
 
     &__title {

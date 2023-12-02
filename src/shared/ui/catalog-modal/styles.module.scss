@@ -74,9 +74,10 @@
 
     &__cart {
         position: fixed;
-        z-index: 10;
+        z-index: 1;
         top: 86%;
         opacity: 0;
+        left: 100vw;
         display: flex;
         justify-content: center;
         max-width: 300px;
@@ -90,13 +91,15 @@
         font-size: 18px;
         font-weight: 500;
 
-        @include adaptiv-value('left', 560, 1, 1)
+       
     }
 }
 
 .cart__active {
     opacity: 1;
-    transition: all 0.4s ease-in-out;
+    transition: opacity 0.4s ease-in-out;
+
+    @include adaptiv-value('left', 560, 1, 1)
 }
 
 .active {

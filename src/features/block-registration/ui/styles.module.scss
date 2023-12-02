@@ -3,6 +3,10 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
+    padding: 0 10px;
+    &:nth-child(2) {
+        background-color: black;
+    }
     
     &__container {
         max-width: 90%;
@@ -13,7 +17,7 @@
 
     &__back {
         position: absolute;
-        top: 25px;
+        top: 30px;
         left: 30px;
         background: none;
     }
@@ -59,4 +63,8 @@
         font-family: $montserratFont;
         text-align: center;
     }
+}
+
+.stub {
+    height: 80px;
 }

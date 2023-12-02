@@ -1,9 +1,10 @@
 .slider {
     padding-bottom: 50px;
+    height: 100%;
 }
 
 .slide__container {
-    height: inherit;
+    height: 450px;
     background-color: white;
     padding: 20px 10px;
     margin: auto 0;
@@ -16,7 +17,7 @@
     transition: all 0.3s ease-in-out;
     position: relative;
     top: 45px;
-    box-shadow: 0px 0px 20px 0px #BCBCF240;
+    box-shadow: 0px 0px 20px 0px #bcbcf240;
     border-radius: 30px;
 
     &__info {
@@ -28,7 +29,7 @@
     }
 
     &__date {
-        color: #1F85C5;
+        color: #1f85c5;
         font-weight: 500;
         line-height: 17px;
         font-family: $montserratFont;
@@ -37,7 +38,7 @@
     }
     &__title {
         font-family: $montserratFont;
-        color: #0F5FA6;
+        color: #0f5fa6;
         font-size: 26px;
         font-weight: 900;
         max-height: max-content;
@@ -46,7 +47,7 @@
         font-family: $montserratFont;
         font-size: 16px;
         line-height: 20px;
-        color: #5A9DC8;
+        color: #5a9dc8;
     }
 }
 
@@ -55,8 +56,8 @@
     width: 100%;
     height: 400px;
     top: 0;
-    box-shadow: 0px 0px 20px 0px #BCBCF240;
-    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 0px 20px 0px #bcbcf240;
+    
 }
 
 .slider__dots {
@@ -64,17 +65,47 @@
     width: 14px;
     height: 14px;
     border-radius: 50%;
+    position: fixed;
 
     &:nth-child(1) {
-        background-color: #0F88C8;
+        background-color: #0f88c8;
     }
     &:nth-child(2) {
-        background-color: #FBDB26;
+        background-color: #fbdb26;
     }
     &:nth-child(3) {
-        background-color: #C32A28;
+        background-color: #c32a28;
     }
     &:nth-child(4) {
-        background-color: #699C32;
+        background-color: #699c32;
+    }
+}
+
+.dots__active {
+    border-radius: 50%;
+    transition: all 0.2s ease-in;
+    &:nth-child(1) {
+        width: 25px;
+        height: 25px;
+        top: 2.5px;
+        background-color: #0f88c8;
+    }
+    &:nth-child(2) {
+        width: 25px;
+        height: 25px;
+        top: 2.5px;
+        background-color: #fbdb26;
+    }
+    &:nth-child(3) {
+        width: 25px;
+        height: 25px;
+        top: 2.5px;
+        background-color: #c32a28;
+    }
+    &:nth-child(4) {
+        width: 25px;
+        height: 25px;
+        top: 2.5px;
+        background-color: #699c32;
     }
 }

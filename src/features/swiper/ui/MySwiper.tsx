@@ -39,7 +39,7 @@ const MySwiper = () => {
           {sliderItems.map((item, index) => (
             <li
               key={index}
-              className={styles.slider__dots}
+              className={`${slideIndex === index ? styles.dots__active : styles.slider__dots}`}
               onClick={() => {
                 setSlideIndex(index);
                 if (sliderRef.current) {

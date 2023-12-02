@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
+import styles from "./style.module.scss"
 import { Header } from "../../shared/ui/header";
 import { BrandCard } from "../../widgets/BrandCard/BrandCard";
 import { PreorderCard } from "../../widgets/PreorderCard.tsx";
@@ -63,7 +64,7 @@ const MainPage: React.FC = () => {
   const myModalType = useSelector((state: any) => state.modal.modalType);
 
   return (
-    <>
+    <div className={styles.main__container}>
     <Header handleShowCatalogModal={showCatalogModal} handleShowLogInModal={() => handleShowMyModal("Вход")} handleShowContactsModal={() => {handleShowMyModal("Контакты")}}/>
     <BrandCard/>
     <NewsAndPromotion />
@@ -77,7 +78,7 @@ const MainPage: React.FC = () => {
     <DeliveryModal title="Доставка" handleClose={hideDeliveryModal} isDepthModal={true} isShowModal={isVisibleDeliveryModal} allGoods={initialProducts}/>
 
     <MyModal isShowModal={myModalVisible} handleClose={handleClose} title={myModalType} />
-    </>
+    </div>
   );
 };
 

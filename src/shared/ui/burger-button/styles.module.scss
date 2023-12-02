@@ -6,6 +6,9 @@
     height: 18px;
     user-select: none;
     cursor: default;
+    &:active {
+        background: none;
+    }
     &__item {
         width: 28px;
         height: 2.25px;
@@ -16,6 +19,9 @@
         transition: all 0.4s ease-in-out;
         user-select: none;
         cursor: default;
+        &:active {
+            background: none;
+        }
         &::before {
             content: "";
             display: inline-block;
@@ -47,6 +53,9 @@
     background: #5a9dc8;
     transform: rotate(-45deg);
     transition: all 0.4s ease-in-out;
+    &:active {
+        background: none;
+    }
     &::before {
         content: "";
         background: #5a9dc8;
@@ -71,19 +80,22 @@
     border-radius: 0 0 30px 30px;
     z-index: 5;
     left: 0;
-    top: -100vh;
+    top: -120vh;
     width: 100%;
     height: 100vh;
     transition: all 0.4s ease-in-out;
     background-color: white;
+
+    &:active {
+        background: none;
+    }
 
     &__chapter {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: start;
-        flex: 1 1 auto;
-        padding-top: 30%;
+        padding: 30% 0 30%;
     }
 
     &__item {
@@ -131,7 +143,10 @@
 
 .burger__active {
     top: 0;
-    transition: all 0.4s ease-in-out;
+    transition: all 0.2s ease-in-out;
     position: fixed;
     padding-bottom: 40px;
+    &:active {
+        background: none;
+    }
 }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import brand from "../../image/brandDark.png"
+import dotsLogo from "../../icons/dotsLogo.svg"
 
 interface IButton {
   isActive?: boolean;
@@ -45,13 +46,8 @@ const BurgerButton: React.FC<IButton> = ({ handleClick }) => {
             </p>
           ))}
         </div>
-        <div className={styles.burger__shedule}>
-          <p>
-            <b>Доставка</b> пн-сб: 09:00 — 18:00
-          </p>
-          <p>
-            <b>График работы</b> пн-сб: 09:00 — 18:00
-          </p>
+        <div className={styles.burger__footer}>
+            <img src={dotsLogo} alt="" />
         </div>
       </div>
     </div>
