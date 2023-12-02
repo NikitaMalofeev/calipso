@@ -1,0 +1,22 @@
+.news {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 50px 0 0;
+    &__title {
+        font-family: $montserratFont;
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 37px;
+        color: #1f85c5;
+        text-align: center;
+    }
+
+    &__description {
+        color: #032C51;
+        text-align: center;
+        line-height: 17px;
+        max-width: 250px;
+        margin: 0 auto;
+    }
+}

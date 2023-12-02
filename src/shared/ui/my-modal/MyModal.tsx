@@ -75,10 +75,12 @@ const MyModal: React.FC<IMyModal> = ({
         }`}
       >
         <p className={styles.modal__title}>{title}</p>
-        <button className={styles.modal__close}>
-          <img src={closeIcon} alt="" onClick={handleClose} />
+        <button className={styles.modal__close} onClick={handleClose}>
+          <img src={closeIcon} alt=""/>
         </button>
+          <div className={styles.modal__content}>
           {selectedModalContent()}
+          </div>
       </div>
     </>
   );

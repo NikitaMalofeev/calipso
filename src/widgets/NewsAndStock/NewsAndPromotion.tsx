@@ -8,7 +8,7 @@ const NewsAndPromotion: React.FC = () => {
     <>
       <div className={styles.news}>
         <p className={styles.news__title}>Новости и акции</p>
-        <p className={styles.news__title}>
+        <p className={styles.news__description}>
           Будьте в курсе самых последних обновлений Calipso
         </p>
         <MySwiper />

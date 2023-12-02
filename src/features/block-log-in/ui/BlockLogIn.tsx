@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./styles.module.scss";
 import { ILogIn } from "../../../shared/types";
 import { MyInput } from "../../../shared/ui/my-input";
+import InputMask from "react-input-mask"
 
 interface BlockLogInProps {
   block: ILogIn;
@@ -18,7 +19,7 @@ const BlockLogIn: React.FC<BlockLogInProps> = ({
   // Важно! default value для выбранного radio установлен и в форме и в самом radio одинаковый "телефон"
   return (
     <div className={styles.container}>
-      {block.type === "эл.почта" && (
+      {block.type === "почта" && (
         <>
           <MyInput
             placeholder={"Эл.почта"}
@@ -50,7 +51,7 @@ const BlockLogIn: React.FC<BlockLogInProps> = ({
           />
         </>
       )}
-      {block.type === "одноразовый пароль" && (
+      {block.type === "sms" && (
         <>
           <MyInput
             placeholder={"Одноразовый пароль"}

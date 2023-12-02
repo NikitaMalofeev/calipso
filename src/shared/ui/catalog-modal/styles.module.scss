@@ -27,24 +27,40 @@
         align-items: center;
         display: flex;
         flex-direction: column;
+        padding-top: 95px;
     }
 
     &__header {
         display: flex;
         flex-direction: row;
         align-items: center;
-        margin: 25px 0;
+        position: fixed;
+        z-index: 10;
+        top: 8vh;
+        border-radius: 30px 30px 0 0;
+        width: 100%;
+        padding: 25px 0 25px;
         font-family: $montserratFont;
         font-size: 20px;
         font-weight: 600;
+        background: rgba(201, 201, 201, 0.32);
+    }
+
+    &__title {
+        color: #0060B7;
+        display: inline-block;
+        margin: 0 auto;
     }
 
     &__close {
         position: absolute;
-        right: 30px;
-        width: 16px;
-        height: 16px;
-        background-color: white;
+        right: 18px;
+        top: 25px;
+        width: 25px;
+        height: 25px;
+        padding: 0px;
+        background: none;
+        z-index: 100;
     }
 
     &__menu {
@@ -52,14 +68,16 @@
         //FIXME убрать ограниченную ширину
         grid-template-columns: repeat(2, 190px);
         //FIXME как сделать все строчки одинаковыми
-        gap: 10px 20px;
-        padding: 0 20px 90px;
+        margin-bottom: 40px;
+        height: 100%;
     }
 
     &__cart {
         position: fixed;
+        z-index: 1;
         top: 86%;
         opacity: 0;
+        left: 100vw;
         display: flex;
         justify-content: center;
         max-width: 300px;
@@ -73,13 +91,15 @@
         font-size: 18px;
         font-weight: 500;
 
-        @include adaptiv-value('left', 560, 1, 1)
+       
     }
 }
 
 .cart__active {
     opacity: 1;
-    transition: all 0.4s ease-in-out;
+    transition: opacity 0.4s ease-in-out;
+
+    @include adaptiv-value('left', 560, 1, 1)
 }
 
 .active {
@@ -88,4 +108,5 @@
     top: 8vh;
     left: 0;
     transition: all 0.2s ease-in-out;
+    padding-bottom: 40px;
 }
