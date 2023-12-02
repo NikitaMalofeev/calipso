@@ -52,8 +52,9 @@
 .modal__active {
     position: fixed;
     opacity: 1;
-    top: 30vh;
+    top: 11.5vh;
     left: 0;
+    height: 100%;
     transition: all 0.2s ease-in-out;
 }
 

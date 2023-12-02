@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
-import brand from "../../image/brandDark.png"
-import dotsLogo from "../../icons/dotsLogo.svg"
+import brand from "../../image/brandDark.png";
+import dotsLogo from "../../icons/dotsLogo.svg";
+import { useNavigate } from "react-router-dom";
 
 interface IButton {
   isActive?: boolean;
@@ -11,23 +12,33 @@ interface IButton {
 // вместе с модальным окном перенести его интерфейсы
 interface IModalMenu {
   item: string;
+  path: string;
 }
 
 const menuitem: IModalMenu[] = [
-  { item: "Главная" },
-  { item: "О компании" },
-  { item: "Акции" },
-  { item: "Вакансии" },
-  { item: "Производство" },
-  { item: "Новости" },
+  { item: "Главная", path: "" },
+  { item: "О компании", path: "about" },
+  { item: "Акции", path: "promote" },
+  { item: "Вакансии", path: "vacancy" },
+  { item: "Производство", path: "production" },
+  { item: "Новости", path: "news" },
 ];
 
 const BurgerButton: React.FC<IButton> = ({ handleClick }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [handleMenuItemIndex, setHandleMenuItemIndex] = useState(0)
+  const [handleMenuItemIndex, setHandleMenuItemIndex] = useState(0);
   const test = () => {
-    isOpen ? setIsOpen(false) : setIsOpen(true) ;
-    isOpen ? document.body.style.overflow = 'auto'  : document.body.style.overflow = 'hidden'  ;
+    isOpen ? setIsOpen(false) : setIsOpen(true);
+    isOpen
+      ? (document.body.style.overflow = "auto")
+      : (document.body.style.overflow = "hidden");
+  };
+
+  const navigate = useNavigate();
+  
+  // навигация по странице, если нужно на главную то не использую category Layout
+  const handleNavigate = (path: string) => {
+    path === "" ? navigate("/") : navigate(`/category/${path}`);
   };
 
   return (
@@ -37,17 +48,30 @@ const BurgerButton: React.FC<IButton> = ({ handleClick }) => {
       ></div>
       {/*Модальное окно в отдельный виджет или фичу*/}
 
-      <div className={`${styles.burger} ${isOpen ? styles.burger__active : ""}`}>
+      <div
+        className={`${styles.burger} ${isOpen ? styles.burger__active : ""}`}
+      >
         <div className={styles.burger__chapter}>
           <img className={styles.burger__icon} src={brand} alt="" />
           {menuitem.map((item, index) => (
-            <p className={`${handleMenuItemIndex === index ? styles.item__active : styles.burger__item}`} key={index} onClick={() => setHandleMenuItemIndex(index)}>
+            <p
+              className={`${
+                handleMenuItemIndex === index
+                  ? styles.item__active
+                  : styles.burger__item
+              }`}
+              key={index}
+              onClick={() => {
+                setHandleMenuItemIndex(index)
+                handleNavigate(item.path)
+              }}
+            >
               {item.item}
             </p>
           ))}
         </div>
         <div className={styles.burger__footer}>
-            <img src={dotsLogo} alt="" />
+          <img src={dotsLogo} alt="" />
         </div>
       </div>
     </div>

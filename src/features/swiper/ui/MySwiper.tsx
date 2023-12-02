@@ -38,7 +38,7 @@ const MySwiper = () => {
         <ul style={{ padding: "0", margin: "0" }}>
           {sliderItems.map((item, index) => (
             <li
-              style={{width: "10px"}}
+              style={slideIndex === index ? {width: "15px"} : {width: "10px"}}
               key={index}
               className={`${
                 slideIndex === index ? styles.dots__active : styles.slider__dots
