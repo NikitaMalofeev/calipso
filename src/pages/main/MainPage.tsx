@@ -16,6 +16,7 @@ import {
 import { NewsAndPromotion } from "../../widgets/NewsAndStock";
 import { Footer } from "../../shared/ui/footer";
 import { Vacancies } from "../../widgets/Vacancies";
+import { AdvantageCard, advantagesOverview } from "../../widgets/Advantages";
 
 const MainPage: React.FC = () => {
   const [isVisibleCatalogModal, setIsVisibleCatalogModal] = useState(false);
