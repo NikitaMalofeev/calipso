@@ -38,13 +38,15 @@ const StyledStepLabel = styled(StepLabel)({
   },
   "& .MuiStepper-root": {
     marginBottom: "100px",
+    paddingRight: "0",
   },
 });
 
 const StyledStepper = styled(Stepper)({
   "&.MuiStepper-root": {
-    minWidth: "420px",
-    maxWidth: "400px", // Задайте желаемую минимальную ширину
+    minWidth: "370px",
+    maxWidth: "90%", // Задайте желаемую минимальную ширину
+    paddingRight: "0",
   },
   ".MuiStepConnector-line": {
     height: 3,
@@ -458,9 +460,12 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
       {steps === 5 && <div>Регистрация успешна</div>}
       {/* отображение кнопок в зависимости от степа */}
       {steps <= 1 && (
-        <MyButton title="Далее" type="button" handleClick={handleNext} />
+        <>
+        {/* FIXME Не оч хорошо но пока добавить отступ */}
+        <div className={styles.stub}></div>
+        <MyButton title="Далее" type="button" handleClick={handleNext} /></>
       )}
-      {steps === 2 &&(
+      {steps === 2 && (
         <MyButton
           title="Далее"
           type="button"

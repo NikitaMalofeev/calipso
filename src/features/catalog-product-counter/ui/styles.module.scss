@@ -31,7 +31,9 @@
         align-items: center;
         background: none;
         max-width: 12px;
-        max-height: 12px;
+        height: 12px;
+
+        cursore: none;
     }
 
     &__next {
@@ -40,7 +42,7 @@
         align-items: center;
         background: none;
         max-width: 12px;
-        max-height: 12px;
+        height: 12px;
     }
 
     &__first {

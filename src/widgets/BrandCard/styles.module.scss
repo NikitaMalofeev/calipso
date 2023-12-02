@@ -4,7 +4,7 @@
         z-index: -1;
         border-radius: 0px 0px 60px 60px;
         max-width: 100%;
-        min-height: 80vh;
+        height: 100vh;
         object-fit: cover;
     }
 
@@ -17,18 +17,19 @@
     &__name {
         position: absolute;
         bottom: 140px;
-        left: 70px;
+        @include adaptiv-value('left', 560, 15, 1)
     }
     
     &__description {
         max-width: 340px;
         position: absolute;
         bottom: 90px;
-        left: 70px;
         text-align: center;
         font-family: "Nunito";
         color: white;
         line-height: 23px;
         font-weight: 700;
+
+        @include adaptiv-value('left', 560, 8, 1)
     }
 }

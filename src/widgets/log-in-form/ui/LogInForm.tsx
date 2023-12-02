@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styles from "./styles.module.scss";
 import { Formik, useFormik } from "formik";
 import { ILogIn } from "../../../shared/types";
 import { BlockLogIn } from "../../../features/block-log-in";
-import { initialLogInType } from "../../../shared/config/initialLogIn";
-import { RadioButtonsGroup } from "../../../shared/ui/my-radio-buttons";
 import { showMyModal as showMyModalAction } from "../../../features/modal-slice/modalSlice";
+import { MyToggle } from "../../../shared/ui/my-toggle";
+import {  initialRegistrationWay } from "../../../shared/config/initialRegistration";
+
 
 const getEmptyForm = (type: string) => {
   switch (type) {
-    case "эл.почта":
+    case "почта":
       return {
         id: Date.now(),
         type,
@@ -24,7 +25,7 @@ const getEmptyForm = (type: string) => {
         phone: "",
         password: "",
       };
-    case "одноразовый пароль":
+    case "sms":
       return {
         id: Date.now(),
         type,
@@ -49,12 +50,16 @@ const LogInForm: React.FC = () => {
       },
     });
 
+  const [activeType, setActiveType] = useState("");
+
   const handleTypeChange = (type: string) => {
     setValues({
       form: [getEmptyForm(type) as unknown as ILogIn],
     });
     console.log(type);
   };
+
+
 
   // для работы модального окна с modalSlice и вызова модалки регистрации
   const dispatch = useDispatch();
@@ -69,12 +74,12 @@ const LogInForm: React.FC = () => {
         {values.form.map((block, index) => (
           <>
             <div className={styles.form__radio}>
-              <RadioButtonsGroup
+              <MyToggle
                 value={values.form[index].type}
                 name={`form[index].type`}
-                onChange={(e) => handleTypeChange(e.target.value)}
-                itemList={initialLogInType}
-                defaultValue="телефон"
+                setActiveType={setActiveType}
+                initialToggleName={initialRegistrationWay}
+                onChange={(selectedValue) => handleTypeChange(selectedValue)}
               />
             </div>
             <BlockLogIn

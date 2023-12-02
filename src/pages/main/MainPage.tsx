@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import styles from "./style.module.scss";
 import { Header } from "../../shared/ui/header";
 import { BrandCard } from "../../widgets/BrandCard/BrandCard";
 import { PreorderCard } from "../../widgets/PreorderCard.tsx";
@@ -21,29 +22,32 @@ const MainPage: React.FC = () => {
   const [isVisibleCatalogModal, setIsVisibleCatalogModal] = useState(false);
   const showCatalogModal = () => {
     setIsVisibleCatalogModal(true);
+    document.body.style.overflow = "hidden";
   };
-  const hideCatalogModal = () => setIsVisibleCatalogModal(false);
+  const hideCatalogModal = () => {
+    setIsVisibleCatalogModal(false);
+    document.body.style.overflow = "auto";
+  };
 
   const [isVisibleOrderModal, setIsVisibleOrderModal] = useState(false);
-  const showOrderModal = () => setIsVisibleOrderModal(true);
-  const hideOrderModal = () => setIsVisibleOrderModal(false);
+  const showOrderModal = () => {
+    setIsVisibleOrderModal(true);
+    document.body.style.overflow = "hidden";
+  };
+  const hideOrderModal = () => {
+    setIsVisibleOrderModal(false);
+    document.body.style.overflow = "auto";
+  };
 
   const [isVisibleDeliveryModal, setIsVisibleDeliveryModal] = useState(false);
-  const showDeliveryModal = () => setIsVisibleDeliveryModal(true);
-  const hideDeliveryModal = () => setIsVisibleDeliveryModal(false);
-
-  //FIXME переработать обработчик(отмены скрола при открытии модального окна) на что-то более локаничное и по хорошему перенести со страницы
-  useEffect(() => {
-    const handleScroll = () => {
-      document.body.style.overflow = isVisibleCatalogModal ? "hidden" : "auto";
-      // перенести логику в открытие и закрытие
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [isVisibleCatalogModal, isVisibleDeliveryModal, isVisibleOrderModal]);
+  const showDeliveryModal = () => {
+    setIsVisibleDeliveryModal(true);
+    document.body.style.overflow = "hidden";
+  };
+  const hideDeliveryModal = () => {
+    setIsVisibleDeliveryModal(false);
+    document.body.style.overflow = "auto";
+  };
 
   // перенести по такому же принципу оставшиеся модальные окна
   // логика для работы со стейтом modalSlice для управления модальными окнами
@@ -66,7 +70,7 @@ const MainPage: React.FC = () => {
   const myModalType = useSelector((state: any) => state.modal.modalType);
 
   return (
-    <>
+    <div className={styles.main__container}>
       <Header
         handleShowCatalogModal={showCatalogModal}
         handleShowLogInModal={() => handleShowMyModal("Вход")}
@@ -75,6 +79,7 @@ const MainPage: React.FC = () => {
         }}
       />
       <BrandCard />
+      <NewsAndPromotion />
       {initialOverview.map((item, index) => (
         <PreorderCard
           key={index}
@@ -82,7 +87,6 @@ const MainPage: React.FC = () => {
           description={item.description}
         />
       ))}
-      <NewsAndPromotion />
 
       {/*Модальные окна */}
       <CatalogModal
@@ -119,7 +123,7 @@ const MainPage: React.FC = () => {
         description="Успейте получить выгодное предложение"
       />
       <Footer />
-    </>
+    </div>
   );
 };
 
