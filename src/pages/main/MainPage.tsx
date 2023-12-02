@@ -20,30 +20,33 @@ import { Vacancies } from "../../widgets/Vacancies";
 const MainPage: React.FC = () => {
   const [isVisibleCatalogModal, setIsVisibleCatalogModal] = useState(false);
   const showCatalogModal = () => {
-    setIsVisibleCatalogModal(true);
+    setIsVisibleCatalogModal(true)
+    document.body.style.overflow = 'hidden'
   };
-  const hideCatalogModal = () => setIsVisibleCatalogModal(false);
-
+  const hideCatalogModal = () => {
+    setIsVisibleCatalogModal(false)
+    document.body.style.overflow = 'auto'
+  };
+  
   const [isVisibleOrderModal, setIsVisibleOrderModal] = useState(false);
-  const showOrderModal = () => setIsVisibleOrderModal(true);
-  const hideOrderModal = () => setIsVisibleOrderModal(false);
+  const showOrderModal = () => {
+    setIsVisibleOrderModal(true)
+    document.body.style.overflow = 'hidden'
+  };
+  const hideOrderModal = () => {
+    setIsVisibleOrderModal(false)
+    document.body.style.overflow = 'auto'
+  };
 
   const [isVisibleDeliveryModal, setIsVisibleDeliveryModal] = useState(false);
-  const showDeliveryModal = () => setIsVisibleDeliveryModal(true);
-  const hideDeliveryModal = () => setIsVisibleDeliveryModal(false);
-
-  //FIXME переработать обработчик(отмены скрола при открытии модального окна) на что-то более локаничное и по хорошему перенести со страницы
-  useEffect(() => {
-    const handleScroll = () => {
-      document.body.style.overflow = isVisibleCatalogModal ? "hidden" : "auto";
-      // перенести логику в открытие и закрытие
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [isVisibleCatalogModal, isVisibleDeliveryModal, isVisibleOrderModal]);
+  const showDeliveryModal = () => {
+    setIsVisibleDeliveryModal(true)
+    document.body.style.overflow = 'hidden'
+  };
+  const hideDeliveryModal = () => {
+    setIsVisibleDeliveryModal(false)
+    document.body.style.overflow = 'auto'
+  };
 
   // перенести по такому же принципу оставшиеся модальные окна
   // логика для работы со стейтом modalSlice для управления модальными окнами
@@ -67,22 +70,12 @@ const MainPage: React.FC = () => {
 
   return (
     <>
-      <Header
-        handleShowCatalogModal={showCatalogModal}
-        handleShowLogInModal={() => handleShowMyModal("Вход")}
-        handleShowContactsModal={() => {
-          handleShowMyModal("Контакты");
-        }}
-      />
-      <BrandCard />
-      {initialOverview.map((item, index) => (
-        <PreorderCard
-          key={index}
-          title={item.name}
-          description={item.description}
-        />
-      ))}
-      <NewsAndPromotion />
+    <Header handleShowCatalogModal={showCatalogModal} handleShowLogInModal={() => handleShowMyModal("Вход")} handleShowContactsModal={() => {handleShowMyModal("Контакты")}}/>
+    <BrandCard/>
+    <NewsAndPromotion />
+    {initialOverview.map((item, index) => (
+      <PreorderCard key={index} title={item.name} description={item.description}/>
+    ))}
 
       {/*Модальные окна */}
       <CatalogModal
