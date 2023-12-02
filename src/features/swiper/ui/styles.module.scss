@@ -62,8 +62,8 @@
 
 .slider__dots {
     background-color: black;
-    width: 14px;
-    height: 14px;
+    max-width: 10px;
+    max-height: 10px;
     border-radius: 50%;
     position: fixed;
 
@@ -85,26 +85,26 @@
     border-radius: 50%;
     transition: all 0.2s ease-in;
     &:nth-child(1) {
-        width: 25px;
-        height: 25px;
+        width: 20px;
+        height: 20px;
         top: 2.5px;
         background-color: #0f88c8;
     }
     &:nth-child(2) {
-        width: 25px;
-        height: 25px;
+        width: 20px;
+        height: 20px;
         top: 2.5px;
         background-color: #fbdb26;
     }
     &:nth-child(3) {
-        width: 25px;
-        height: 25px;
+        width: 20px;
+        height: 20px;
         top: 2.5px;
         background-color: #c32a28;
     }
     &:nth-child(4) {
-        width: 25px;
-        height: 25px;
+        width: 20px;
+        height: 20px;
         top: 2.5px;
         background-color: #699c32;
     }
