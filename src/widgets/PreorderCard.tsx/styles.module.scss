@@ -1,25 +1,40 @@
 .card {
     margin-top: 30px;
+    border-radius: 50px;
+    background-color: #FFFFFF;
+   position: relative;
+   background-image: url(../../shared/icons/preOrderCardLogo.svg);
+   background-size: auto 470px;
+   background-position: left;
+   background-repeat: no-repeat;
+   width:100%;
+
 
     &__images {
-    display: flex;
-    justify-content: space-between;
+   
     }
 
     &__logo {
       
+        
+      
     }
 
-    // img {
-    //     display: block;
-    //     max-width: 430px;
-    //     width: 100%;
-    //     margin: 0 auto;
-    // }
+    &__image {
+
+        background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+        
+    height: 287px;
+
+        
+    }
 
     &__info {
-        display: flex;
-        flex-direction: column;
+       margin-top: 5px;
+        width: 60%;
+        margin: 10px auto;
     }
 
     &__title {
@@ -27,17 +42,17 @@
         font-weight: 900;
         color: #0f5fa6;
         line-height: 1;
-        margin: 18px 0 12px 30px;
+        margin: 0px 0 12px 0;
         max-width: max-content;
         font-family: $montserratAlternateFont;
+        text-align: left;
     }
 
     &__description {
         font-size: 16px;
         font-weight: 400;
-        margin-left: 40px;
-        max-width: 320px;
-        text-align: left;   
+        max-width: 325px;
+        text-align: left;
         margin-bottom: 23px;
         color: #5A9DC8;
     }

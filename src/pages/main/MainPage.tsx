@@ -17,6 +17,8 @@ import {
 import { NewsAndPromotion } from "../../widgets/NewsAndStock";
 import { Footer } from "../../shared/ui/footer";
 import { Vacancies } from "../../widgets/Vacancies";
+import { AdvantageCard, advantagesOverview } from "../../widgets/Advantages";
+import styles from "./style.module.scss";
 
 const MainPage: React.FC = () => {
   const [isVisibleCatalogModal, setIsVisibleCatalogModal] = useState(false);
@@ -85,6 +87,7 @@ const MainPage: React.FC = () => {
           key={index}
           title={item.name}
           description={item.description}
+          imageSrc={item.imageSrc}
         />
       ))}
 
@@ -122,6 +125,18 @@ const MainPage: React.FC = () => {
         title="ВАКАНСИИ"
         description="Успейте получить выгодное предложение"
       />
+      <h2 className={styles.container__title}>ПРЕИМУЩЕСТВА</h2>
+      <div className={styles.container}>
+        {advantagesOverview.map((advantage) => (
+          <AdvantageCard
+            key={advantage.id}
+            title={advantage.title}
+            description={advantage.description}
+            icon={advantage.icon}
+          />
+        ))}
+      </div>
+
       <Footer />
     </div>
   );
