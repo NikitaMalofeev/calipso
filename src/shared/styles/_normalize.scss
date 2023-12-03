@@ -1,3 +1,6 @@
+:root {
+    background-color:  #FAFAFF;;
+}
 body {
     margin: 0;
     padding: 0;
@@ -29,3 +32,7 @@ li {
 button {
     border: none;
 }
+
+html, body {width: auto!important; overflow-x: hidden!important;
+    overflow-y: scroll; 
+    }

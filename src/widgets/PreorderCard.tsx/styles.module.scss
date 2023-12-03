@@ -1,5 +1,8 @@
 .card {
     margin-top: 30px;
+    border-radius: 50px;
+    background-color: #FFFFFF;
+   
 
     &__images {
     display: flex;
@@ -18,8 +21,12 @@
     // }
 
     &__info {
+        position: relative;
         display: flex;
         flex-direction: column;
+        left: 90px;
+        bottom: 110px;
+       
     }
 
     &__title {
@@ -27,17 +34,17 @@
         font-weight: 900;
         color: #0f5fa6;
         line-height: 1;
-        margin: 18px 0 12px 30px;
+        margin: 18px 0 12px 0;
         max-width: max-content;
         font-family: $montserratAlternateFont;
+        text-align: left;
     }
 
     &__description {
         font-size: 16px;
         font-weight: 400;
-        margin-left: 40px;
         max-width: 320px;
-        text-align: left;   
+        text-align: left;
         margin-bottom: 23px;
         color: #5A9DC8;
     }
