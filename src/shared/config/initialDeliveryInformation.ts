@@ -31,11 +31,15 @@ export const initialDelveryPayment = [
         name: "VISA / MasterCard"
     },
     {
-        id: 0,
+        id: 1,
         name: "Счет на оплату"
     },
     {
-        id: 0,
-        name: "Абонемент"
+        id: 2,
+        name: "Талон"
+    },
+    {
+        id: 3,
+        name: "RoboKassa"
     }
 ]
