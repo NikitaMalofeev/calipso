@@ -9,6 +9,7 @@ import preOrderCardLogo from "../../shared/icons/preOrderCardLogo.svg";
 interface IPreOrderCard {
   title: string;
   description: string;
+  imageSrc: string;
   orderType?: string;
   showCatalog?: boolean;
 }
@@ -16,32 +17,34 @@ interface IPreOrderCard {
 const PreorderCard: React.FC<IPreOrderCard> = ({
   title,
   description,
+  imageSrc,
   orderType,
   showCatalog,
 }) => {
+  const backgroundImageStyle = {
+    backgroundImage: `url(${imageSrc})`,
+  };
   return (
     <>
       <div className={styles.card}>
         <div className={styles.card__images}>
-          <img
-            className={styles.card__logo}
-            src={preOrderCardLogo}
-            alt=""
-          ></img>
-          <img className={styles.card__image} src={preorderImage} alt=""></img>
+          <div
+            style={backgroundImageStyle}
+            className={styles.card__image}
+          ></div>
         </div>
-
         <div className={styles.card__info}>
           <p className={styles.card__title}>{title}</p>
           <p className={styles.card__description}>{description}</p>
         </div>
         <div className={styles.card__buttons}>
-          {/* <OrderButton title={"Подробнее"} isEmpty={true}/>
-          <OrderButton title={"Заказать"}/> */}
+          {/* <OrderButton title={"Подробнее"} isEmpty={true} />
+          <OrderButton title={"Заказать"} /> */}
 
           {/* <MyButton title="Подробнее" /> */}
-          <MyLinkButton title="Подробнее" href="" />
+
           <MyButton title="Заказать" />
+          <MyLinkButton title="Подробнее" href="" />
         </div>
       </div>
     </>

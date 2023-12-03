@@ -82,6 +82,7 @@ const MainPage: React.FC = () => {
           key={index}
           title={item.name}
           description={item.description}
+          imageSrc={item.imageSrc}
         />
       ))}
       <NewsAndPromotion />
