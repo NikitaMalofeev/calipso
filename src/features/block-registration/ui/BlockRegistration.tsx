@@ -220,18 +220,21 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
           {formType === "юр.лицо" ? (
             <>
               <MyInput
+                inputType="text"
                 placeholder={"Почта"}
                 value={block.dataLegal?.entryData.email}
                 name={`form[${index}].dataLegal.entryData.email`}
                 onChange={handleChange}
               />
               <MyInput
+                inputType="password"
                 placeholder={"Пароль"}
                 value={block.dataLegal?.entryData.password}
                 name={`form[${index}].dataLegal.entryData.password`}
                 onChange={handleChange}
               />
               <MyInput
+                inputType="password"
                 placeholder={"Повтор пароля"}
                 value={block.dataLegal?.entryData.repeatPassword}
                 name={`form[${index}].dataLegal.entryData.repeatPassword`}
@@ -241,18 +244,21 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
           ) : (
             <>
               <MyInput
+                inputType="text"
                 placeholder={"Почта"}
                 value={block.dataIndividual?.main.email}
                 name={`form[${index}].dataIndividual.main.email`}
                 onChange={handleChange}
               />
               <MyInput
+                inputType="password"
                 placeholder={"Пароль"}
                 value={block.dataIndividual?.main.password}
                 name={`form[${index}].dataIndividual.main.password`}
                 onChange={handleChange}
               />
               <MyInput
+                inputType="password"
                 placeholder={"Повтор пароля"}
                 value={block.dataIndividual?.main.repeatPassword}
                 name={`form[${index}].dataIndividual.main.repeatPassword`}
@@ -268,42 +274,49 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
           {formType === "юр.лицо" ? (
             <>
               <MyInput
+                inputType="text"
                 placeholder={"Наименование юр.лица"}
                 value={block.dataLegal?.requisites?.nameLegal}
                 name={`form[${index}].dataLegal.requisites.nameLegal`}
                 onChange={handleChange}
               />
               <MyInput
+                inputType="text"
                 placeholder={"БИН"}
                 value={block.dataLegal?.requisites?.BIN}
                 name={`form[${index}].dataLegal.requisites.BIN`}
                 onChange={handleChange}
               />
               <MyInput
+                inputType="text"
                 placeholder={"Номер банковского счета"}
                 value={block.dataLegal?.requisites?.bankNumber}
                 name={`form[${index}].dataLegal.requisites.bankNumber`}
                 onChange={handleChange}
               />
               <MyInput
+                inputType="text"
                 placeholder={"Бик"}
                 value={block.dataLegal?.requisites?.BIK}
                 name={`form[${index}].dataLegal.requisites.BIK`}
                 onChange={handleChange}
               />
               <MyInput
+                inputType="text"
                 placeholder={"Банк"}
                 value={block.dataLegal?.requisites?.bank}
                 name={`form[${index}].dataLegal.requisites.bank`}
                 onChange={handleChange}
               />
               <MyInput
+                inputType="text"
                 placeholder={"Юридический адрес"}
                 value={block.dataLegal?.requisites?.legalAdress}
                 name={`form[${index}].dataLegal.requisites.legalAdress`}
                 onChange={handleChange}
               />
               <MyInput
+                inputType="text"
                 placeholder={"Фактический адрес"}
                 value={block.dataLegal?.requisites?.factAdress}
                 name={`form[${index}].dataLegal.requisites.factAdress`}
@@ -313,6 +326,7 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
           ) : (
             <>
               <MyInput
+                inputType="text"
                 placeholder={"Контактное лицо(ФИО)"}
                 value={block.dataIndividual?.contact?.contactPerson}
                 name={`form[${index}].dataIndividual.contact.contactPerson`}
@@ -323,6 +337,7 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
                 value={block.dataIndividual?.contact?.phone}
                 name={`form[${index}].dataIndividual.contact.phone`}
                 onChange={handleChange}
+                inputType="phone"
               />
             </>
           )}
@@ -335,12 +350,14 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
           {formType === "юр.лицо" ? (
             <>
               <MyInput
+                inputType="text"
                 placeholder={"Контактное лицо(ФИО)"}
                 value={block.dataLegal?.contact.contactPerson}
                 name={`form[${index}].dataLegal.contact.contactPerson`}
                 onChange={handleChange}
               />
               <MyInput
+                inputType="text"
                 placeholder={"Должность"}
                 value={block.dataLegal?.contact.post}
                 name={`form[${index}].dataLegal.contact.post`}
@@ -351,6 +368,7 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
                 value={block.dataLegal?.contact.phone}
                 name={`form[${index}].dataLegal.contact.phone`}
                 onChange={handleChange}
+                inputType="phone"
               />
             </>
           ) : (
@@ -366,6 +384,7 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
                     ) : (
                       <>
                         <MyInput
+                          inputType="text"
                           value={item}
                           name=""
                           onChange={() => {}}
@@ -384,6 +403,7 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
                 (item: string, index: number) => (
                   <>
                     <MyInput
+                      inputType="text"
                       value={item}
                       name=""
                       onChange={() => {}}
@@ -412,6 +432,7 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
                 (item: string, index: number) => (
                   <>
                     <MyInput
+                      inputType="text"
                       value={item}
                       name=""
                       onChange={() => {}}
@@ -426,6 +447,7 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
                 (item: string, index: number) => (
                   <>
                     <MyInput
+                      inputType="text"
                       value={item}
                       name=""
                       onChange={() => {}}
@@ -440,6 +462,7 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
                 (item: string, index: number) => (
                   <>
                     <MyInput
+                      inputType="text"
                       value={item}
                       name=""
                       onChange={() => {}}
@@ -461,9 +484,10 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
       {/* отображение кнопок в зависимости от степа */}
       {steps <= 1 && (
         <>
-        {/* FIXME Не оч хорошо но пока добавить отступ */}
-        <div className={styles.stub}></div>
-        <MyButton title="Далее" type="button" handleClick={handleNext} /></>
+          {/* FIXME Не оч хорошо но пока добавить отступ */}
+          <div className={styles.stub}></div>
+          <MyButton title="Далее" type="button" handleClick={handleNext} />
+        </>
       )}
       {steps === 2 && (
         <MyButton

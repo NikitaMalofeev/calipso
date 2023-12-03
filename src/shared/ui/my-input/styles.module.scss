@@ -1,0 +1,75 @@
+.input {
+    border: 2px solid #f5f4f2;
+    border-radius: 20px;
+    padding: 18px;
+    margin-bottom: 20px;
+    width: 100%;
+    background-color: white;
+
+    &:focus {
+        outline: none; 
+        border-color: grey;
+    }
+
+    &__container {
+        position: relative;
+        width: 100%;
+    }
+
+    &__visibility {
+        position: absolute;
+        top: 18px;
+        right: 20px;
+        font-size: 12px;
+        color: #979797;
+        text-decoration: underline;
+    }
+
+}
+
+.label {
+    position: absolute;
+    opacity: 0;
+    top: 20px;
+    left: -100vw;
+    transition: all 0;
+}
+
+.label__active {
+    opacity: 1;
+    position: absolute;
+    font-family: $montserratFont;
+    font-size: 12px;
+    line-height: 15px;
+    top: -7px;
+    left: 18px;
+    transition: opacity 0.3s ease-in-out;
+    background-color: white;
+    padding: 0 4px 0 2px;
+}
+
+//костыль для отмены цвета автозаполнения инпута 
+
+.input:-webkit-autofill {
+    transition: background-color 5000s ease-in-out 0s; /* Добавляем длительное время перехода */
+}
+
+.input:-webkit-autofill:hover {
+    transition: background-color 5000s ease-in-out 0s; /* Добавляем длительное время перехода */
+}
+
+.input:-webkit-autofill:focus {
+    transition: background-color 5000s ease-in-out 0s; /* Добавляем длительное время перехода */
+}
+
+.input:-webkit-autofill::after {
+    content: ' '; /* Добавляем фиктивный контент */
+    display: block;
+    box-sizing: content-box;
+    height: 1px;
+    margin-top: 1px;
+    overflow: hidden;
+    color: #000; /* Задаем цвет текста, который вам нужен */
+    background-color: #fff; /* Задаем цвет фона, который вам нужен */
+}
+

@@ -21,18 +21,15 @@ interface RadioGroupProps {
 }
 
 const CustomizeRadioGroup = styled(RadioGroup)({
-  display: "grid",
-  maxWidth: "200px",
   width: "100%"
 });
 
 const CustomizeFormControl = styled(FormControl)({
   width: "100%",
-  maxWidth: "200px",
+  marginBottom: "20px",
   "& .MuiFormGroup-root": {
     marginLeft: "25px",
-    display: "grid",
-    gridTemplateColumns: "repeat(2, 1fr)", 
+    width: "100%",
   }, // изменение грид сетки для расположения радио кнопок
 });
 

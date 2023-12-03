@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./styles.module.scss";
 import { ILogIn } from "../../../shared/types";
 import { MyInput } from "../../../shared/ui/my-input";
-import InputMask from "react-input-mask"
+import InputMask from "react-input-mask";
 
 interface BlockLogInProps {
   block: ILogIn;
@@ -22,12 +22,14 @@ const BlockLogIn: React.FC<BlockLogInProps> = ({
       {block.type === "почта" && (
         <>
           <MyInput
+            inputType="text"
             placeholder={"Эл.почта"}
             value={block.email}
             name={`form[${index}].email`}
             onChange={handleChange}
           />
           <MyInput
+            inputType="password"
             placeholder={"Пароль"}
             value={block.password}
             name={`form[${index}].password`}
@@ -42,8 +44,10 @@ const BlockLogIn: React.FC<BlockLogInProps> = ({
             value={block.phone}
             name={`form[${index}].phone`}
             onChange={handleChange}
+            inputType="phone"
           />
           <MyInput
+            inputType="password"
             placeholder={"Пароль"}
             value={block.password}
             name={`form[${index}].password`}
@@ -54,12 +58,14 @@ const BlockLogIn: React.FC<BlockLogInProps> = ({
       {block.type === "sms" && (
         <>
           <MyInput
+            inputType="text"
             placeholder={"Одноразовый пароль"}
             value={block.single}
             name={`form[${index}].single`}
             onChange={handleChange}
           />
           <MyInput
+            inputType="password"
             placeholder={"Пароль"}
             value={block.password}
             name={`form[${index}].password`}
