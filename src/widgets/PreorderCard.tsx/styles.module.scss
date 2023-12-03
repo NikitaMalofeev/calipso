@@ -1,12 +1,21 @@
 .card {
     margin-top: 30px;
 
-    img {
-        display: block;
-        max-width: 430px;
-        width: 100%;
-        margin: 0 auto;
+    &__images {
+    display: flex;
+    justify-content: space-between;
     }
+
+    &__logo {
+      
+    }
+
+    // img {
+    //     display: block;
+    //     max-width: 430px;
+    //     width: 100%;
+    //     margin: 0 auto;
+    // }
 
     &__info {
         display: flex;
@@ -14,23 +23,23 @@
     }
 
     &__title {
-        font-family: "Nunito", sans-serif;
-        margin-left: 30px;
-        font-size: 40px;
-        font-weight: 700;
+        font-size: 36px;
+        font-weight: 900;
         color: #0f5fa6;
         line-height: 1;
-        margin-bottom: 11px;
+        margin: 18px 0 12px 30px;
         max-width: max-content;
+        font-family: $montserratAlternateFont;
     }
 
     &__description {
-        font-family: "Montserrat", sans-serif;
         font-size: 16px;
-        margin-left: 30px;
-        max-width: 290px;
-        text-align: left;
+        font-weight: 400;
+        margin-left: 40px;
+        max-width: 320px;
+        text-align: left;   
         margin-bottom: 23px;
+        color: #5A9DC8;
     }
 
     &__buttons {

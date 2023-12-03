@@ -1,0 +1,25 @@
+.vacancies {
+    text-align: center;
+    background-color: #FAFAFF;
+    padding-top: 20px;
+   
+    &__info{
+        
+    }
+
+    &__title {
+        color: #1F85C5;
+        font-weight: 700;
+        font-size: 30px;
+    }
+
+    &__description {
+        color: #000000;
+        font-weight: 400;
+        font-size: 14px;
+        padding: 20px 0;
+        
+    }
+
+   
+}

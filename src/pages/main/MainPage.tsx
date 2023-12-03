@@ -16,6 +16,7 @@ import {
 } from "../../features/modal-slice/modalSlice";
 import { NewsAndPromotion } from "../../widgets/NewsAndStock";
 import { Footer } from "../../shared/ui/footer";
+import { Vacancies } from "../../widgets/Vacancies";
 
 const MainPage: React.FC = () => {
   const [isVisibleCatalogModal, setIsVisibleCatalogModal] = useState(false);
@@ -116,6 +117,10 @@ const MainPage: React.FC = () => {
         isShowModal={myModalVisible}
         handleClose={handleClose}
         title={myModalType}
+      />
+      <Vacancies
+        title="ВАКАНСИИ"
+        description="Успейте получить выгодное предложение"
       />
       <Footer />
     </div>
