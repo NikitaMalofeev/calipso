@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import backIcon from "../../../shared/icons/backIcons.svg";
 import { MyInput } from "../../../shared/ui/my-input";
@@ -44,7 +44,7 @@ const StyledStepLabel = styled(StepLabel)({
 
 const StyledStepper = styled(Stepper)({
   "&.MuiStepper-root": {
-    minWidth: "370px",
+    minWidth: "390px",
     maxWidth: "90%", // Задайте желаемую минимальную ширину
     paddingRight: "0",
   },

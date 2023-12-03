@@ -47,10 +47,9 @@ const CatalogModal: React.FC<IModal> = ({
 
   return (
     <React.Fragment>
-      {isShowModal && <div className={styles.modal__stub}></div>}
       <div className={`${styles.modal} ${isShowModal && styles.active}`}>
         <div className={styles.modal__container}>
-          <div className={styles.modal__header}>
+          <div className={isShowModal ? styles.modal__header : styles.header__unactive}>
             {isDepthModal && <button onClick={handleBack}></button>}
             <p className={styles.modal__title}>{title}</p>
             <button className={styles.modal__close} onClick={handleClose}>

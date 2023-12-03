@@ -22,15 +22,16 @@ const ProductPopup: React.FC<IPopup> = ({ isShowPopup, name, handleClose }) => {
       }
     };
 
-    // Добавить слушатель события при монтировании компонента
-    document.addEventListener("mousedown", handleClickOutside);
-    document.body.style.overflow = "hidden";
-
-    // Очистить слушатель события при размонтировании компонента
-    return () => {
+    if (isShowPopup) {
+      // Добавить слушатель события при монтировании компонента
+      document.addEventListener("mousedown", handleClickOutside);
+      document.body.style.overflow = "hidden";
+    } else {
+      // Если попап не активен, снимаем слушатель и восстанавливаем overflow
       document.removeEventListener("mousedown", handleClickOutside);
       document.body.style.overflow = "auto";
-    };
+    }
+
   }, [handleClose]);
 
   return (

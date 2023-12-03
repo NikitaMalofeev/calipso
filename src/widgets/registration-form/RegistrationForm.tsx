@@ -9,12 +9,13 @@ import { setRegistrationIndividualData, setRegisrationLegalData } from "../../fe
 interface RegistrationFormProps {
 }
 
-const getEmptyForm = (type: string) => {
+const getEmptyForm = (type: string, method: string) => {
   switch (type) {
     case "физ.лицо":
       return {
         id: Date.now(),
         type,
+        method,
         dataIndividual: {
           main: {
             email: "",
@@ -31,6 +32,7 @@ const getEmptyForm = (type: string) => {
       return {
         id: Date.now(),
         type,
+        method,
         dataLegal: {
           entryData: { 
             email: "", 
@@ -55,6 +57,7 @@ const getEmptyForm = (type: string) => {
       return {
         id: Date.now(),
         type,
+        method,
       };
   }
 };
@@ -63,7 +66,7 @@ const RegistrationForm: React.FC = () => {
   const { values, handleChange, setValues, setFieldValue } =
     useFormik({
       initialValues: {
-        form: [getEmptyForm("физ.лицо") as unknown as IRegistration],
+        form: [getEmptyForm("физ.лицо", "телефон") as unknown as IRegistration],
       },
       onSubmit: (values) => {
         console.log(values.form);
@@ -82,10 +85,11 @@ const RegistrationForm: React.FC = () => {
   // логика для изменения типа формы после изменения ее в глобальном стейте для создания формы нужного типа
 
   const formType = useSelector((state: any) => state.registration.type);
+  const formMethod = useSelector((state: any) => state.registration.method);
 
   const handleTypeChange = () => {
     setValues({
-      form: [getEmptyForm(formType) as unknown as IRegistration],
+      form: [getEmptyForm(formType, formMethod) as unknown as IRegistration],
     });
     console.log(formType);
     console.log("test");

@@ -1,5 +1,5 @@
 .popup {
-    display: flex;
+    display: none;
     justify-content: center;
     position: fixed;
     opacity: 0;
@@ -7,7 +7,7 @@
     width: 100%;
 
     &__overlay {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         width: 100vw;
@@ -39,6 +39,7 @@
 }
 
 .popup__active {
+    display: flex;
     opacity: 1;
     z-index: 20;
 }

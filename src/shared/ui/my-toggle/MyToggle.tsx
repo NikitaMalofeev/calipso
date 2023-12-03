@@ -14,7 +14,8 @@ const MyToggle: React.FC<ToggleProps> = ({
   setActiveType,
   onChange,
 }) => {
-  const [activeIndex, setActiveIndex] = useState(-1);
+  
+  const [activeIndex, setActiveIndex] = useState(0);
   const [activeToggle, setActiveToggle] = useState(false);
 
   const handleChangeType = (type: string, index: number) => {
@@ -36,12 +37,13 @@ const MyToggle: React.FC<ToggleProps> = ({
             }`}
             onClick={() => handleChangeType(type.name, index)}
             type="button"
+            defaultValue={type.name[0]}
           >
               <div className={activeIndex == index ? styles.toggle__icon : styles.toggle__icon_active}>
               <img src={type.icon} alt="" />
               </div>
           </button>
-          <p className={styles.toggle__description}>{type.name}</p>
+          <p className={styles.toggle__description}>{activeIndex === index ? type.name : ""}</p>
         </div>
       ))}
     </div>

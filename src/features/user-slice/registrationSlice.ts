@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { IRegistration } from "../../shared/types";
 
 const initialState: IRegistration = {
-  type: "",
-  method: "",
+  type: "физ.лицо",
+  method: "телефон",
   dataIndividual: {
     main: { email: "", password: "", repeatPassword: "" },
     contact: { contactPerson: "", phone: "" },
