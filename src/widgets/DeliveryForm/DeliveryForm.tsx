@@ -4,13 +4,13 @@ import styles from "./styles.module.scss";
 import { initialDelveryPayment } from "../../shared/config/initialDeliveryInformation";
 import { RadioButtonsGroup } from "../../shared/ui/my-radio-buttons";
 import { useFormik } from "formik";
+import useModalScrollLock from "../../shared/hooks/useModalScrollLock";
 import {
   hideMyModal,
-  showMyModal,
   showMyModal as showMyModalAction,
 } from "../../features/modal-slice/modalSlice";
 import { MyModal } from "../../shared/ui/my-modal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 interface IFormProps {}
 
@@ -20,6 +20,7 @@ const initialDeliveryType = [
 ];
 
 const DeliveryForm: React.FC<IFormProps> = ({}) => {
+  const { isModalOpen, setModalOpen } = useModalScrollLock();
   const { values, handleChange, handleSubmit } = useFormik({
     initialValues: {
       data: {
@@ -33,19 +34,21 @@ const DeliveryForm: React.FC<IFormProps> = ({}) => {
     },
   });
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleShowMyModal = (modalType: string) => {
     dispatch(showMyModalAction(modalType));
     console.log(modalType);
-    document.body.style.overflow = "hidden";
+    setModalOpen(true)
   };
 
   const handleClose = () => {
     dispatch(hideMyModal());
-    document.body.style.overflow = "auto";
+    setModalOpen(false)
   };
 
+  // FIXME
+  const actualAdress = useSelector((state: any) => state.delivery.adresses[0])
 
   return (
     <div className={styles.form}>
@@ -60,11 +63,18 @@ const DeliveryForm: React.FC<IFormProps> = ({}) => {
           needMargin={{ [values.data.type]: true }}
         />
         {values.data.type === "Самовывоз" && (
-          <div className={styles.radio__window_pickup}>г. Алматы, ул. Намаганская</div>
+          <div className={styles.radio__window_pickup}>
+            г. Алматы, ул. Намаганская
+          </div>
         )}
         {values.data.type === "Доставка" && (
           <div className={styles.radio__window_delivery}>
-            <p className={styles.radio__window_add} onClick={() => handleShowMyModal("Регистрация")}>добавить адрес</p>
+            <p
+              className={styles.radio__window_add}
+              onClick={() => handleShowMyModal("Адрес")}
+            >
+              добавить адрес
+            </p>
           </div>
         )}
         <div className={styles.payment}>
@@ -78,7 +88,7 @@ const DeliveryForm: React.FC<IFormProps> = ({}) => {
         </div>
       </>
 
-      <MyModal title="Новый адрес"/>
+      <MyModal title="Новый адрес" />
     </div>
   );
 };

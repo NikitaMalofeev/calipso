@@ -4,7 +4,10 @@ import closeIcon from "../../icons/close.svg";
 import { CatalogButtonMenu } from "../../../features/catalog-button-menu";
 import { ProductCard } from "../../../widgets/product-card";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart, removeFromCart } from "../../../features/cart-slice/cartSlice";
+import {
+  addToCart,
+  removeFromCart,
+} from "../../../features/cart-slice/cartSlice";
 import { IGood } from "../../types/cartTypes";
 import { ProductPopup } from "../product-popup";
 import { VacancyPage } from "../../../pages/vacancy";
@@ -28,8 +31,8 @@ const CatalogModal: React.FC<IModal> = ({
   handleClose,
   handleBack,
 }) => {
-  const [showPopup, setShowPopup] = useState(false)
-  const [catalogContent, setCatalogContent] = useState("")
+  const [showPopup, setShowPopup] = useState(false);
+  const [catalogContent, setCatalogContent] = useState("Все");
 
   //FIXME убрать any типизацию
   const { cart } = useSelector((state: any) => state.allCart);
@@ -48,44 +51,56 @@ const CatalogModal: React.FC<IModal> = ({
   }, [cart, allGoods]);
 
   const handleFilteredCatalogContent = (selectedChapter: string) => {
-    setCatalogContent(selectedChapter)
-  }
+    setCatalogContent(selectedChapter);
+  };
 
   const selectedCatalogChapter = (chapter: string) => {
     switch (chapter) {
       case "Все":
         return <AllChapter />;
       case "Вода":
-          return <VacancyPage />;
+        return <AllChapter />;
+      case "Collaps'ик":
+        return <AllChapter />;
+      case "Оборудование":
+        return <AllChapter />;
+      case "Вода для Животных":
+        return <AllChapter />;
+      case "Co-Packing":
+        return <AllChapter />;
     }
-  }
+  };
 
   const AllChapter = () => {
     return (
       <div className={styles.modal__menu}>
-      {Object.values(allGoods).map((item: IGood, index: number) => (
-        <ProductCard
-          productId={item.id}
-          quantity={cart[item.id] ?? 0}
-          key={index}
-          productImage={item.image}
-          price={item.price}
-          name={item.name}
-          size={item.size}
-          handleAdd={() => dispatch(addToCart(item.id))}
-          handleRemove={() => dispatch(removeFromCart(item.id))}
-          handleShowPopup={() => setShowPopup(true)}
-        />
-      ))}
-    </div>
-    )
-  }
+        {Object.values(allGoods).map((item: IGood, index: number) => (
+          <ProductCard
+            productId={item.id}
+            quantity={cart[item.id] ?? 0}
+            key={index}
+            productImage={item.image}
+            price={item.price}
+            name={item.name}
+            size={item.size}
+            handleAdd={() => dispatch(addToCart(item.id))}
+            handleRemove={() => dispatch(removeFromCart(item.id))}
+            handleShowPopup={() => setShowPopup(true)}
+          />
+        ))}
+      </div>
+    );
+  };
 
   return (
     <React.Fragment>
       <div className={`${styles.modal} ${isShowModal && styles.active}`}>
         <div className={styles.modal__container}>
-          <div className={isShowModal ? styles.modal__header : styles.header__unactive}>
+          <div
+            className={
+              isShowModal ? styles.modal__header : styles.header__unactive
+            }
+          >
             {isDepthModal && <button onClick={handleBack}></button>}
             <p className={styles.modal__title}>{title}</p>
             <button className={styles.modal__close} onClick={handleClose}>
@@ -95,10 +110,10 @@ const CatalogModal: React.FC<IModal> = ({
           {/* FIXME перенести buttons в фичи
           FIXME убрать any типизацию
            */}
-          <CatalogButtonMenu onValueChange={handleFilteredCatalogContent}/>
+          <CatalogButtonMenu onValueChange={handleFilteredCatalogContent} />
           <div className={styles.modal__menu}>
             <div>{selectedCatalogChapter(catalogContent)}</div>
-            
+
             <button
               className={`${styles.modal__cart} ${
                 totalQuantity && styles.cart__active
@@ -115,7 +130,13 @@ const CatalogModal: React.FC<IModal> = ({
         </div>
       </div>
 
-      <ProductPopup name="Вода Calipso негазир." isShowPopup={showPopup} handleClose={() => {setShowPopup(false)}}/>
+      <ProductPopup
+        name="Вода Calipso негазир."
+        isShowPopup={showPopup}
+        handleClose={() => {
+          setShowPopup(false);
+        }}
+      />
     </React.Fragment>
   );
 };

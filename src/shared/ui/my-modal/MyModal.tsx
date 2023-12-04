@@ -5,6 +5,7 @@ import closeIcon from "../../icons/close.svg";
 import { LogInForm } from "../../../widgets/log-in-form";
 import { ContactsModalContent } from "../contacts-modal-content";
 import { RegistrationForm } from "../../../widgets/registration-form";
+import { AdressForm } from "../../../widgets/adress-form";
 
 interface IMyModal {
   isShowModal?: boolean;
@@ -28,6 +29,10 @@ const MyModal: React.FC<IMyModal> = ({ title, isShowModal, handleClose }) => {
     return <RegistrationForm />;
   };
 
+  const MyModalAdress = () => {
+    return <AdressForm />;
+  };
+
   const selectedModalContent = () => {
     switch (modalType) {
       case "Вход":
@@ -36,6 +41,8 @@ const MyModal: React.FC<IMyModal> = ({ title, isShowModal, handleClose }) => {
         return <MyModalContacts />;
       case "Регистрация":
         return <MyModalRegistration />;
+      case "Адрес":
+        return <MyModalAdress />;
       default:
         return null; // Можно вернуть что-то по умолчанию или null
     }
@@ -57,13 +64,15 @@ const MyModal: React.FC<IMyModal> = ({ title, isShowModal, handleClose }) => {
     checkModalSize();
   }, [modalType]);
 
-
   // логика для закрытия модалки при клике за ее границами
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
         handleClose?.(); // Закрыть модальное окно
       }
     };
