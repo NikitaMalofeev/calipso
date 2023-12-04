@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addToCart, removeFromCart } from "../../../features/cart-slice/cartSlice";
 import { IGood } from "../../types/cartTypes";
 import { ProductPopup } from "../product-popup";
+import { VacancyPage } from "../../../pages/vacancy";
 
 interface IModal {
   title: string;
@@ -28,6 +29,7 @@ const CatalogModal: React.FC<IModal> = ({
   handleBack,
 }) => {
   const [showPopup, setShowPopup] = useState(false)
+  const [catalogContent, setCatalogContent] = useState("")
 
   //FIXME убрать any типизацию
   const { cart } = useSelector((state: any) => state.allCart);
@@ -45,6 +47,40 @@ const CatalogModal: React.FC<IModal> = ({
     return [quantity, price];
   }, [cart, allGoods]);
 
+  const handleFilteredCatalogContent = (selectedChapter: string) => {
+    setCatalogContent(selectedChapter)
+  }
+
+  const selectedCatalogChapter = (chapter: string) => {
+    switch (chapter) {
+      case "Все":
+        return <AllChapter />;
+      case "Вода":
+          return <VacancyPage />;
+    }
+  }
+
+  const AllChapter = () => {
+    return (
+      <div className={styles.modal__menu}>
+      {Object.values(allGoods).map((item: IGood, index: number) => (
+        <ProductCard
+          productId={item.id}
+          quantity={cart[item.id] ?? 0}
+          key={index}
+          productImage={item.image}
+          price={item.price}
+          name={item.name}
+          size={item.size}
+          handleAdd={() => dispatch(addToCart(item.id))}
+          handleRemove={() => dispatch(removeFromCart(item.id))}
+          handleShowPopup={() => setShowPopup(true)}
+        />
+      ))}
+    </div>
+    )
+  }
+
   return (
     <React.Fragment>
       <div className={`${styles.modal} ${isShowModal && styles.active}`}>
@@ -59,22 +95,10 @@ const CatalogModal: React.FC<IModal> = ({
           {/* FIXME перенести buttons в фичи
           FIXME убрать any типизацию
            */}
-          <CatalogButtonMenu />
+          <CatalogButtonMenu onValueChange={handleFilteredCatalogContent}/>
           <div className={styles.modal__menu}>
-            {Object.values(allGoods).map((item: IGood, index) => (
-              <ProductCard
-                productId={item.id}
-                quantity={cart[item.id] ?? 0}
-                key={index}
-                productImage={item.image}
-                price={item.price}
-                name={item.name}
-                size={item.size}
-                handleAdd={() => dispatch(addToCart(item.id))}
-                handleRemove={() => dispatch(removeFromCart(item.id))}
-                handleShowPopup={() => setShowPopup(true)}
-              />
-            ))}
+            <div>{selectedCatalogChapter(catalogContent)}</div>
+            
             <button
               className={`${styles.modal__cart} ${
                 totalQuantity && styles.cart__active

@@ -5,11 +5,12 @@ import { Header } from "../../shared/ui/header";
 import { BrandCard } from "../../widgets/BrandCard/BrandCard";
 import { PreorderCard } from "../../widgets/PreorderCard.tsx";
 import { initialOverview } from "../../shared/config/initialPreorderOverview";
+import { initialProducts } from "../../shared/config/initialProducts";
 import { CatalogModal } from "../../shared/ui/catalog-modal";
 import { OrderModal } from "../../shared/ui/order-modal/OrderModal";
 import { DeliveryModal } from "../../shared/ui/delivery-modal";
-import { initialProducts } from "../../shared/config/initialProducts";
 import { MyModal } from "../../shared/ui/my-modal";
+import useModalScrollLock from "../../shared/hooks/useModalScrollLock";
 import {
   hideMyModal,
   showMyModal as showMyModalAction,
@@ -20,34 +21,36 @@ import { Vacancies } from "../../widgets/Vacancies";
 import { AdvantageCard, advantagesOverview } from "../../widgets/Advantages";
 
 const MainPage: React.FC = () => {
+  const { isModalOpen, setModalOpen } = useModalScrollLock();
+
   const [isVisibleCatalogModal, setIsVisibleCatalogModal] = useState(false);
   const showCatalogModal = () => {
     setIsVisibleCatalogModal(true);
-    document.body.style.overflow = "hidden";
+    setModalOpen(true)
   };
   const hideCatalogModal = () => {
     setIsVisibleCatalogModal(false);
-    document.body.style.overflow = "auto";
+    setModalOpen(false)
   };
 
   const [isVisibleOrderModal, setIsVisibleOrderModal] = useState(false);
   const showOrderModal = () => {
     setIsVisibleOrderModal(true);
-    document.body.style.overflow = "hidden";
+    setModalOpen(true)
   };
   const hideOrderModal = () => {
     setIsVisibleOrderModal(false);
-    document.body.style.overflow = "auto";
+    setModalOpen(false)
   };
 
   const [isVisibleDeliveryModal, setIsVisibleDeliveryModal] = useState(false);
   const showDeliveryModal = () => {
     setIsVisibleDeliveryModal(true);
-    document.body.style.overflow = "hidden";
+    setModalOpen(true)
   };
   const hideDeliveryModal = () => {
     setIsVisibleDeliveryModal(false);
-    document.body.style.overflow = "auto";
+    setModalOpen(false)
   };
 
   // перенести по такому же принципу оставшиеся модальные окна
@@ -57,12 +60,12 @@ const MainPage: React.FC = () => {
   const handleShowMyModal = (modalType: string) => {
     dispatch(showMyModalAction(modalType));
     console.log(modalType);
-    document.body.style.overflow = "hidden";
+    setModalOpen(true)
   };
 
   const handleClose = () => {
     dispatch(hideMyModal());
-    document.body.style.overflow = "auto";
+    setModalOpen(false)
   };
 
   const myModalVisible = useSelector(
