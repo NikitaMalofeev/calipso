@@ -20,11 +20,10 @@ const deliverySlice = createSlice({
     },
     removeDeliveryAdress: (
       state: IDeliveryAdresses,
-      action: PayloadAction<string>
+      action: PayloadAction<number>
     ) => {
-      state.adresses = state.adresses.filter(
-        (item) => item.city !== action.payload
-      );
+      // Фильтруем массив по индексу
+      state.adresses = state.adresses.filter((_, i) => i !== action.payload);
     },
     //FIXME считаю что есть более правильный путь нежели установка значения как первого в глобальном стейте 
     setSelectedAdress: (

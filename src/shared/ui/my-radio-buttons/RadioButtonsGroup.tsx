@@ -26,7 +26,7 @@ interface RadioButtonsGroupProps {
   needControlImg?: boolean;
   defaultValue?: string | undefined;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  isControl?: () => void;
+  isControl?: (index: number) => void;
 }
 
 const CustomizeRadioGroup = styled(RadioGroup)({
@@ -76,8 +76,8 @@ const RadioButtonsGroup: React.FC<RadioButtonsGroupProps> = ({
                   : {}
               }
             />
-            {needControlImg && (
-              <button className={styles.control} onClick={isControl}>
+            {needControlImg && isControl && (
+              <button className={styles.control} onClick={() => isControl(index)}>
                 <img src={controlImg} alt="" />
               </button>
             )}

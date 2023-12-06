@@ -18,10 +18,9 @@ import {
 } from "../../features/user-slice/deliverySlice";
 
 const AdressControl: React.FC = () => {
-  const [selectedAddressLocal, setSelectedAddressLocal] = React.useState<
-    IDeliveryAdress | undefined
-  >(undefined);
+  const [selectedAddressLocal, setSelectedAddressLocal] = React.useState<IDeliveryAdress | undefined>(undefined);
   const [showControlWindow, setShowControlWindow] = useState(false);
+  const [editingIndex, setEditingIndex] = useState<number>(0);
 
   const actualAdress = useSelector(
     (state: { delivery: IDeliveryAdresses }) => state.delivery.adresses
@@ -44,6 +43,18 @@ const AdressControl: React.FC = () => {
     }
   };
 
+  const handleShowEditClick = (index: number) => {
+    setEditingIndex(index);
+    setShowControlWindow(true);
+    console.log(index)
+  };
+
+  const handleAdressDelete = (index: number) => {
+    dispatch(removeDeliveryAdress(index));
+    console.log(index);
+    console.log("test delete")
+  }
+
 
   // функция для мемоизации и распаковки обьекта из city, adress и apartment для парсинга на странице radioButton с нужными значениями.
   const formattedAdresses = useMemo(() => {
@@ -54,22 +65,7 @@ const AdressControl: React.FC = () => {
 
   return (
     <div className={styles.adress}>
-      {showControlWindow ? (
-        <div className={styles.adress__control}>
-          <button className={styles.control__item} onClick={() => {}}>
-            <div className={styles.control__button}>
-              <img src={pencilIcon} alt="" className={styles.control__icon} />
-            </div>
-            <span className={styles.control__description}>Редактировать</span>
-          </button>
-          <button className={styles.control__item}>
-            <div className={styles.control__button}>
-              <img src={trashIcon} alt="" className={styles.control__icon} />
-            </div>
-            <span className={styles.control__description}>Удалить</span>
-          </button>
-        </div>
-      ) : (
+      {!showControlWindow ? (
         <>
           <RadioButtonsGroup
             name=""
@@ -82,7 +78,7 @@ const AdressControl: React.FC = () => {
             }
             needContainer={true}
             needControlImg={true}
-            isControl={() => setShowControlWindow(true)}
+            isControl={(index) => handleShowEditClick(index)}
           />
           <button
             className={styles.adress__add}
@@ -92,6 +88,21 @@ const AdressControl: React.FC = () => {
           </button>
           <button onClick={() => {}}></button>
         </>
+      ) : (
+        <div className={styles.adress__control}>
+          <button className={styles.control__item} onClick={() => dispatch(showMyModalAction("Новый адрес"))}>
+            <div className={styles.control__button}>
+              <img src={pencilIcon} alt="" className={styles.control__icon} />
+            </div>
+            <span className={styles.control__description}>Редактировать</span>
+          </button>
+          <button className={styles.control__item} onClick={() => handleAdressDelete(editingIndex)}>
+            <div className={styles.control__button}>
+              <img src={trashIcon} alt="" className={styles.control__icon} />
+            </div>
+            <span className={styles.control__description}>Удалить</span>
+          </button>
+        </div>
       )}
     </div>
   );
