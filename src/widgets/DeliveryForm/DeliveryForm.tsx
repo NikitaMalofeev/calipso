@@ -85,7 +85,7 @@ const DeliveryForm: React.FC<IFormProps> = ({}) => {
                 ))}
                 <p
                 className={styles.radio__window_add}
-                onClick={() => handleShowMyModal("Управление адресом")}
+                onClick={() => handleShowMyModal("Доставка")}
               >
                 изменить адресс
               </p>
@@ -93,7 +93,7 @@ const DeliveryForm: React.FC<IFormProps> = ({}) => {
             ) : (
               <p
                 className={styles.radio__window_add}
-                onClick={() => handleShowMyModal("Адрес")}
+                onClick={() => handleShowMyModal("Новый адрес")}
               >
                 добавить адрес
               </p>

@@ -31,7 +31,7 @@ const AdressForm: React.FC<IFormProps> = ({}) => {
   const CustomHandleSubmit = () => {
     handleSubmit();
     dispatch(addDeliveryAdress(values.data))
-    dispatch(hideMyModal())
+    dispatch(showMyModalAction("Доставка"))
   };
 
   return (

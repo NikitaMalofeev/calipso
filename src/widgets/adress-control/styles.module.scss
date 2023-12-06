@@ -1,0 +1,56 @@
+.adress {
+    width: 100%;
+    margin-bottom: 0 auto;
+    &__add {
+        display: inline-block;
+        font-size: 20px;
+        width: inherit;
+        font-weight: 500;
+        line-height: 24px;
+        color: #5a9dc8;
+        text-align: center;
+    }
+
+    &__control {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: inherit;
+        gap: 10px;
+    }
+}
+
+.control {
+    &__item {
+        display: flex;
+        align-items: center;
+        width: 90%;
+        border-radius: 20px;
+        border: 1px solid grey;
+        padding: 10px;
+    }
+
+    &__button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 50px;
+        height: 50px;
+        border: 1px solid grey;
+        border-radius: 10px;
+    }
+
+    &__icon {
+        max-width: 22px;
+        max-height: 22px;
+    }
+
+    &__description {
+        font-family: $montserratFont;
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 24px;
+        width: 100%;
+        text-align: center;
+    }
+}

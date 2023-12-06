@@ -8,19 +8,25 @@ import {
   FormControl,
   styled,
 } from "@mui/material";
+import styles from "./styles.module.scss";
+import controlImg from "../../icons/dotsControl.svg"
 
 interface RadioGroupItemProps {
   id: number;
   name: string;
 }
 
-interface RadioGroupProps {
-  itemList: RadioGroupItemProps[];
+// FIXME для переиспользуемости радио кнопок сделал 4 свойства needMargin needContainer needControlImg isControl, прввильный ли это подход?
+interface RadioButtonsGroupProps {
+  itemList?: (RadioGroupItemProps | string)[];
   name: string;
   value?: string | undefined;
   needMargin?: { [key: string]: boolean };
+  needContainer?: boolean;
+  needControlImg?: boolean;
   defaultValue?: string | undefined;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  isControl?: () => void;
 }
 
 const CustomizeRadioGroup = styled(RadioGroup)({
@@ -36,29 +42,46 @@ const CustomizeFormControl = styled(FormControl)({
 });
 
 const CustomizeFormControlLabel = styled(FormControlLabel)({
-  margin: "0 30px",
+  margin: "0 20px",
 });
 
-const RadioButtonsGroup: React.FC<RadioGroupProps> = ({
+const RadioButtonsGroup: React.FC<RadioButtonsGroupProps> = ({
   itemList,
   name,
   defaultValue,
   needMargin,
+  needContainer,
+  needControlImg,
   onChange,
+  isControl,
 }) => {
   return (
     <CustomizeFormControl>
       <CustomizeRadioGroup defaultValue={defaultValue}>
-        {itemList.map((item, index) => (
-          <CustomizeFormControlLabel
-            control={
-              <Radio value={item.name} name={name} onChange={onChange} />
-            }
-            label={item.name}
-            key={index}
-            name={name}
-            style={needMargin && needMargin[item.name] ? { marginBottom: "60px" } as React.CSSProperties : {}}
-          />
+        {itemList?.map((item, index) => (
+          <div className={needContainer ? styles.container : ""} key={index}>
+            <CustomizeFormControlLabel
+              control={
+                <Radio
+                  value={typeof item === "string" ? item : item.name}
+                  name={name}
+                  onChange={onChange}
+                />
+              }
+              label={typeof item === "string" ? item : item.name}
+              name={name}
+              style={
+                needMargin && typeof item === "object" && needMargin[item.name]
+                  ? ({ marginBottom: "60px" } as React.CSSProperties)
+                  : {}
+              }
+            />
+            {needControlImg && (
+              <button className={styles.control} onClick={isControl}>
+                <img src={controlImg} alt="" />
+              </button>
+            )}
+          </div>
         ))}
       </CustomizeRadioGroup>
     </CustomizeFormControl>

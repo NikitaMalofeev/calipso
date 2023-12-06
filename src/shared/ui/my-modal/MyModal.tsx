@@ -45,9 +45,9 @@ const MyModal: React.FC<IMyModal> = ({ title, isShowModal, handleClose }) => {
         return <MyModalContacts />;
       case "Регистрация":
         return <MyModalRegistration />;
-      case "Адрес":
+      case "Новый адрес":
         return <MyModalAdress />;
-      case "Управление адресом":
+      case "Доставка":
         return <MyModalControlAdress />;
       default:
         return null; // Можно вернуть что-то по умолчанию или null
@@ -64,7 +64,7 @@ const MyModal: React.FC<IMyModal> = ({ title, isShowModal, handleClose }) => {
         case "Регистрация":
           setIsFullHeightModal(true);
           break;
-        case "Управление адресом":
+        case "Доставка":
           setIsMiniHeightModal(true);
           break;
         default:
@@ -84,9 +84,7 @@ const MyModal: React.FC<IMyModal> = ({ title, isShowModal, handleClose }) => {
         modalRef.current &&
         !modalRef.current.contains(event.target as Node)
       ) {
-        // закрываю модалку и убираю значение mini для скрытия stub 
         handleClose?.();
-        setIsMiniHeightModal(false)
       }
     };
 
@@ -108,8 +106,8 @@ const MyModal: React.FC<IMyModal> = ({ title, isShowModal, handleClose }) => {
         className={`
           ${styles.modal} 
           ${isShowModal && styles.modal__active} 
-          ${isFullHeightModal ? styles.modal__full : ''} 
-          ${isMiniHeightModal ? styles.modal__mini : ''}
+          ${isFullHeightModal ? styles.modal__full : ""} 
+          ${isMiniHeightModal ? styles.modal__mini : ""}
         `}
       >
         <p className={styles.modal__title}>{title}</p>
