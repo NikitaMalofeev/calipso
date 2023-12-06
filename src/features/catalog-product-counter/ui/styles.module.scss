@@ -5,7 +5,7 @@
     width: 100%;
     max-height: 28px;
     margin: 0 auto ;
-    padding: 4px 0;
+    padding: 6px 0;
     border-radius: 14px;
     background: white;
 
@@ -30,10 +30,9 @@
         justify-content: center;
         align-items: center;
         background: none;
-        max-width: 12px;
-        height: 12px;
-
-        cursore: none;
+        width: 20px;
+        height: 20px;
+        cursor: none;
     }
 
     &__next {
@@ -41,12 +40,13 @@
         justify-content: center;
         align-items: center;
         background: none;
-        max-width: 12px;
-        height: 12px;
+        width: 20px;
+        height: 20px;
     }
 
     &__first {
         background: none;
+        height: 14px;
     }
 }
 

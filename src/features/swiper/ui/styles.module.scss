@@ -58,6 +58,9 @@
     top: 0;
     box-shadow: 0px 0px 20px 0px #bcbcf240;
     
+    & img {
+        height: 300px;
+    }
 }
 
 .slider__dots {

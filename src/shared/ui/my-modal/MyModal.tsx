@@ -6,10 +6,10 @@ import { LogInForm } from "../../../widgets/log-in-form";
 import { ContactsModalContent } from "../contacts-modal-content";
 import { RegistrationForm } from "../../../widgets/registration-form";
 import { AdressForm } from "../../../widgets/adress-form";
+import { AdressControl } from "../../../widgets/adress-control";
 
 interface IMyModal {
   isShowModal?: boolean;
-  isFullHeightModal?: boolean;
   title: string;
   handleClose?: () => void;
 }
@@ -33,6 +33,10 @@ const MyModal: React.FC<IMyModal> = ({ title, isShowModal, handleClose }) => {
     return <AdressForm />;
   };
 
+  const MyModalControlAdress = () => {
+    return <AdressControl />;
+  };
+
   const selectedModalContent = () => {
     switch (modalType) {
       case "Вход":
@@ -43,6 +47,8 @@ const MyModal: React.FC<IMyModal> = ({ title, isShowModal, handleClose }) => {
         return <MyModalRegistration />;
       case "Адрес":
         return <MyModalAdress />;
+      case "Управление адресом":
+        return <MyModalControlAdress />;
       default:
         return null; // Можно вернуть что-то по умолчанию или null
     }
@@ -50,6 +56,7 @@ const MyModal: React.FC<IMyModal> = ({ title, isShowModal, handleClose }) => {
 
   // логика ниже для определения в каких модалках должен быть stub и больший размер
   const [isFullHeightModal, setIsFullHeightModal] = useState(false);
+  const [isMiniHeightModal, setIsMiniHeightModal] = useState(false);
 
   useEffect(() => {
     const checkModalSize = () => {
@@ -57,8 +64,12 @@ const MyModal: React.FC<IMyModal> = ({ title, isShowModal, handleClose }) => {
         case "Регистрация":
           setIsFullHeightModal(true);
           break;
+        case "Управление адресом":
+          setIsMiniHeightModal(true);
+          break;
         default:
           setIsFullHeightModal(false);
+          setIsMiniHeightModal(false);
       }
     };
     checkModalSize();
@@ -73,14 +84,16 @@ const MyModal: React.FC<IMyModal> = ({ title, isShowModal, handleClose }) => {
         modalRef.current &&
         !modalRef.current.contains(event.target as Node)
       ) {
-        handleClose?.(); // Закрыть модальное окно
+        // закрываю модалку и убираю значение mini для скрытия stub 
+        handleClose?.();
+        setIsMiniHeightModal(false)
       }
     };
 
-    // Добавить слушатель события при монтировании компонента
+    // слушатель события при монтировании компонента
     document.addEventListener("mousedown", handleClickOutside);
 
-    // Очистить слушатель события при размонтировании компонента
+    // слушатель события при размонтировании компонента
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -89,11 +102,15 @@ const MyModal: React.FC<IMyModal> = ({ title, isShowModal, handleClose }) => {
   return (
     <>
       {isFullHeightModal && <div className={styles.modal__stub}></div>}
+      {isMiniHeightModal && <div className={styles.modal__stub_mini}></div>}
       <div
         ref={modalRef}
-        className={`${styles.modal} ${isShowModal && styles.modal__active} ${
-          isFullHeightModal && styles.modal__full
-        }`}
+        className={`
+          ${styles.modal} 
+          ${isShowModal && styles.modal__active} 
+          ${isFullHeightModal ? styles.modal__full : ''} 
+          ${isMiniHeightModal ? styles.modal__mini : ''}
+        `}
       >
         <p className={styles.modal__title}>{title}</p>
         <button className={styles.modal__close} onClick={handleClose}>
