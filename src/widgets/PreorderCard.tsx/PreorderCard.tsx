@@ -12,6 +12,8 @@ interface IPreOrderCard {
   showCatalog?: boolean;
 }
 
+// FIXME для пуша
+
 const PreorderCard: React.FC<IPreOrderCard> = ({
   title,
   description,
