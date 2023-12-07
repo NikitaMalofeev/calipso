@@ -3,6 +3,7 @@
     margin-bottom: 0 auto;
     &__add {
         display: inline-block;
+        padding-bottom: 30px;
         font-size: 20px;
         width: inherit;
         font-weight: 500;
@@ -52,5 +53,31 @@
         line-height: 24px;
         width: 100%;
         text-align: center;
+    }
+}
+
+.edit {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 20px;
+    background-color: white;
+
+    &__title {
+        padding: 30px 0;
+        font-style: 22px;
+        font-family: $montserratFont;
+        line-height: 26px;
+        color: #0060B7;
+        width: 100%;
+        text-align: center;
+    }
+
+    &__close {
+        position: absolute;
+        top: 25px;
+        right: 20px;
     }
 }

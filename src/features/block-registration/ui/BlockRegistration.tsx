@@ -18,6 +18,7 @@ import {
   setRegistrationType,
 } from "../../../features/user-slice/registrationSlice";
 import { IRegistration } from "../../../shared/types";
+import { NotificationStatus } from "../../../shared/ui/notification-request-status";
 
 interface BlockRegistrationProps {
   block: IRegistration;
@@ -475,12 +476,12 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
             </div>
           ) : (
             <div className={styles.registration__succes}>
-              Регистрация успешна
+              <NotificationStatus title="Регистрация пройдена" status={true}/>
             </div>
           )}
         </div>
       )}
-      {steps === 5 && <div>Регистрация успешна</div>}
+      {steps === 5 && <NotificationStatus title="Регистрация пройдена" status={true}/>}
       {/* отображение кнопок в зависимости от степа */}
       {steps <= 1 && (
         <>
@@ -517,7 +518,6 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
           handleClick={handleEndRegistration}
         />
       )}
-      {/* контент регистрации успешной или нет */}
     </div>
   );
 };

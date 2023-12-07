@@ -25,6 +25,13 @@ const deliverySlice = createSlice({
       // Фильтруем массив по индексу
       state.adresses = state.adresses.filter((_, i) => i !== action.payload);
     },
+    updateDeliveryAdress: (
+      state: IDeliveryAdresses,
+      action: PayloadAction<{ index: number; updatedAdress: IDeliveryAdress }>
+    ) => {
+      const { index, updatedAdress } = action.payload;
+      state.adresses[index] = updatedAdress;
+    },
     //FIXME считаю что есть более правильный путь нежели установка значения как первого в глобальном стейте 
     setSelectedAdress: (
       state: IDeliveryAdresses,
@@ -50,4 +57,4 @@ const deliverySlice = createSlice({
 });
 
 export default deliverySlice.reducer;
-export const { removeDeliveryAdress, addDeliveryAdress, setSelectedAdress } = deliverySlice.actions;
+export const { removeDeliveryAdress, addDeliveryAdress, updateDeliveryAdress, setSelectedAdress } = deliverySlice.actions;
