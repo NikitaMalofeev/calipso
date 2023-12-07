@@ -16,6 +16,12 @@
 }
 
 .radio {
+    &__adress {
+        display: block;
+        max-width: 80%;
+        word-break: break-all;
+    }
+
     &__window {
         &_pickup {
             position: absolute;
@@ -30,17 +36,20 @@
             position: absolute;
             top: 195px;
             width: 90%;
-            height: 95px;
+            min-height: 95px;
+            height: max-content;
             border-radius: 20px;
             padding: 45px 0 0 42px;
             box-shadow: 0px 6px 20px 0px #0000001a;
         }
         &_add {
+            position: absolute;
+            bottom: 10px;
+            right: 20px;
             font-family: $montserratFont;
             font-size: 12px;
             line-height: 15px;
             text-align: right;
-            padding: 25px 15px 0 0;
             color: #5A9DC8;
         }
     }

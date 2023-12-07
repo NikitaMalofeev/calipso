@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { MyInput } from "../../shared/ui/my-input";
 import styles from "./styles.module.scss";
 import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { MyButton } from "../../shared/ui/my-button";
 import { addDeliveryAdress } from "../../features/user-slice/deliverySlice";
 import {
-    hideMyModal,
-    showMyModal as showMyModalAction,
-  } from "../../features/modal-slice/modalSlice";
+  hideMyModal,
+  showMyModal as showMyModalAction,
+} from "../../features/modal-slice/modalSlice";
 
 interface IFormProps {}
 
@@ -26,12 +26,20 @@ const AdressForm: React.FC<IFormProps> = ({}) => {
     },
   });
 
+  const firstAdressIntroduced = useSelector(
+    (state: any) => state.delivery.adresses
+  );
+
   const dispatch = useDispatch();
 
   const CustomHandleSubmit = () => {
     handleSubmit();
-    dispatch(addDeliveryAdress(values.data))
-    dispatch(hideMyModal())
+    dispatch(addDeliveryAdress(values.data));
+    if (firstAdressIntroduced.length > 0) {
+      dispatch(showMyModalAction("Доставка"));
+    } else {
+      dispatch(hideMyModal())
+    }
   };
 
   return (

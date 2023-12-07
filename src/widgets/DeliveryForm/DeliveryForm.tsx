@@ -11,6 +11,7 @@ import {
 } from "../../features/modal-slice/modalSlice";
 import { MyModal } from "../../shared/ui/my-modal";
 import { useDispatch, useSelector } from "react-redux";
+import { IDeliveryAdresses } from "../../shared/types/deliveryTypes";
 
 interface IFormProps {}
 
@@ -39,16 +40,18 @@ const DeliveryForm: React.FC<IFormProps> = ({}) => {
   const handleShowMyModal = (modalType: string) => {
     dispatch(showMyModalAction(modalType));
     console.log(modalType);
-    setModalOpen(true)
+    setModalOpen(true);
   };
 
   const handleClose = () => {
     dispatch(hideMyModal());
-    setModalOpen(false)
+    setModalOpen(false);
   };
 
   // FIXME
-  const actualAdress = useSelector((state: any) => state.delivery.adresses[0])
+  const actualAdress = useSelector(
+    (state: { delivery: IDeliveryAdresses }) => state.delivery.adresses
+  );
 
   return (
     <div className={styles.form}>
@@ -69,12 +72,32 @@ const DeliveryForm: React.FC<IFormProps> = ({}) => {
         )}
         {values.data.type === "Доставка" && (
           <div className={styles.radio__window_delivery}>
-            <p
-              className={styles.radio__window_add}
-              onClick={() => handleShowMyModal("Адрес")}
-            >
-              добавить адрес
-            </p>
+            {actualAdress[0] ? (
+              <>
+                {actualAdress.slice(0, 1).map((item, index) => (
+                  <div key={index} className={styles.radio__adress}>
+                    <span className={styles.radio__adress}>
+                    {`${item.city}, `}
+                    {`${item.adress}, `}
+                    {`${item.apartment}`}
+                  </span>
+                  </div>
+                ))}
+                <p
+                className={styles.radio__window_add}
+                onClick={() => handleShowMyModal("Доставка")}
+              >
+                изменить адресс
+              </p>
+              </>
+            ) : (
+              <p
+                className={styles.radio__window_add}
+                onClick={() => handleShowMyModal("Новый адрес")}
+              >
+                добавить адрес
+              </p>
+            )}
           </div>
         )}
         <div className={styles.payment}>
