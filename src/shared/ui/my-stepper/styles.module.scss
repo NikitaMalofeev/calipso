@@ -1,0 +1,59 @@
+.stepper {
+    padding-bottom: 25px;
+    &__list {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 50px;
+    }
+
+    &__circle {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+    }
+
+    &__line {
+        position: absolute;
+        border-top: 2px dashed green;
+        width: 40px;
+        height: 1px;
+        left: 120%;
+    }
+
+    &__label {
+        position: absolute;
+        text-align: center;
+        top: 35px;
+        font-family: $montserratFont;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 15px;
+        color: #0060B7;
+    }
+
+    &__icon {
+        max-width: 16px;
+        max-height: 11px;
+    }
+}
+
+.stepper__circle_current {
+    border: 3px solid #0060B7;
+}
+.stepper__circle_disabled {
+    border: 1px solid grey;
+}
+.stepper__circle_finish {
+    background: #53AC1C;
+
+}

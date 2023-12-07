@@ -4,7 +4,6 @@ import styles from "./styles.module.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { sliderItems } from "../../../shared/config/initialProductSlider";
-import twst from "../../../shared/image/product.png"
 
 const MySwiper = () => {
   // состояние для отслеживания индекса слайдера для изменения стилей текущего

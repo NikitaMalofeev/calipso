@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import backIcon from "../../../shared/icons/backIcons.svg";
 import { MyInput } from "../../../shared/ui/my-input";
 import { MyButton } from "../../../shared/ui/my-button";
 import { MyToggle } from "../../../shared/ui/my-toggle";
-import { Stepper, Step, StepLabel, styled } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
   initialRegistrationType,
@@ -19,6 +18,7 @@ import {
 } from "../../../features/user-slice/registrationSlice";
 import { IRegistration } from "../../../shared/types";
 import { NotificationStatus } from "../../../shared/ui/notification-request-status";
+import { MyStepper } from "../../../shared/ui/my-stepper";
 
 interface BlockRegistrationProps {
   block: IRegistration;
@@ -27,47 +27,6 @@ interface BlockRegistrationProps {
   handleChange: React.ChangeEventHandler;
   handleSubmit: () => void;
 }
-
-// стилизация mui
-const StyledStepLabel = styled(StepLabel)({
-  "& .MuiStepLabel-iconContainer": {
-    // изменение цвета фона
-    borderRadius: "16px",
-  },
-  "& .MuiStepLabel-icon": {
-    backgroundColor: "D9D9D9", // изменение цвета текста
-  },
-  "& .MuiStepper-root": {
-    marginBottom: "100px",
-    paddingRight: "0",
-  },
-});
-
-const StyledStepper = styled(Stepper)({
-  "&.MuiStepper-root": {
-    minWidth: "390px",
-    maxWidth: "90%", // Задайте желаемую минимальную ширину
-    paddingRight: "0",
-  },
-  ".MuiStepConnector-line": {
-    height: 3,
-    border: 0,
-    minWidth: 36,
-    backgroundColor: "#E0E0E0", // Цвет полосы между неактивными шагами
-    borderRadius: 1,
-  },
-  ".MuiStepConnector-active .MuiStepConnector-line": {
-    backgroundColor: "#D9D9D9", // Цвет полосы между активными шагами
-  },
-  ".MuiStepConnector-completed .MuiStepConnector-line": {
-    backgroundColor: "red", // Цвет полосы между завершенными шагами
-  },
-  ".MuiStepLabel-label": {
-    fontSize: "10px",
-    color: "#38B000",
-    // Цвет текста шага
-  },
-});
 
 const BlockRegistration: React.FC<BlockRegistrationProps> = ({
   block,
@@ -90,6 +49,10 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
   const handleBack = () => {
     setSteps((prev) => prev - 1);
   };
+
+  const updateSteps = (newStep: number) => {
+    setSteps(newStep)
+  }
 
   const handleEndRegistration = () => {
     handleSubmit();
@@ -156,39 +119,9 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
       )}
 
       {steps <= 5 && (
-        <StyledStepper activeStep={steps} alternativeLabel>
-          {currentStepLabels.map((label, stepIndex) => (
-            <Step key={stepIndex}>
-              <StyledStepLabel>
-                {steps >= stepIndex && (
-                  <>
-                    {formType === "физ.лицо" &&
-                      stepIndex === 0 &&
-                      "тип регистрации"}
-                    {formType === "физ.лицо" &&
-                      stepIndex === 1 &&
-                      "данные авторизации"}
-                    {formType === "физ.лицо" &&
-                      stepIndex === 2 &&
-                      "контактная информация"}
-                    {formType === "физ.лицо" &&
-                      stepIndex === 3 &&
-                      "подтверждение"}
-                    {steps >= stepIndex && formType === "юр.лицо" && (
-                      <>
-                        {stepIndex === 0 && "тип регистрации"}
-                        {stepIndex === 1 && "данные авторизации"}
-                        {stepIndex === 2 && "реквизиты"}
-                        {stepIndex === 3 && "контактные лица"}
-                        {stepIndex === 4 && "подтверждение"}
-                      </>
-                    )}
-                  </>
-                )}
-              </StyledStepLabel>
-            </Step>
-          ))}
-        </StyledStepper>
+        <>
+        <MyStepper steps={steps} stepsItem={currentStepLabels} activeStep={steps} updateSteps={updateSteps}/>
+        </>
       )}
 
       {/* рендер инпутов в зависимости от текущего шага(1) и выбранного типа регистрации*/}
@@ -476,12 +409,14 @@ const BlockRegistration: React.FC<BlockRegistrationProps> = ({
             </div>
           ) : (
             <div className={styles.registration__succes}>
-              <NotificationStatus title="Регистрация пройдена" status={true}/>
+              <NotificationStatus title="Регистрация пройдена" status={true} />
             </div>
           )}
         </div>
       )}
-      {steps === 5 && <NotificationStatus title="Регистрация пройдена" status={true}/>}
+      {steps === 5 && (
+        <NotificationStatus title="Регистрация пройдена" status={true} />
+      )}
       {/* отображение кнопок в зависимости от степа */}
       {steps <= 1 && (
         <>

@@ -29,9 +29,8 @@ const MyToggle: React.FC<ToggleProps> = ({
   return (
     <div className={`${!activeToggle ? styles.toggle : styles.toggle__active}`}>
       {initialToggleName.map((type, index) => (
-        <div className={styles.toggle__container}>
+        <div className={styles.toggle__container} key={index}>
           <button
-            key={index}
             className={`${styles.toggle__button} ${
               activeIndex === index && styles.toggle__buttonActive
             }`}
@@ -39,7 +38,7 @@ const MyToggle: React.FC<ToggleProps> = ({
             type="button"
             defaultValue={type.name[0]}
           >
-              <div className={activeIndex == index ? styles.toggle__icon : styles.toggle__icon_active}>
+              <div className={activeIndex === index ? styles.toggle__icon : styles.toggle__icon_active}>
               <img src={type.icon} alt="" />
               </div>
           </button>
