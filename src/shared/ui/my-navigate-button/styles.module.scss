@@ -1,0 +1,35 @@
+.button {
+    position: absolute;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    border: 1px solid $subtitleTextColor;
+    color: $subtitleTextColor;
+    border-radius: 5px;
+    padding: 3px 10px;
+    right: 30px;
+    top: 50px;
+
+    &_big {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 11px 88px;
+        margin: 0 auto;
+        border: 2px solid $subtitleTextColor;
+        border-radius: 20px;
+    }
+
+    &__title_big {
+        font-family: $montserratFont;
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 27px;
+        color: $subtitleTextColor;
+    }
+
+    &__arrow_big {
+        width: 35px;
+        height: 22px;
+    }
+}

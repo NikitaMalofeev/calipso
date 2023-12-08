@@ -1,8 +1,6 @@
-.news {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
+.promotion {
+    padding: 0 10px;
+    margin-bottom: 60px;
     &__header {
         position: relative;
         width: 100%;
@@ -26,5 +24,4 @@
         line-height: 17px;
         color: #1f85c5;
     }
-    margin: 0 auto;
 }

@@ -13,15 +13,11 @@ const MyButton: React.FC<IButton> = ({
   title,
   type,
   onSubmit,
-  handleClick,
 }) => {
   const [isActive, setIsActive] = useState(false);
 
   const handleButtonClick = () => {
-    setIsActive(!isActive);
-    if (handleClick) {
-      handleClick();
-    }
+    setIsActive(true)
   };
 
   return (

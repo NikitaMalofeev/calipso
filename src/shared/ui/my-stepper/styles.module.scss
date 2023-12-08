@@ -38,7 +38,7 @@
         font-size: 12px;
         font-weight: 500;
         line-height: 15px;
-        color: #0060B7;
+        color: $titleTextColor;
     }
 
     &__icon {
@@ -48,7 +48,7 @@
 }
 
 .stepper__circle_current {
-    border: 3px solid #0060B7;
+    border: 3px solid $titleTextColor;
 }
 .stepper__circle_disabled {
     border: 1px solid grey;

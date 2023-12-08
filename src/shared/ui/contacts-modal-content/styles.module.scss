@@ -10,7 +10,7 @@
         font-weight: 600;
         line-height: 22px;
         text-align: left;
-        color: #0060b7;
+        color: $titleTextColor;
     }
 
     &__description {
@@ -18,7 +18,7 @@
         font-weight: 300;
         line-height: 22px;
         text-align: left;
-        color: #0060b7;
+        color: $titleTextColor;
     }
 
     &__circle {

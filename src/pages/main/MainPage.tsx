@@ -18,7 +18,10 @@ import {
 import { NewsAndPromotion } from "../../widgets/NewsAndStock";
 import { Footer } from "../../shared/ui/footer";
 import { Vacancies } from "../../widgets/Vacancies";
-import { AdvantageCard, advantagesOverview } from "../../widgets/Advantages";
+import { AdvantageCard, advantagesOverview } from "../../shared/ui/advantages-card";
+import { Promotion } from "../../widgets/Promotion";
+import { Advantages } from "../../widgets/Advantages";
+import { About } from "../../widgets/About";
 
 const MainPage: React.FC = () => {
   const { isModalOpen, setModalOpen } = useModalScrollLock();
@@ -83,6 +86,9 @@ const MainPage: React.FC = () => {
         }}
       />
       <BrandCard />
+      <Promotion />
+      <About />
+      <Advantages />
       <NewsAndPromotion />
       {initialOverview.map((item, index) => (
         <PreorderCard
@@ -127,18 +133,6 @@ const MainPage: React.FC = () => {
         title="ВАКАНСИИ"
         description="Успейте получить выгодное предложение"
       />
-      <h2 className={styles.container__title}>ПРЕИМУЩЕСТВА</h2>
-      <div className={styles.container}>
-        {advantagesOverview.map((advantage) => (
-          <AdvantageCard
-            key={advantage.id}
-            title={advantage.title}
-            description={advantage.description}
-            icon={advantage.icon}
-          />
-        ))}
-      </div>
-
       <Footer />
     </div>
   );

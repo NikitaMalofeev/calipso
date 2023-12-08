@@ -1,0 +1,48 @@
+.promotion {
+    display: flex;
+    box-shadow: 0px 0px 10px 0px #dbdbe0;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    max-height: 140px;
+
+    img {
+        border-radius: 20px 0px 0px 20px;
+    }
+
+    &__description {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        padding: 15px;
+    }
+
+    &__title {
+        font-family: $montserratFont;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 22px;
+        color: $titleTextColor;
+    }
+
+    &__subtitle {
+        font-family: $montserratFont;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 17px;
+        color: $descriptionTextColor;
+        max-width: 160px;
+    }
+
+    &__more {
+        position: absolute;
+        bottom: 10px;
+        right: 15px;
+        font-family: $montserratFont;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 17px;
+        color: $subtitleTextColor;
+    }
+}
