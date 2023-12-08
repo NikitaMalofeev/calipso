@@ -106,7 +106,7 @@ const RegistrationForm: React.FC = () => {
     <>
       <form className={styles.form} action="">
         {values.form.map((block, index) => (
-          <>
+          <React.Fragment key={index}>
             <BlockRegistration
               block={block}
               index={index}
@@ -115,7 +115,7 @@ const RegistrationForm: React.FC = () => {
               setFieldValue={setFieldValue}
               handleSubmit={CustomhandleSubmit}
             />
-          </>
+          </React.Fragment>
         ))}
       </form>
     </>

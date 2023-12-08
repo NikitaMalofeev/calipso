@@ -72,7 +72,7 @@ const LogInForm: React.FC = () => {
     <div className={styles.container}>
       <form className={styles.form} action="">
         {values.form.map((block, index) => (
-          <>
+          <React.Fragment key={index}>
             <div className={styles.form__radio}>
               <MyToggle
                 value={values.form[index].type}
@@ -89,7 +89,7 @@ const LogInForm: React.FC = () => {
               handleChange={handleChange}
               setFieldValue={setFieldValue}
             />
-          </>
+          </React.Fragment>
         ))}
       </form>
       <div className={styles.form__additionally}>

@@ -1,10 +1,8 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import { OrderButton } from "../../shared/ui/order-button";
-import preorderImage from "../../shared/icons/bottles.svg";
 import { MyButton } from "../../shared/ui/my-button";
 import { MyLinkButton } from "../../shared/ui/link-button";
-import preOrderCardLogo from "../../shared/icons/preOrderCardLogo.svg";
+
 
 interface IPreOrderCard {
   title: string;
@@ -13,6 +11,8 @@ interface IPreOrderCard {
   orderType?: string;
   showCatalog?: boolean;
 }
+
+// FIXME для пуша
 
 const PreorderCard: React.FC<IPreOrderCard> = ({
   title,
@@ -38,11 +38,6 @@ const PreorderCard: React.FC<IPreOrderCard> = ({
           <p className={styles.card__description}>{description}</p>
         </div>
         <div className={styles.card__buttons}>
-          {/* <OrderButton title={"Подробнее"} isEmpty={true} />
-          <OrderButton title={"Заказать"} /> */}
-
-          {/* <MyButton title="Подробнее" /> */}
-
           <MyButton title="Заказать" />
           <MyLinkButton title="Подробнее" href="" />
         </div>
