@@ -1,4 +1,4 @@
-import productImage from "../image/product.png";
+import productImage from "../image/bottles/product.png";
 
 const initialProducts = {
   0: {

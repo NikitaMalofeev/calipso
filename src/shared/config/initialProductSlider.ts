@@ -1,4 +1,4 @@
-import sliderImage from "../image/swiperImage.png"
+import sliderImage from "../image/bottles/swiperImage.png"
 
 export const sliderItems = [
     {

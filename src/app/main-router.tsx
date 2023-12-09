@@ -6,7 +6,7 @@ import { VacancyPage } from "../pages/vacancy";
 import { ProductionPage } from "../pages/production";
 import { NewsPage } from "../pages/news";
 import { AboutPage } from "../pages/about";
-import { CategoryLayout } from "../shared/ui/category-layout";
+import { CategoryLayout } from "../shared/ui/kit/category-layout";
 
 const MainRouter: React.FC = () => {
   return (

@@ -1,59 +1,51 @@
 import React, { useState } from "react";
+import { Outlet } from "react-router-dom";
+import styles from "./styles.module.scss";
+import { Header } from "../../header";
 import { useDispatch, useSelector } from "react-redux";
-import styles from "./style.module.scss";
-import { Header } from "../../shared/ui/header";
-import { BrandCard } from "../../shared/ui/cards/brand-card/BrandCard";
-import { initialProducts } from "../../shared/config/initialProducts";
-import { CatalogModal } from "../../shared/ui/modals/catalog-modal";
-import { OrderModal } from "../../shared/ui/modals/order-modal";
-import { DeliveryModal } from "../../shared/ui/modals/delivery-modal";
-import { MyModal } from "../../shared/ui/kit/my-modal";
-import useModalScrollLock from "../../shared/hooks/useModalScrollLock";
 import {
   hideMyModal,
   showMyModal as showMyModalAction,
-} from "../../features/modal-slice/modalSlice";
-import { NewsAndPromotion } from "../../widgets/news-sections";
-import { Footer } from "../../shared/ui/footer";
-import { VacanciesSection } from "../../widgets/vacancies-section";
-import { PromotionSection } from "../../widgets/promotion-section";
-import { Advantages } from "../../widgets/advantages-section";
-import { About } from "../../widgets/about-section";
-import { ServicesSection } from "../../widgets/services-section";
-import { TrustSection } from "../../widgets/trust-section";
-import { CertificatesSection } from "../../widgets/certificates-section";
+} from "../../../../features/modal-slice/modalSlice";
+import { CatalogModal } from "../../modals/catalog-modal";
+import { OrderModal } from "../../modals/order-modal";
+import { DeliveryModal } from "../../modals/delivery-modal";
+import { MyModal } from "../my-modal";
+import { initialProducts } from "../../../config/initialProducts";
 
-const MainPage: React.FC = () => {
-  const { isModalOpen, setModalOpen } = useModalScrollLock();
+const height: number = document.documentElement.clientHeight - 85  // здесь 85 это высота шапки сайта
+const CategoryLayout: React.FC = () => {
+
+  //FIXME убрать из layout всю логику кроме MyModal после рефактора модалок под одну
 
   const [isVisibleCatalogModal, setIsVisibleCatalogModal] = useState(false);
   const showCatalogModal = () => {
     setIsVisibleCatalogModal(true);
-    setModalOpen(true)
+    document.body.style.overflow = "hidden";
   };
   const hideCatalogModal = () => {
     setIsVisibleCatalogModal(false);
-    setModalOpen(false)
+    document.body.style.overflow = "auto";
   };
 
   const [isVisibleOrderModal, setIsVisibleOrderModal] = useState(false);
   const showOrderModal = () => {
     setIsVisibleOrderModal(true);
-    setModalOpen(true)
+    document.body.style.overflow = "hidden";
   };
   const hideOrderModal = () => {
     setIsVisibleOrderModal(false);
-    setModalOpen(false)
+    document.body.style.overflow = "auto";
   };
 
   const [isVisibleDeliveryModal, setIsVisibleDeliveryModal] = useState(false);
   const showDeliveryModal = () => {
     setIsVisibleDeliveryModal(true);
-    setModalOpen(true)
+    document.body.style.overflow = "hidden";
   };
   const hideDeliveryModal = () => {
     setIsVisibleDeliveryModal(false);
-    setModalOpen(false)
+    document.body.style.overflow = "auto";
   };
 
   // перенести по такому же принципу оставшиеся модальные окна
@@ -63,12 +55,12 @@ const MainPage: React.FC = () => {
   const handleShowMyModal = (modalType: string) => {
     dispatch(showMyModalAction(modalType));
     console.log(modalType);
-    setModalOpen(true)
+    document.body.style.overflow = "hidden";
   };
 
   const handleClose = () => {
     dispatch(hideMyModal());
-    setModalOpen(false)
+    document.body.style.overflow = "auto";
   };
 
   const myModalVisible = useSelector(
@@ -76,8 +68,9 @@ const MainPage: React.FC = () => {
   );
   const myModalType = useSelector((state: any) => state.modal.modalType);
 
+
   return (
-    <div className={styles.main__container}>
+    <div className={styles.wrapper}>
       <Header
         handleShowCatalogModal={showCatalogModal}
         handleShowLogInModal={() => handleShowMyModal("Вход")}
@@ -85,18 +78,12 @@ const MainPage: React.FC = () => {
           handleShowMyModal("Контакты");
         }}
       />
-      <BrandCard />
-      <About />
-      <Advantages />
-      <ServicesSection />
-      <PromotionSection />
-      <CertificatesSection />
-      <TrustSection />
-      <NewsAndPromotion />
-      <VacanciesSection />
+      <div className={styles.main} style={{height: height}}>
+        <Outlet />
+      </div>
 
-      {/*Модальные окна */}
-      <CatalogModal
+       {/*Модальные окна */}
+       <CatalogModal
         title="Каталог"
         isShowModal={isVisibleCatalogModal}
         handleClose={hideCatalogModal}
@@ -125,9 +112,10 @@ const MainPage: React.FC = () => {
         handleClose={handleClose}
         title={myModalType}
       />
-      <Footer />
     </div>
+
+    
   );
 };
 
-export { MainPage };
+export { CategoryLayout };

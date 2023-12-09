@@ -1,4 +1,4 @@
-import promotionImage from "../image/promotionImage.png"
+import promotionImage from "../image/bottles/promotionImage.png"
 export const initialPromotion = [
     {
         id: 0,

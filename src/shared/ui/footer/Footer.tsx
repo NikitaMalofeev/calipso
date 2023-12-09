@@ -1,15 +1,15 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import logo from "../../icons/logoFooter.svg";
-import whatsapp from "../../icons/whatsapp.svg";
-import facebook from "../../icons/facebook.svg";
-import vk from "../../icons/vk.svg";
-import instagram from "../../icons/instagram.svg";
-import twoGis from "../../icons/2gis.svg";
-import yandexMaps from "../../icons/yandexMaps.svg";
-import googleMaps from "../../icons/googleMaps.svg";
-import arrowNext from "../../icons/arrowNextWhite.svg";
-import email from "../../icons/emailIcon.svg"
+import logo from "../../icons/brandIcons/logoFooter.svg";
+import whatsapp from "../../icons/socialIcons/whatsapp.svg";
+import facebook from "../../icons/socialIcons/facebook.svg";
+import vk from "../../icons/socialIcons/vk.svg";
+import instagram from "../../icons/socialIcons/instagram.svg";
+import twoGis from "../../icons/socialIcons/2gis.svg";
+import yandexMaps from "../../icons/socialIcons/yandexMaps.svg";
+import googleMaps from "../../icons/socialIcons/googleMaps.svg";
+import arrowNext from "../../icons/stickIcon/arrowNextWhite.svg";
+import email from "../../icons/symbolIcons/emailIcon.svg"
 
 const Footer: React.FC = ({}) => {
   return (

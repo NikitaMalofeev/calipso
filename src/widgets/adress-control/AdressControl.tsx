@@ -1,14 +1,14 @@
 import React, { useMemo, useState } from "react";
 import styles from "./styles.module.scss";
-import pencilIcon from "../../shared/icons/pencil.svg";
-import trashIcon from "../../shared/icons/trash.svg";
-import closeIcon from "../../shared/icons/close.svg";
+import pencilIcon from "../../shared/icons/symbolIcons/pencil.svg";
+import trashIcon from "../../shared/icons/symbolIcons/trash.svg";
+import closeIcon from "../../shared/icons/stickIcon/close.svg";
 import { useDispatch, useSelector } from "react-redux";
 import {
   IDeliveryAdresses,
   IDeliveryAdress,
 } from "../../shared/types/deliveryTypes";
-import { RadioButtonsGroup } from "../../shared/ui/my-radio-buttons";
+import { RadioButtonsGroup } from "../../shared/ui/kit/my-radio-buttons";
 import {
   hideMyModal,
   showMyModal as showMyModalAction,
@@ -18,8 +18,8 @@ import {
   setSelectedAdress,
   updateDeliveryAdress,
 } from "../../features/user-slice/deliverySlice";
-import { MyInput } from "../../shared/ui/my-input";
-import { MyButton } from "../../shared/ui/my-button";
+import { MyInput } from "../../shared/ui/kit/my-input";
+import { MyButton } from "../../shared/ui/buttons/my-button";
 
 const AdressControl: React.FC = () => {
   const [selectedAddressLocal, setSelectedAddressLocal] = useState<

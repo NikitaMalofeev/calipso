@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { MyInput } from "../../shared/ui/my-input";
+import { MyInput } from "../../shared/ui/kit/my-input";
 import styles from "./styles.module.scss";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { MyButton } from "../../shared/ui/my-button";
+import { MyButton } from "../../shared/ui/buttons/my-button";
 import { addDeliveryAdress } from "../../features/user-slice/deliverySlice";
 import {
   hideMyModal,

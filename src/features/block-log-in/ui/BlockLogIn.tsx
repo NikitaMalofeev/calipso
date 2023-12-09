@@ -1,8 +1,7 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import { ILogIn } from "../../../shared/types";
-import { MyInput } from "../../../shared/ui/my-input";
-import InputMask from "react-input-mask";
+import { MyInput } from "../../../shared/ui/kit/my-input";
 
 interface BlockLogInProps {
   block: ILogIn;

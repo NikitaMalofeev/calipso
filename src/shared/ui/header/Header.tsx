@@ -1,8 +1,8 @@
 import React from "react";
-import { HeaderButton } from "../header-button/HeaderButton";
-import { BurgerButton } from "../burger-button";
+import { HeaderButton } from "../buttons/header-button";
+import { BurgerButton } from "../buttons/burger-button";
 import styles from "./styles.module.scss";
-import iconPhone from '../../icons/miniPhone.svg'
+import iconPhone from '../../icons/symbolIcons/miniPhone.svg'
 
 interface IHeaderProps {
   handleShowCatalogModal: () => void;

@@ -1,5 +1,5 @@
-import water from "../image/bottles.png";
-import equipment from "../image/equipmentNew.png";
+import water from "../image/bottles/bottles.png";
+import equipment from "../image/additional/оборудование.png";
 
 const initialOverview = [
   {
