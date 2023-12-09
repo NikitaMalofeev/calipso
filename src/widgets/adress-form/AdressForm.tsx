@@ -9,6 +9,7 @@ import {
   hideMyModal,
   showMyModal as showMyModalAction,
 } from "../../features/modal-slice/modalSlice";
+import useModalScrollLock from "../../shared/hooks/useModalScrollLock";
 
 interface IFormProps {}
 
@@ -26,6 +27,8 @@ const AdressForm: React.FC<IFormProps> = ({}) => {
     },
   });
 
+  const { isModalOpen, setModalOpen } = useModalScrollLock();
+
   const firstAdressIntroduced = useSelector(
     (state: any) => state.delivery.adresses
   );
@@ -34,6 +37,7 @@ const AdressForm: React.FC<IFormProps> = ({}) => {
 
   const CustomHandleSubmit = () => {
     handleSubmit();
+    setModalOpen(false)
     dispatch(addDeliveryAdress(values.data));
     if (firstAdressIntroduced.length > 0) {
       dispatch(showMyModalAction("Доставка"));

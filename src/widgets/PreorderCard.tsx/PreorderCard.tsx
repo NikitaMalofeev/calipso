@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import { MyButton } from "../../shared/ui/my-button";
-import { MyLinkButton } from "../../shared/ui/link-button";
+import { useNavigate } from "react-router-dom";
+import { CatalogModal } from "../../shared/ui/catalog-modal";
+import { initialProducts } from "../../shared/config/initialProducts";
 
 
 interface IPreOrderCard {
@@ -10,38 +12,66 @@ interface IPreOrderCard {
   imageSrc: string;
   orderType?: string;
   showCatalog?: boolean;
+  routes: string;
 }
 
 // FIXME для пуша
 
 const PreorderCard: React.FC<IPreOrderCard> = ({
   title,
-  description,
   imageSrc,
-  orderType,
+  routes,
   showCatalog,
 }) => {
   const backgroundImageStyle = {
     backgroundImage: `url(${imageSrc})`,
   };
+
+  const [isVisibleCatalogModal, setIsVisibleCatalogModal] = useState(false);
+  const showCatalogModal = () => {
+    setIsVisibleCatalogModal(true);
+    document.body.style.overflow = "hidden";
+  };
+  const hideCatalogModal = () => {
+    setIsVisibleCatalogModal(false);
+    document.body.style.overflow = "auto";
+  };
+
+  const [isVisibleOrderModal, setIsVisibleOrderModal] = useState(false);
+  const showOrderModal = () => {
+    setIsVisibleOrderModal(true);
+    document.body.style.overflow = "hidden";
+  };
+  const hideOrderModal = () => {
+    setIsVisibleOrderModal(false);
+    document.body.style.overflow = "auto";
+  };
+
+  const navigate = useNavigate()
   return (
     <>
       <div className={styles.card}>
+      <p className={styles.card__title}>{title}</p>
         <div className={styles.card__images}>
           <div
             style={backgroundImageStyle}
             className={styles.card__image}
           ></div>
         </div>
-        <div className={styles.card__info}>
-          <p className={styles.card__title}>{title}</p>
-          <p className={styles.card__description}>{description}</p>
-        </div>
         <div className={styles.card__buttons}>
-          <MyButton title="Заказать" />
-          <MyLinkButton title="Подробнее" href="" />
+          <MyButton title="Заказать" handleClick={() => showCatalogModal()} isSmall={true}/>
+          <MyButton title="Подробнее" handleClick={() => navigate(routes)} isSmall={true}/>
         </div>
       </div>
+
+      <CatalogModal
+        title="Каталог"
+        isShowModal={isVisibleCatalogModal}
+        handleClose={hideCatalogModal}
+        isDepthModal={false}
+        handleShowOrderModal={showOrderModal}
+        allGoods={initialProducts}
+      />
     </>
   );
 };

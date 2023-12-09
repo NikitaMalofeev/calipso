@@ -22,6 +22,9 @@ import { AdvantageCard, advantagesOverview } from "../../shared/ui/advantages-ca
 import { Promotion } from "../../widgets/Promotion";
 import { Advantages } from "../../widgets/Advantages";
 import { About } from "../../widgets/About";
+import { Services } from "../../widgets/ServicesSection";
+import { TrustSection } from "../../widgets/TrustSection";
+import { CertificatesSection } from "../../widgets/CertificatesSection";
 
 const MainPage: React.FC = () => {
   const { isModalOpen, setModalOpen } = useModalScrollLock();
@@ -86,18 +89,13 @@ const MainPage: React.FC = () => {
         }}
       />
       <BrandCard />
-      <Promotion />
       <About />
       <Advantages />
+      <Services />
+      <Promotion />
+      <CertificatesSection />
+      <TrustSection />
       <NewsAndPromotion />
-      {initialOverview.map((item, index) => (
-        <PreorderCard
-          key={index}
-          title={item.name}
-          description={item.description}
-          imageSrc={item.imageSrc}
-        />
-      ))}
 
       {/*Модальные окна */}
       <CatalogModal
@@ -128,10 +126,6 @@ const MainPage: React.FC = () => {
         isShowModal={myModalVisible}
         handleClose={handleClose}
         title={myModalType}
-      />
-      <Vacancies
-        title="ВАКАНСИИ"
-        description="Успейте получить выгодное предложение"
       />
       <Footer />
     </div>

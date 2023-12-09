@@ -1,23 +1,18 @@
-.promotion {
-    padding-bottom: 60px;
-    &__container {
-        padding: 0 30px;
-    }
-
-    &__header {
-        position: relative;
-        width: 100%;
-        padding: 40px 25px 20px 35px;
-    }
+.header {
+    position: relative;
+    width: 100%;
+    padding: 40px 25px 20px 35px;
 
     &__title {
         font-family: $montserratFont;
         font-size: 30px;
         font-weight: 700;
         line-height: 37px;
+        max-width: 165px;
         color: $titleTextColor;
+        text-transform: uppercase;
     }
-
+    
     &__subtitle {
         display: inline-block;
         font-family: $montserratFont;
@@ -28,3 +23,4 @@
         color: #1f85c5;
     }
 }
+

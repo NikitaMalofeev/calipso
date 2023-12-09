@@ -59,7 +59,7 @@ const DeliveryModal: React.FC<IModal> = ({
               <p>Сумма</p>
               <p>{totalPrice}₸</p>
             </div>
-            <MyButton title="Подтвердить" onSubmit={() => {}}/>
+            <MyButton title="Подтвердить" onSubmit={() => {}} handleClick={() => {}}/>
           </div>
         </div>
       </div>

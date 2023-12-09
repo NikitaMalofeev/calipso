@@ -11,24 +11,6 @@ interface IAdvantageCard {
   icon: string;
 }
 
-const AdvantageCard: React.FC<IAdvantageCard> = ({
-  title,
-  description,
-  icon,
-}) => {
-  return (
-    <div className={styles.card}>
-      <div className={styles.card__icon}>
-        <img src={icon} alt={title} />
-      </div>
-      <div className={styles.card__info}>
-        <p className={styles.card__title}>{title}</p>
-      </div>
-    </div>
-  );
-};
-
-// The array of advantages
 const advantagesOverview = [
   {
     id: 0,
@@ -55,5 +37,22 @@ const advantagesOverview = [
     icon: `${health}`,
   },
 ];
+
+const AdvantageCard: React.FC<IAdvantageCard> = ({
+  title,
+  description,
+  icon,
+}) => {
+  return (
+    <div className={styles.card}>
+      <div className={styles.card__icon}>
+        <img src={icon} alt={title} />
+      </div>
+      <div className={styles.card__info}>
+        <p className={styles.card__title}>{title}</p>
+      </div>
+    </div>
+  );
+};
 
 export { AdvantageCard, advantagesOverview };

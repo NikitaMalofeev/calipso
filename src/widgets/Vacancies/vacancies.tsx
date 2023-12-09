@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import { MyLinkButton } from "../../shared/ui/link-button";
 
 interface IVacancies {
   title: string;
@@ -16,7 +15,6 @@ const Vacancies: React.FC<IVacancies> = ({ title, description }) => {
           <p className={styles.vacancies__description}>{description}</p>
         </div>
         <div className={styles.vacancies__buttons}>
-          <MyLinkButton title="Подробнее" href="" />
         </div>
       </div>
     </>

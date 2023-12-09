@@ -6,8 +6,8 @@
     overscroll-behavior-x: contain;
     width: 100%;
     gap: 10px;
-    padding-left: 10px;
-    padding-bottom: 80px;
+    padding: 0 15px 80px;
+
 
     &__title {
         color: $titleTextColor;

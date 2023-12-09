@@ -10,7 +10,6 @@ import {
 } from "../../../features/cart-slice/cartSlice";
 import { IGood } from "../../types/cartTypes";
 import { ProductPopup } from "../product-popup";
-import { VacancyPage } from "../../../pages/vacancy";
 
 interface IModal {
   title: string;

@@ -5,14 +5,17 @@ interface IButton {
   title: string;
   type?: "button" | "submit" | "reset" | undefined;
   onSubmit?: () => void;
-  handleClick?: () => void;
+  handleClick: () => void;
   isActive?: boolean;
+  isSmall?: boolean;
 }
 
 const MyButton: React.FC<IButton> = ({
   title,
   type,
   onSubmit,
+  handleClick,
+  isSmall,
 }) => {
   const [isActive, setIsActive] = useState(false);
 
@@ -22,8 +25,11 @@ const MyButton: React.FC<IButton> = ({
 
   return (
     <button
-      className={`${style.button} ${isActive ? style.button__active : ""}`}
-      onClick={handleButtonClick}
+      className={`${style.button} ${isActive ? style.button__active : ""} ${isSmall && style.button__small}`}
+      onClick={() => {
+        handleButtonClick()
+        handleClick()
+      }}
       onSubmit={onSubmit}
       type={type}
     >

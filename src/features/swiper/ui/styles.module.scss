@@ -9,7 +9,7 @@
         bottom: 0;
         left: 0;
         max-width: 325px;
-        width: 100%;
+        width: 100%
     }
 }
 
@@ -31,6 +31,13 @@
 .slide__container_active {
     padding: 20px 10px;
     margin: auto 0;
+
+    img {
+        position: absolute;
+        left: 0;
+        bottom: 0px;
+        bottom: 0px;
+    }
 }
 
 .slide {

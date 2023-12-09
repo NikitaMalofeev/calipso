@@ -1,1 +1,1 @@
-export { Vacancies } from "./vacancies";
+export { Vacancies } from "./Vacancies";

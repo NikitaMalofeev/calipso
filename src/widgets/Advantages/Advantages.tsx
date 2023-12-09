@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./styles.module.scss";
 import { AdvantageCard } from "../../shared/ui/advantages-card";
 import { advantagesOverview } from "../../shared/ui/advantages-card";
-import { MyNavigateButton } from "../../shared/ui/my-navigate-button";
 
 const Advantages = () => {
   return (

@@ -18,10 +18,15 @@ interface IModalMenu {
 const menuitem: IModalMenu[] = [
   { item: "Главная", path: "" },
   { item: "О компании", path: "about" },
-  { item: "Акции", path: "promote" },
-  { item: "Вакансии", path: "vacancy" },
+  { item: "О воде", path: "water" },
   { item: "Производство", path: "production" },
+  { item: "Товары и услуги", path: "services" },
+  { item: "Акции", path: "promote" },
+  { item: "Сертификаты", path: "certificates" },
   { item: "Новости", path: "news" },
+  { item: "Вакансии", path: "vacancy" },
+  
+
 ];
 
 const BurgerButton: React.FC<IButton> = ({ handleClick }) => {
@@ -69,9 +74,6 @@ const BurgerButton: React.FC<IButton> = ({ handleClick }) => {
               {item.item}
             </p>
           ))}
-        </div>
-        <div className={styles.burger__footer}>
-          <img src={dotsLogo} alt="" />
         </div>
       </div>
     </div>

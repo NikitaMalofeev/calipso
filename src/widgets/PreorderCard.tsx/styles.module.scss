@@ -1,40 +1,21 @@
 .card {
     margin-top: 30px;
     border-radius: 50px;
-    background-color: #FFFFFF;
-   position: relative;
-   background-image: url(../../shared/icons/preOrderCardLogo.svg);
-   background-size: auto 470px;
-   background-position: left;
-   background-repeat: no-repeat;
-   width:100%;
-   box-shadow: 0px 0px 20px 0px #C9C9CE4D;
-
-
-
-    &__images {
-   
-    }
-
-    &__logo {
-      
-        
-      
-    }
+    background-color: #ffffff;
+    position: relative;
+    width: 100%;
+    padding: 35px;
+    box-shadow: 0px 0px 20px 0px #c9c9ce4d;
 
     &__image {
-
         background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-        
-    height: 287px;
-
-        
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 287px;
     }
 
     &__info {
-       margin-top: 5px;
+        margin-top: 5px;
         width: 60%;
         margin: 10px auto;
     }
@@ -56,19 +37,13 @@
         max-width: 325px;
         text-align: left;
         margin-bottom: 23px;
-        color: #5A9DC8;
+        color: #5a9dc8;
     }
 
     &__buttons {
-        // display: flex;
-        // flex-direction: row;
-        // flex: 1 1 auto;
-        // gap: 10px;
-        // justify-content: center;
-        display: grid;
-grid-template-columns: 1fr;
-grid-template-rows: repeat(2, 1fr);
-grid-column-gap: px;
-grid-row-gap: 10px;
+        margin-top: 20px;
+        display: flex;
+        gap: 18px;
+        max-height: 42px;
     }
 }

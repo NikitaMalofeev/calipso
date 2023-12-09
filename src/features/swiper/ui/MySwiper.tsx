@@ -60,7 +60,7 @@ const MySwiper = () => {
     <div className={styles.slider}>
       <Slider {...settings} ref={sliderRef}>
         {sliderItems.map((item, index) => (
-          <div className={slideIndex === index ? styles.slide__container_active : styles.slide__container} key={index}>
+          <div className={slideIndex !== index ? styles.slide__container : styles.slide__container_active} key={index}>
             <div
               className={
                 index === slideIndex
