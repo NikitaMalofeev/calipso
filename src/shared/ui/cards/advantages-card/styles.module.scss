@@ -1,0 +1,49 @@
+.card {
+  font-family: $montserratFont;
+  font-size: 18px;
+  font-weight: 500;
+  background-color: #ffffff;
+  border-radius: 30px;
+  box-shadow:
+    0px 5px 12px 0px rgba(0, 0, 0, 0.05),
+    0px 22px 22px 0px rgba(0, 0, 0, 0.04),
+    0px 49px 30px 0px rgba(0, 0, 0, 0.03),
+    0px 87px 35px 0px rgba(0, 0, 0, 0.01),
+    0px 137px 38px 0px rgba(0, 0, 0, 0);
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-around;
+  max-height: 145px;
+  min-width: max-content;
+  width: 100%;
+  padding: 20px 20px 20px 30px;
+}
+
+.card__icon {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card__title {
+  font-family: $montserratFont;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22px;
+  color: $titleTextColor;
+  text-align: left;
+
+  margin-bottom: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: start;
+  max-width: 200px;
+}
+
+.card__description {
+  color: #0f5fa6;
+  font-size: 16px;
+  font-weight: 400;
+}

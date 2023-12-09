@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styles from "./styles.module.scss";
-import { Formik, useFormik } from "formik";
+import { useFormik } from "formik";
 import { ILogIn } from "../../../shared/types";
 import { BlockLogIn } from "../../../features/block-log-in";
 import { showMyModal as showMyModalAction } from "../../../features/modal-slice/modalSlice";
-import { MyToggle } from "../../../shared/ui/my-toggle";
+import { MyToggle } from "../../../shared/ui/kit/my-toggle";
 import {  initialRegistrationWay } from "../../../shared/config/initialRegistration";
 
 

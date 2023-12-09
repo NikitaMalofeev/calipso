@@ -1,14 +1,13 @@
-import backIcons from "../icons/backIcons.svg";
-import phone from "../icons/phone.svg"
-import phoneActive from "../icons/phoneActive.svg"
-import email from "../icons/email.svg"
-import emailActive from "../icons/emailActive.svg"
-import sms from "../icons/SMS.svg"
-import smsActive from "../icons/smsActive.svg"
-import individual from "../icons/individual.svg"
-import individualActive from "../icons/invididualActive.svg"
-import legal from "../icons/legal.svg"
-import legalActive from "../icons/legalActive.svg"
+import phone from "../icons/registrationIcons/phone.svg"
+import phoneActive from "../icons/registrationIcons/phoneActive.svg"
+import email from "../icons/registrationIcons/email.svg"
+import emailActive from "../icons/registrationIcons/emailActive.svg"
+import sms from "../icons/registrationIcons/SMS.svg"
+import smsActive from "../icons/registrationIcons/smsActive.svg"
+import individual from "../icons/registrationIcons/individual.svg"
+import individualActive from "../icons/registrationIcons/invididualActive.svg"
+import legal from "../icons/registrationIcons/legal.svg"
+import legalActive from "../icons/registrationIcons/legalActive.svg"
 
 export const initialRegistrationType = [
   {

@@ -1,24 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./style.module.scss";
 import { Header } from "../../shared/ui/header";
-import { BrandCard } from "../../widgets/BrandCard/BrandCard";
-import { PreorderCard } from "../../widgets/PreorderCard.tsx";
-import { initialOverview } from "../../shared/config/initialPreorderOverview";
+import { BrandCard } from "../../shared/ui/cards/brand-card/BrandCard";
 import { initialProducts } from "../../shared/config/initialProducts";
-import { CatalogModal } from "../../shared/ui/catalog-modal";
-import { OrderModal } from "../../shared/ui/order-modal/OrderModal";
-import { DeliveryModal } from "../../shared/ui/delivery-modal";
-import { MyModal } from "../../shared/ui/my-modal";
+import { CatalogModal } from "../../shared/ui/modals/catalog-modal";
+import { OrderModal } from "../../shared/ui/modals/order-modal";
+import { DeliveryModal } from "../../shared/ui/modals/delivery-modal";
+import { MyModal } from "../../shared/ui/kit/my-modal";
 import useModalScrollLock from "../../shared/hooks/useModalScrollLock";
 import {
   hideMyModal,
   showMyModal as showMyModalAction,
 } from "../../features/modal-slice/modalSlice";
-import { NewsAndPromotion } from "../../widgets/NewsAndStock";
+import { NewsAndPromotion } from "../../widgets/news-sections";
 import { Footer } from "../../shared/ui/footer";
-import { Vacancies } from "../../widgets/Vacancies";
-import { AdvantageCard, advantagesOverview } from "../../widgets/Advantages";
+import { VacanciesSection } from "../../widgets/vacancies-section";
+import { PromotionSection } from "../../widgets/promotion-section";
+import { Advantages } from "../../widgets/advantages-section";
+import { About } from "../../widgets/about-section";
+import { ServicesSection } from "../../widgets/services-section";
+import { TrustSection } from "../../widgets/trust-section";
+import { CertificatesSection } from "../../widgets/certificates-section";
 
 const MainPage: React.FC = () => {
   const { isModalOpen, setModalOpen } = useModalScrollLock();
@@ -83,15 +86,14 @@ const MainPage: React.FC = () => {
         }}
       />
       <BrandCard />
+      <About />
+      <Advantages />
+      <ServicesSection />
+      <PromotionSection />
+      <CertificatesSection />
+      <TrustSection />
       <NewsAndPromotion />
-      {initialOverview.map((item, index) => (
-        <PreorderCard
-          key={index}
-          title={item.name}
-          description={item.description}
-          imageSrc={item.imageSrc}
-        />
-      ))}
+      <VacanciesSection />
 
       {/*Модальные окна */}
       <CatalogModal
@@ -123,22 +125,6 @@ const MainPage: React.FC = () => {
         handleClose={handleClose}
         title={myModalType}
       />
-      <Vacancies
-        title="ВАКАНСИИ"
-        description="Успейте получить выгодное предложение"
-      />
-      <h2 className={styles.container__title}>ПРЕИМУЩЕСТВА</h2>
-      <div className={styles.container}>
-        {advantagesOverview.map((advantage) => (
-          <AdvantageCard
-            key={advantage.id}
-            title={advantage.title}
-            description={advantage.description}
-            icon={advantage.icon}
-          />
-        ))}
-      </div>
-
       <Footer />
     </div>
   );

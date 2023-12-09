@@ -1,0 +1,54 @@
+.contact {
+    padding: 35px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-family: $montserratFont;
+
+    &__title {
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 22px;
+        text-align: left;
+        color: $titleTextColor;
+    }
+
+    &__description {
+        font-size: 18px;
+        font-weight: 300;
+        line-height: 22px;
+        text-align: left;
+        color: $titleTextColor;
+    }
+
+    &__circle {
+        background: #1F85C5;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+    }
+
+    &__flex {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 40px;
+        margin-top: 15px;
+    }
+
+    &__email {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        &:nth-child(n+1) {
+            margin-bottom: 10px;
+        }
+    }
+
+    &__icons {
+        display: flex;
+        gap: 40px;
+        justify-content: center;
+    }
+}

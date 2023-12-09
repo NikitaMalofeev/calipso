@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { initialCatalogChapter } from "../../../shared/config/initialCatalogChapter";
 import styles from "./styles.module.scss"
-import { CatalogButton } from "../../../shared/ui/catalog-button";
+import { CatalogButton } from "../../../shared/ui/buttons/burger-button/catalog-button";
 
 interface CatalogMenuProps {
   onValueChange: (selectedValue: string) => void;

@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { MyInput } from "../../shared/ui/my-input";
+import { MyInput } from "../../shared/ui/kit/my-input";
 import styles from "./styles.module.scss";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { MyButton } from "../../shared/ui/my-button";
+import { MyButton } from "../../shared/ui/buttons/my-button";
 import { addDeliveryAdress } from "../../features/user-slice/deliverySlice";
 import {
   hideMyModal,
   showMyModal as showMyModalAction,
 } from "../../features/modal-slice/modalSlice";
+import useModalScrollLock from "../../shared/hooks/useModalScrollLock";
 
 interface IFormProps {}
 
@@ -26,6 +27,8 @@ const AdressForm: React.FC<IFormProps> = ({}) => {
     },
   });
 
+  const { isModalOpen, setModalOpen } = useModalScrollLock();
+
   const firstAdressIntroduced = useSelector(
     (state: any) => state.delivery.adresses
   );
@@ -34,6 +37,7 @@ const AdressForm: React.FC<IFormProps> = ({}) => {
 
   const CustomHandleSubmit = () => {
     handleSubmit();
+    setModalOpen(false)
     dispatch(addDeliveryAdress(values.data));
     if (firstAdressIntroduced.length > 0) {
       dispatch(showMyModalAction("Доставка"));

@@ -1,0 +1,35 @@
+.button {
+    border: 1px solid white;
+    border-radius: 16px;
+    margin: 0 auto 30px;
+    padding: 0 85px;
+    max-width: max-content;
+    height: max-content;
+    background-color: #F9F9F9;
+    border: 2px solid $titleTextColor;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    text-align: center;
+    font-family: $montserratFont;
+    &__title {
+        padding: 5px 16px;
+        margin: 0;
+        font-size: 16px;
+        line-height: 19.5px;
+        letter-spacing: 0.1px;
+        font-weight: 600;
+        color:$titleTextColor;
+    }
+    &__active {
+        background-color: $titleTextColor;
+        box-shadow: none;
+       
+    
+        .button__title {
+          color: white; // when button is active
+        }
+      }
+}
+
+.button__small {
+    padding: 5px 35px;
+}

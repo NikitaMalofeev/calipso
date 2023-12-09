@@ -1,24 +1,23 @@
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
-import backIcon from "../../../shared/icons/backIcons.svg";
-import { MyInput } from "../../../shared/ui/my-input";
-import { MyButton } from "../../../shared/ui/my-button";
-import { MyToggle } from "../../../shared/ui/my-toggle";
+import backIcon from "../../../shared/icons/stickIcon/backIcons.svg";
+import { MyInput } from "../../../shared/ui/kit/my-input";
+import { MyButton } from "../../../shared/ui/buttons/my-button";
+import { MyToggle } from "../../../shared/ui/kit/my-toggle";
 import { useDispatch, useSelector } from "react-redux";
 import {
   initialRegistrationType,
   initialRegistrationWay,
   stepLabelsIndividual,
   stepLabelsLegal,
-  LegalEntryItems,
 } from "../../../shared/config/initialRegistration";
 import {
   setRegistrationMethod,
   setRegistrationType,
 } from "../../../features/user-slice/registrationSlice";
 import { IRegistration } from "../../../shared/types";
-import { NotificationStatus } from "../../../shared/ui/notification-request-status";
-import { MyStepper } from "../../../shared/ui/my-stepper";
+import { NotificationStatus } from "../../../shared/ui/content/notification-request-status";
+import { MyStepper } from "../../../shared/ui/kit/my-stepper";
 
 interface BlockRegistrationProps {
   block: IRegistration;

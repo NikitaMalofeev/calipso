@@ -1,1 +1,0 @@
-export { AdvantageCard, advantagesOverview} from "./Advantages"

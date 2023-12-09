@@ -1,0 +1,16 @@
+.button {
+    border: 2px solid $titleTextColor;
+    border-radius: 15px;
+    max-width: max-content;
+    background: white;
+    height: max-content;
+    font-family: $montserratFont;
+    &__title {
+        padding: 5px 16px;
+        margin: 0;
+        font-size: 16px;
+        line-height: 19.5px;
+        font-weight: 700;
+        color: $titleTextColor;
+    }
+}

@@ -60,7 +60,7 @@ const MySwiper = () => {
     <div className={styles.slider}>
       <Slider {...settings} ref={sliderRef}>
         {sliderItems.map((item, index) => (
-          <div className={styles.slide__container} key={index}>
+          <div className={slideIndex !== index ? styles.slide__container : styles.slide__container_active} key={index}>
             <div
               className={
                 index === slideIndex
@@ -73,6 +73,7 @@ const MySwiper = () => {
                 <p className={styles.slide__date}>{item.date}</p>
                 <h3 className={styles.slide__title}>{item.title}</h3>
                 <p className={styles.slide__description}>{item.description}</p>
+                <img src={item.image} alt="" className={styles.slider__image}/>
               </div>
             </div>
           </div>

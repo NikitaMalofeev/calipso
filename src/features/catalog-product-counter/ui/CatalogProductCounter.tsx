@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
-import plusIcon from "../../../shared/icons/plus.svg"
-import plusDarkIcon from "../../../shared/icons/plusDark.svg"
-import minusIcon from "../../../shared/icons/minus.svg"
+import plusIcon from "../../../shared/icons/stickIcon/plus.svg"
+import plusDarkIcon from "../../../shared/icons/stickIcon/plusDark.svg"
+import minusIcon from "../../../shared/icons/stickIcon/minus.svg"
 import { useDispatch, useSelector } from "react-redux";
 
 interface ICatalogButton {
