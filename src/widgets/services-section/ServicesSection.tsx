@@ -16,7 +16,7 @@ const ServicesSection = () => {
       <HeaderSections
         title="товары и услуги"
         subtitle="Узнайте подробнее о всех категориях"
-        navigateTo="/"
+        navigateTo="/category/services"
       />
       <div className={styles.services}>
         {initialOverview.map((item, index) => (

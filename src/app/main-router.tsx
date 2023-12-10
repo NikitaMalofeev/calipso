@@ -7,6 +7,9 @@ import { ProductionPage } from "../pages/production";
 import { NewsPage } from "../pages/news";
 import { AboutPage } from "../pages/about";
 import { CategoryLayout } from "../shared/ui/kit/category-layout";
+import { AboutWaterPage } from "../pages/about-water";
+import { ServicesPage } from "../pages/services";
+import { CertificatesPage } from "../pages/certificates";
 
 const MainRouter: React.FC = () => {
   return (
@@ -18,11 +21,11 @@ const MainRouter: React.FC = () => {
        {/* Category area */}
        <Route path="/category" element={<CategoryLayout/>}>
           <Route path="about" element={<AboutPage />}></Route>
-          <Route path="water" element={<AboutPage />}></Route>
+          <Route path="water" element={<AboutWaterPage />}></Route>
           <Route path="production" element={<ProductionPage />}></Route>
-          <Route path="services" element={<ProductionPage />}></Route>
+          <Route path="services" element={<ServicesPage />}></Route>
           <Route path="promote" element={<PromotePage />}></Route>
-          <Route path="sertificates" element={<NewsPage />}></Route>
+          <Route path="certificates" element={<CertificatesPage />}></Route>
           <Route path="news" element={<NewsPage />}></Route>
           <Route path="vacancy" element={<VacancyPage />}></Route>
 

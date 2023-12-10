@@ -12,8 +12,8 @@ import { OrderModal } from "../../modals/order-modal";
 import { DeliveryModal } from "../../modals/delivery-modal";
 import { MyModal } from "../my-modal";
 import { initialProducts } from "../../../config/initialProducts";
+import { Footer } from "../../footer";
 
-const height: number = document.documentElement.clientHeight - 85  // здесь 85 это высота шапки сайта
 const CategoryLayout: React.FC = () => {
 
   //FIXME убрать из layout всю логику кроме MyModal после рефактора модалок под одну
@@ -78,9 +78,10 @@ const CategoryLayout: React.FC = () => {
           handleShowMyModal("Контакты");
         }}
       />
-      <div className={styles.main} style={{height: height}}>
+      <div className={styles.main}>
         <Outlet />
       </div>
+      <Footer />
 
        {/*Модальные окна */}
        <CatalogModal

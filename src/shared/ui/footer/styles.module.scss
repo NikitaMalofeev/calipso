@@ -64,14 +64,15 @@
     &__button {
         display: flex;
         align-items: center;
-        background: #1f85c5;
+        background: white;
+        border: 1px solid $titleTextColor;
         max-width: max-content;
         height: 36px;
         border-radius: 50px;
         padding: 5px 15px 5px 5px;
-        color: white;
+        color: $subtitleTextColor;
         font-family: $montserratFont;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 300;
         line-height: 22px;
     }
@@ -96,6 +97,7 @@
         display: flex;
         align-items: center;
         gap: 20px;
+        flex-wrap: wrap;
 
         &:nth-child(n + 1) {
             margin-bottom: 10px;
@@ -114,6 +116,6 @@
         font-weight: 500;
         line-height: 17px;
         color: $subtitleTextColor;
-        margin: 0 auto 40px;
+        margin: 0 auto;
     }
 }

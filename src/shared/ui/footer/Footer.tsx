@@ -1,15 +1,13 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import logo from "../../icons/brandIcons/logoFooter.svg";
-import whatsapp from "../../icons/socialIcons/whatsapp.svg";
 import facebook from "../../icons/socialIcons/facebook.svg";
 import vk from "../../icons/socialIcons/vk.svg";
 import instagram from "../../icons/socialIcons/instagram.svg";
 import twoGis from "../../icons/socialIcons/2gis.svg";
 import yandexMaps from "../../icons/socialIcons/yandexMaps.svg";
 import googleMaps from "../../icons/socialIcons/googleMaps.svg";
-import arrowNext from "../../icons/stickIcon/arrowNextWhite.svg";
-import email from "../../icons/symbolIcons/emailIcon.svg"
+import email from "../../icons/symbolIcons/emailIcon.svg";
 
 const Footer: React.FC = ({}) => {
   return (
@@ -22,31 +20,28 @@ const Footer: React.FC = ({}) => {
         </span>
         <div className={styles.footer__flex}>
           <button type="button" className={styles.footer__button}>
-            <img
-              src={twoGis}
-              alt=""
-              style={{ borderRadius: "50%", marginRight: "10px" }}
-            />
-            <span className={styles.footer__maps_title}>Открыть в “2gis”</span>
-            <img src={arrowNext} alt="" className={styles.footer__maps_arrow} />
+            <div className={styles.footer__maps_icon}>
+              <img src={twoGis} alt="" />
+            </div>
+            <span className={styles.footer__maps_title}>
+              Открыть в <b>“2gis”</b>
+            </span>
           </button>
           <button type="button" className={styles.footer__button}>
             <div className={styles.footer__maps_icon}>
               <img src={yandexMaps} alt="" />
             </div>
             <span className={styles.footer__maps_title}>
-              Открыть в “Yandex maps”
+              Открыть в <b>“Yandex maps”</b>
             </span>
-            <img src={arrowNext} alt="" className={styles.footer__maps_arrow} />
           </button>
           <button type="button" className={styles.footer__button}>
             <div className={styles.footer__maps_icon}>
               <img src={googleMaps} alt="" />
             </div>
             <span className={styles.footer__maps_title}>
-              Открыть в “Google maps”
+              Открыть в <b>“Google maps”</b>
             </span>
-            <img src={arrowNext} alt="" className={styles.footer__maps_arrow} />
           </button>
         </div>
       </div>
@@ -81,10 +76,9 @@ const Footer: React.FC = ({}) => {
         </div>
       </div>
       <div className={styles.footer__icons}>
-        <img src={whatsapp} alt="" />
+        <img src={instagram} alt="" />
         <img src={vk} alt="" />
         <img src={facebook} alt="" />
-        <img src={instagram} alt="" />
       </div>
       <p className={styles.footer__copyright}>Все права защищены 1997-2023</p>
     </div>

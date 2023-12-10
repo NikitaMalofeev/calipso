@@ -32,4 +32,7 @@
 
 .button__small {
     padding: 5px 35px;
+    max-width: 50%;
+    display: flex;
+    justify-content: center;
 }
