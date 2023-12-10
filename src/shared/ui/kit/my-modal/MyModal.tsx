@@ -7,6 +7,7 @@ import { ContactsModalContent } from "../../content/contacts-modal-content";
 import { RegistrationForm } from "../../../../widgets/registration-form";
 import { AdressForm } from "../../../../widgets/adress-form";
 import { AdressControl } from "../../../../widgets/adress-control";
+import { CatalogModal } from "../../modals/catalog-modal";
 
 interface IMyModal {
   isShowModal?: boolean;
@@ -37,6 +38,10 @@ const MyModal: React.FC<IMyModal> = ({ title, isShowModal, handleClose }) => {
     return <AdressControl />;
   };
 
+  const myModalCatalog = () => {
+    return <CatalogModal />
+  }
+
   const selectedModalContent = () => {
     switch (modalType) {
       case "Вход":
@@ -50,11 +55,10 @@ const MyModal: React.FC<IMyModal> = ({ title, isShowModal, handleClose }) => {
       case "Доставка":
         return <MyModalControlAdress />;
       default:
-        return null; // Можно вернуть что-то по умолчанию или null
+        return null;
     }
   };
 
-  // логика ниже для определения в каких модалках должен быть stub и больший размер
   const [isFullHeightModal, setIsFullHeightModal] = useState(false);
   const [isMiniHeightModal, setIsMiniHeightModal] = useState(false);
 
@@ -75,7 +79,6 @@ const MyModal: React.FC<IMyModal> = ({ title, isShowModal, handleClose }) => {
     checkModalSize();
   }, [modalType]);
 
-  // логика для закрытия модалки при клике за ее границами
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -88,14 +91,48 @@ const MyModal: React.FC<IMyModal> = ({ title, isShowModal, handleClose }) => {
       }
     };
 
-    // слушатель события при монтировании компонента
     document.addEventListener("mousedown", handleClickOutside);
 
-    // слушатель события при размонтировании компонента
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [handleClose]);
+
+  const animateModal = (modalType: string) => {
+    const modal = modalRef.current;
+
+    if (modalType === "Контакты" || modalType === "Вход") {
+      if (modal) {
+        modal.style.transition = 'none';
+        modal.style.opacity = '0';
+        modal.style.transform = 'translateY(100%)';
+  
+        requestAnimationFrame(() => {
+          modal.style.transition = 'opacity 300ms, transform 300ms';
+          modal.style.opacity = '1';
+          modal.style.transform = 'translateY(0)';
+        });
+      }
+    } else {
+      if (modal) {
+        modal.style.transition = 'none';
+        modal.style.opacity = '0';
+        modal.style.transform = 'translateX(100%)';
+  
+        requestAnimationFrame(() => {
+          modal.style.transition = 'opacity 300ms, transform 300ms';
+          modal.style.opacity = '1';
+          modal.style.transform = 'translateX(0)';
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (modalType) {
+      animateModal(modalType);
+    }
+  }, [modalType]);
 
   return (
     <>
