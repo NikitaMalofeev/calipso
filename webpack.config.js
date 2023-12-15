@@ -13,7 +13,6 @@ module.exports = {
           'sass-loader',  // Compiles Sass to CSS
         ],
       },
-      // ... other rules
     ],
   },
 

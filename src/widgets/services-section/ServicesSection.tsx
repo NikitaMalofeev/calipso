@@ -18,7 +18,7 @@ const ServicesSection = () => {
         subtitle="Узнайте подробнее о всех категориях"
         navigateTo="/category/services"
       />
-      <div className={styles.services}>
+      <div className={styles.services} id="services">
         {initialOverview.map((item, index) => (
           <PreorderCard
             title={item.name}

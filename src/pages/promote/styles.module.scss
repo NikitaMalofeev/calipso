@@ -1,0 +1,13 @@
+.promote {
+
+    &__container {
+        padding: 0 30px;
+
+        > :nth-child(n) {
+            margin-bottom: 30px;
+        }
+        > :not(:last-child) {
+            margin-bottom: 0;
+        }
+    }
+}

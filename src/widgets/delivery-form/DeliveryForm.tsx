@@ -21,10 +21,13 @@ const initialDeliveryType = [
 
 const DeliveryForm: React.FC<IFormProps> = ({}) => {
   const { isModalOpen, setModalOpen } = useModalScrollLock();
+  const actualAdress = useSelector(
+    (state: { delivery: IDeliveryAdresses }) => state.delivery.adresses
+  );
   const { values, handleChange, handleSubmit } = useFormik({
     initialValues: {
       data: {
-        type: "",
+        type: actualAdress ? "Доставка" : "",
         paymentMethod: "",
         address: "",
       },
@@ -48,9 +51,6 @@ const DeliveryForm: React.FC<IFormProps> = ({}) => {
   };
 
   // FIXME
-  const actualAdress = useSelector(
-    (state: { delivery: IDeliveryAdresses }) => state.delivery.adresses
-  );
 
   return (
     <div className={styles.form}>
@@ -63,6 +63,7 @@ const DeliveryForm: React.FC<IFormProps> = ({}) => {
           onChange={handleChange}
           // устнавливаю свойство needMargin только для прожатого элемента который соответствует item.name в группе кнопок
           needMargin={{ [values.data.type]: true }}
+          defaultValue="Доставка"
         />
         {values.data.type === "Самовывоз" && (
           <div className={styles.radio__window_pickup}>
@@ -76,18 +77,18 @@ const DeliveryForm: React.FC<IFormProps> = ({}) => {
                 {actualAdress.slice(0, 1).map((item, index) => (
                   <div key={index} className={styles.radio__adress}>
                     <span className={styles.radio__adress}>
-                    {`${item.city}, `}
-                    {`${item.adress}, `}
-                    {`${item.apartment}`}
-                  </span>
+                      {`${item.city}, `}
+                      {`${item.adress}, `}
+                      {`${item.apartment}`}
+                    </span>
                   </div>
                 ))}
                 <p
-                className={styles.radio__window_add}
-                onClick={() => handleShowMyModal("Доставка")}
-              >
-                изменить адресс
-              </p>
+                  className={styles.radio__window_add}
+                  onClick={() => handleShowMyModal("Доставка")}
+                >
+                  изменить адресс
+                </p>
               </>
             ) : (
               <p
@@ -109,8 +110,6 @@ const DeliveryForm: React.FC<IFormProps> = ({}) => {
           />
         </div>
       </>
-
-      <MyModal title="Новый адрес" />
     </div>
   );
 };

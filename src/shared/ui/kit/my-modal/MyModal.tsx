@@ -8,6 +8,12 @@ import { RegistrationForm } from "../../../../widgets/registration-form";
 import { AdressForm } from "../../../../widgets/adress-form";
 import { AdressControl } from "../../../../widgets/adress-control";
 import { CatalogModal } from "../../modals/catalog-modal";
+import { initialProducts } from "../../../config/initialProducts";
+import useModalScrollLock from "../../../hooks/useModalScrollLock";
+import { OrderModal } from "../../modals/order-modal";
+import { DeliveryModal } from "../../modals/delivery-modal";
+import { CatalogTotalButton } from "../../../../features/catalog-total-button";
+import { ProductPopup } from "../../content/product-popup";
 
 interface IMyModal {
   isShowModal?: boolean;
@@ -17,6 +23,9 @@ interface IMyModal {
 
 const MyModal: React.FC<IMyModal> = ({ title, isShowModal, handleClose }) => {
   const modalType = useSelector((state: any) => state.modal.modalType);
+
+  const [showPopup, setShowPopup] = useState(false);
+  const { isModalOpen, setModalOpen } = useModalScrollLock();
 
   const MyModalLogIn = () => {
     return <LogInForm />;
@@ -38,9 +47,29 @@ const MyModal: React.FC<IMyModal> = ({ title, isShowModal, handleClose }) => {
     return <AdressControl />;
   };
 
-  const myModalCatalog = () => {
-    return <CatalogModal />
-  }
+  const MyModalCatalog = () => {
+    return (
+      <CatalogModal
+        allGoods={initialProducts}
+        showPopUp={() => setShowPopup(true)}
+      />
+    );
+  };
+
+  const MyModalOrder = () => {
+    return <OrderModal allGoods={initialProducts} />;
+  };
+
+  const MyModalDelivery = () => {
+    return <DeliveryModal allGoods={initialProducts} />;
+  };
+
+  useEffect(() => {
+    const checkModalState = () => {
+      isShowModal ? setModalOpen(true) : setModalOpen(false);
+    };
+    checkModalState();
+  }, [modalType]);
 
   const selectedModalContent = () => {
     switch (modalType) {
@@ -54,6 +83,12 @@ const MyModal: React.FC<IMyModal> = ({ title, isShowModal, handleClose }) => {
         return <MyModalAdress />;
       case "Доставка":
         return <MyModalControlAdress />;
+      case "Каталог":
+        return <MyModalCatalog />;
+      case "Заказ":
+        return <MyModalOrder />;
+      case "Оформление":
+        return <MyModalDelivery />;
       default:
         return null;
     }
@@ -79,13 +114,15 @@ const MyModal: React.FC<IMyModal> = ({ title, isShowModal, handleClose }) => {
     checkModalSize();
   }, [modalType]);
 
-  const modalRef = useRef<HTMLDivElement>(null);
+  const modalContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
-        modalRef.current &&
-        !modalRef.current.contains(event.target as Node)
+        modalContentRef.current &&
+        !modalContentRef.current.contains(event.target as Node) &&
+        // FIXME убрать последнее условие, конфликтует с закрытием popup
+        modalType !== "Каталог"
       ) {
         handleClose?.();
       }
@@ -99,30 +136,28 @@ const MyModal: React.FC<IMyModal> = ({ title, isShowModal, handleClose }) => {
   }, [handleClose]);
 
   const animateModal = (modalType: string) => {
-    const modal = modalRef.current;
+    const modal = modalContentRef.current;
 
-    if (modalType === "Контакты" || modalType === "Вход") {
-      if (modal) {
-        modal.style.transition = 'none';
-        modal.style.opacity = '0';
-        modal.style.transform = 'translateY(100%)';
-  
+    if (modal) {
+      if (!isModalOpen) {
+        modal.style.transition = "none";
+        modal.style.opacity = "0";
+        modal.style.transform = "translateX(100%)";
+
         requestAnimationFrame(() => {
-          modal.style.transition = 'opacity 300ms, transform 300ms';
-          modal.style.opacity = '1';
-          modal.style.transform = 'translateY(0)';
+          modal.style.transition = "opacity 300ms, transform 0ms";
+          modal.style.opacity = "1";
+          modal.style.transform = "translateX(0)";
         });
-      }
-    } else {
-      if (modal) {
-        modal.style.transition = 'none';
-        modal.style.opacity = '0';
-        modal.style.transform = 'translateX(100%)';
-  
+      } else {
+        modal.style.transition = "none";
+        modal.style.opacity = "0";
+        modal.style.transform = "translateX(100%)";
+
         requestAnimationFrame(() => {
-          modal.style.transition = 'opacity 300ms, transform 300ms';
-          modal.style.opacity = '1';
-          modal.style.transform = 'translateX(0)';
+          modal.style.transition = "opacity 300ms, transform 300ms";
+          modal.style.opacity = "1";
+          modal.style.transform = "translateX(0)";
         });
       }
     }
@@ -136,23 +171,43 @@ const MyModal: React.FC<IMyModal> = ({ title, isShowModal, handleClose }) => {
 
   return (
     <>
-      {isFullHeightModal && <div className={styles.modal__stub}></div>}
-      {isMiniHeightModal && <div className={styles.modal__stub_mini}></div>}
+      {isMiniHeightModal && <div className={styles.modal__stub}></div>}
       <div
-        ref={modalRef}
         className={`
           ${styles.modal} 
-          ${isShowModal && styles.modal__active} 
-          ${isFullHeightModal ? styles.modal__full : ""} 
+          ${isShowModal && styles.modal__active}  
           ${isMiniHeightModal ? styles.modal__mini : ""}
         `}
       >
-        <p className={styles.modal__title}>{title}</p>
-        <button className={styles.modal__close} onClick={handleClose}>
-          <img src={closeIcon} alt="" />
-        </button>
-        <div className={styles.modal__content}>{selectedModalContent()}</div>
+        <div
+          className={
+            modalType !== "Каталог"
+              ? styles.modal__header
+              : styles.modal__header_fixed
+          }
+        >
+          <p className={styles.modal__title}>{title}</p>
+          <button className={styles.modal__close} onClick={handleClose}>
+            <img src={closeIcon} alt="" />
+          </button>
+        </div>
+        <div className={styles.modal__content} ref={modalContentRef}>
+          {selectedModalContent()}
+        </div>
       </div>
+      {modalType === "Каталог" && (
+        <>
+          <CatalogTotalButton allGoods={initialProducts} />
+
+          <ProductPopup
+            name="Вода Calipso негазир."
+            isShowPopup={showPopup}
+            handleClose={() => {
+              setShowPopup(false);
+            }}
+          />
+        </>
+      )}
     </>
   );
 };

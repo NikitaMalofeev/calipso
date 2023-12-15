@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import brand from "../../../image/brandImage/brandDark.png";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface IButton {
   isActive?: boolean;
@@ -42,7 +42,7 @@ const BurgerButton: React.FC<IButton> = ({ handleClick }) => {
   
   // навигация по странице, если нужно на главную то не использую category Layout
   const handleNavigate = (path: string) => {
-    path === "" ? navigate("/") : navigate(`/category/${path}`);
+      path === "" ? navigate("/") : navigate(`/category/${path}`);
   };
 
   return (
@@ -58,7 +58,7 @@ const BurgerButton: React.FC<IButton> = ({ handleClick }) => {
         <div className={styles.burger__chapter}>
           <img className={styles.burger__icon} src={brand} alt="" />
           {menuitem.map((item, index) => (
-            <p
+            <span
               className={`${
                 handleMenuItemIndex === index
                   ? styles.item__active
@@ -71,7 +71,7 @@ const BurgerButton: React.FC<IButton> = ({ handleClick }) => {
               }}
             >
               {item.item}
-            </p>
+            </span>
           ))}
         </div>
       </div>

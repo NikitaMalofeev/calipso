@@ -10,25 +10,14 @@ import {
 import { useDispatch } from "react-redux";
 import { MyButton } from "../../buttons/my-button";
 import { IGood } from "../../../types/cartTypes";
+import { showMyModal } from "../../../../features/modal-slice/modalSlice";
 
 interface IModal {
-  title: string;
-  isShowModal: boolean;
-  isDepthModal: boolean;
   allGoods: Record<number, IGood>;
-  handleShowDeliveryModal: () => void;
-  handleClose?: () => void;
-  handleBack?: () => void;
 }
 
 const OrderModal: React.FC<IModal> = ({
-  title,
-  isShowModal,
-  isDepthModal,
   allGoods,
-  handleClose,
-  handleBack,
-  handleShowDeliveryModal,
 }) => {
   //FIXME опять типизация
   const { cart } = useSelector((state: any) => state.allCart);
@@ -48,15 +37,7 @@ const OrderModal: React.FC<IModal> = ({
 
   return (
     <React.Fragment>
-      <div className={`${styles.modal} ${isShowModal && styles.active}`}>
         <div className={styles.modal__container}>
-          <div className={styles.modal__header}>
-            {isDepthModal && <button onClick={handleBack}></button>}
-            <p className={styles.modal__title}>{title}</p>
-            <button className={styles.modal__close} onClick={handleClose}>
-              <img src={closeIcon} alt="" />
-            </button>
-          </div>
           <div className={styles.modal__cart}>
             {Object.values(allGoods).map((item: any, index) =>
               cart[item.id] ? (
@@ -82,11 +63,10 @@ const OrderModal: React.FC<IModal> = ({
             </div>
             <MyButton
               title="Подтвердить"
-              handleClick={handleShowDeliveryModal}
+              handleClick={() => dispatch(showMyModal("Оформление"))}
             />
           </div>
         </div>
-      </div>
     </React.Fragment>
   );
 };

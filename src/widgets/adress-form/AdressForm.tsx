@@ -4,7 +4,10 @@ import styles from "./styles.module.scss";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { MyButton } from "../../shared/ui/buttons/my-button";
-import { addDeliveryAdress } from "../../features/user-slice/deliverySlice";
+import {
+  addDeliveryAdress,
+  setSelectedAdress,
+} from "../../features/user-slice/deliverySlice";
 import {
   hideMyModal,
   showMyModal as showMyModalAction,
@@ -36,14 +39,9 @@ const AdressForm: React.FC<IFormProps> = ({}) => {
   const dispatch = useDispatch();
 
   const CustomHandleSubmit = () => {
+    dispatch(setSelectedAdress(values.data));
+    dispatch(showMyModalAction("Оформление"));
     handleSubmit();
-    setModalOpen(false)
-    dispatch(addDeliveryAdress(values.data));
-    if (firstAdressIntroduced.length > 0) {
-      dispatch(showMyModalAction("Доставка"));
-    } else {
-      dispatch(hideMyModal())
-    }
   };
 
   return (
@@ -71,7 +69,11 @@ const AdressForm: React.FC<IFormProps> = ({}) => {
       />
 
       <div className={styles.form__button}>
-        <MyButton title="Подтвердить" handleClick={CustomHandleSubmit} />
+        <MyButton
+          type="button"
+          title="Подтвердить"
+          handleClick={CustomHandleSubmit}
+        />
       </div>
     </div>
   );

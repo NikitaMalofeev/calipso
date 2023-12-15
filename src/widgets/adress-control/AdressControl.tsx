@@ -138,10 +138,6 @@ const AdressControl: React.FC = () => {
       )}
       {showEditModal && (
         <div className={styles.edit}>
-          <p className={styles.edit__title}>Новый адрес</p>
-          <button className={styles.edit__close} onClick={() => setShowEditModal(false)}>
-            <img src={closeIcon} alt="" />
-          </button>
           <MyInput
             inputType="text"
             placeholder="Город"

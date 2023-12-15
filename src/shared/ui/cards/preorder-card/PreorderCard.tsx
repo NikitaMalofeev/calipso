@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import { MyButton } from "../../buttons/my-button";
 import { useNavigate } from "react-router-dom";
-import { CatalogModal } from "../../modals/catalog-modal";
-import { initialProducts } from "../../../config/initialProducts";
+import { useDispatch } from "react-redux";
+import {
+  hideMyModal,
+  showMyModal as showMyModalAction,
+} from "../../../../features/modal-slice/modalSlice";
 
 
 interface IPreOrderCard {
@@ -27,25 +30,8 @@ const PreorderCard: React.FC<IPreOrderCard> = ({
     backgroundImage: `url(${imageSrc})`,
   };
 
-  const [isVisibleCatalogModal, setIsVisibleCatalogModal] = useState(false);
-  const showCatalogModal = () => {
-    setIsVisibleCatalogModal(true);
-    document.body.style.overflow = "hidden";
-  };
-  const hideCatalogModal = () => {
-    setIsVisibleCatalogModal(false);
-    document.body.style.overflow = "auto";
-  };
+  const dispatch = useDispatch()
 
-  const [isVisibleOrderModal, setIsVisibleOrderModal] = useState(false);
-  const showOrderModal = () => {
-    setIsVisibleOrderModal(true);
-    document.body.style.overflow = "hidden";
-  };
-  const hideOrderModal = () => {
-    setIsVisibleOrderModal(false);
-    document.body.style.overflow = "auto";
-  };
 
   const navigate = useNavigate()
   return (
@@ -59,19 +45,11 @@ const PreorderCard: React.FC<IPreOrderCard> = ({
           ></div>
         </div>
         <div className={styles.card__buttons}>
-          <MyButton title="Заказать" handleClick={() => showCatalogModal()} isSmall={true}/>
+          <MyButton title="Заказать" handleClick={() => dispatch(showMyModalAction("Каталог"))} isSmall={true}/>
           <MyButton title="Подробнее" handleClick={() => navigate(routes)} isSmall={true}/>
         </div>
       </div>
 
-      <CatalogModal
-        title="Каталог"
-        isShowModal={isVisibleCatalogModal}
-        handleClose={hideCatalogModal}
-        isDepthModal={false}
-        handleShowOrderModal={showOrderModal}
-        allGoods={initialProducts}
-      />
     </>
   );
 };
